@@ -1,0 +1,42 @@
+:root {
+    --color-primary: #111;
+    --color-secondary: rgba(128, 128, 128, 0.5);
+
+    --background-color: #eee;
+
+    --font-size-title: 48px;
+    --font-size-content: 24px;
+    --font-size-comment: 16px;
+
+    --gap-title: 32px;
+    --gap-content: 16px;
+    --gap-comment: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-primary: #eee;
+
+        --background-color: #111;
+    }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    background-color: var(--background-color);
+    color: var(--color-primary);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}

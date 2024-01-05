@@ -1,0 +1,6 @@
+.login {
+    align-items: center;
+    display: flex;
+    gap: var(--gap-content);
+    justify-content: center;
+}
