@@ -3,10 +3,10 @@
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
-export default async function getAccessToken(token) {
+export default async function getAccessToken(token, provider) {
     if (token) {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_SERVER}/login/oauth/google`,
+            `${process.env.NEXT_PUBLIC_API_SERVER}/login/oauth/${provider}`,
             {
                 method: "post",
                 headers: {
@@ -23,6 +23,7 @@ export default async function getAccessToken(token) {
             value: result.accessToken,
             httpOnly: true,
             path: "/",
+            maxAge: process.env.NEXT_PUBLIC_COOKIE_MAX_AGE,
         });
         redirect("/");
     }
