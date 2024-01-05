@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import getAccessToken from "./getAccessToken";
+import getAccessToken from "../getAccessToken";
 
 export default function LoginGooglePage() {
     useEffect(() => {
@@ -10,7 +10,7 @@ export default function LoginGooglePage() {
                 .substring(1)
                 .split("&")[0]
                 .split("=")[1];
-            await getAccessToken(token);
+            await getAccessToken(token, "google");
         };
         googleOAuth();
     }, []);
