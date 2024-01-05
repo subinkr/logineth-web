@@ -25,4 +25,4 @@ jobs:
             - name: Kill process
               run: fuser -k ${{ secrets.NEXT_PUBLIC_PORT }}/tcp || true
             - name: Run background
-              run: RUNNER_TRACKING_ID="" && nohup npm run start:prod &
+              run: RUNNER_TRACKING_ID="" && nohup npm run start &
