@@ -1,0 +1,12 @@
+.header {
+    border-bottom: 1px solid var(--color-secondary);
+    display: flex;
+    font-size: var(--font-size-content);
+    justify-content: space-between;
+    padding: 16px 32px;
+}
+
+.category {
+    display: flex;
+    gap: var(--gap-content);
+}
