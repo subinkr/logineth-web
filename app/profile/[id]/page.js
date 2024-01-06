@@ -18,10 +18,11 @@ export default function Profile({ params }) {
                 const result = await response.json();
                 const { user } = result;
                 setThisProfile(user);
+                console.log(user);
             };
             getProfile();
         }
-    }, [thisProfile]);
+    }, []);
 
     return (
         <>
