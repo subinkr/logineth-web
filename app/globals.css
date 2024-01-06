@@ -1,6 +1,6 @@
 :root {
     --color-primary: #111;
-    --color-secondary: rgba(128, 128, 128, 0.5);
+    --color-secondary: rgba(128, 128, 128, 0.8);
 
     --background-color: #eee;
 
@@ -8,9 +8,9 @@
     --font-size-content: 24px;
     --font-size-comment: 16px;
 
-    --gap-title: 32px;
-    --gap-content: 16px;
-    --gap-comment: 8px;
+    --gap-title: 16px;
+    --gap-content: 8px;
+    --gap-comment: 4px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -31,6 +31,7 @@ html,
 body {
     background-color: var(--background-color);
     color: var(--color-primary);
+    font-size: var(--font-size-content);
     display: flex;
     flex-direction: column;
     height: 100%;
