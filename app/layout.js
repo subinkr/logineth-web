@@ -1,6 +1,7 @@
 import "./globals.css";
 import classes from "./layout.module.css";
-import Header from "@/components/header";
+import Header from "@/components/header/header";
+import UseRecoil from "./useRecoil";
 
 export const metadata = {
     title: "Logineth",
@@ -11,8 +12,10 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body>
-                <Header />
-                <div className={classes.children}>{children}</div>
+                <UseRecoil>
+                    <Header />
+                    <div className={classes.children}>{children}</div>
+                </UseRecoil>
             </body>
         </html>
     );

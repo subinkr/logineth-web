@@ -1,6 +1,5 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
 export default async function getAccessToken(token, provider) {
@@ -25,6 +24,7 @@ export default async function getAccessToken(token, provider) {
             path: "/",
             maxAge: process.env.NEXT_PUBLIC_COOKIE_MAX_AGE,
         });
-        redirect("/");
+
+        return result.user;
     }
 }
