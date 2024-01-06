@@ -1,7 +1,7 @@
 import "./globals.css";
 import classes from "./layout.module.css";
 import Header from "@/components/header/header";
-import UseRecoil from "./useRecoil";
+import UseRecoil from "../function/client/useRecoil";
 
 export const metadata = {
     title: "Logineth",

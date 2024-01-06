@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
-import getKakaoToken from "./getKakaoToken";
-import getAccessToken from "../getAccessToken";
 import { useSetRecoilState } from "recoil";
+import getKakaoToken from "./getKakaoToken";
 import { profileState } from "@/components/recoil/profile";
-import callRedirect from "../callRedirect";
+import callRedirect from "@/function/server/callRedirect";
+import getAccessToken from "@/function/server/getAccessToken";
 
 export default function LoginKakaoPage() {
     const setProfile = useSetRecoilState(profileState);

@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect } from "react";
-import getAccessToken from "../getAccessToken";
-import callRedirect from "../callRedirect";
 import { useSetRecoilState } from "recoil";
 import { profileState } from "@/components/recoil/profile";
+import callRedirect from "@/function/server/callRedirect";
+import getAccessToken from "@/function/server/getAccessToken";
 
 export default function LoginGooglePage() {
     const setProfile = useSetRecoilState(profileState);
