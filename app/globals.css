@@ -8,9 +8,9 @@
     --font-size-content: 24px;
     --font-size-comment: 16px;
 
-    --gap-title: 16px;
-    --gap-content: 8px;
-    --gap-comment: 4px;
+    --gap-title: 32px;
+    --gap-content: 16px;
+    --gap-comment: 8px;
 }
 
 @media (prefers-color-scheme: dark) {
