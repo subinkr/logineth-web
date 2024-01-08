@@ -3,7 +3,7 @@
     --color-secondary: rgba(128, 128, 128, 0.8);
     --color-danger: rgba(255, 0, 0, 0.6);
 
-    --background-color: #eee;
+    --color-reverse: #eee;
 
     --font-size-title: 48px;
     --font-size-content: 24px;
@@ -26,7 +26,7 @@
     :root {
         --color-primary: #eee;
 
-        --background-color: #111;
+        --color-reverse: #111;
     }
 }
 
@@ -38,12 +38,26 @@
 
 html,
 body {
-    background-color: var(--background-color);
+    background-color: var(--color-reverse);
     color: var(--color-primary);
     font-size: var(--font-size-content);
     display: flex;
     flex-direction: column;
     height: 100%;
+}
+
+input,
+select,
+textarea,
+button {
+    border: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
 }
 
 a {
@@ -52,13 +66,21 @@ a {
 }
 
 button {
-    background-color: var(--background-color);
+    background-color: var(--color-reverse);
     border-radius: 16px;
 
     color: var(--color-primary);
 
-    width: 100px;
-    height: 50px;
+    cursor: pointer;
 
     font-size: var(--font-size-comment);
+
+    border: 1px solid var(--color-secondary);
+
+    width: 100px;
+    height: 50px;
+}
+
+input {
+    border: 1px solid var(--color-secondary);
 }

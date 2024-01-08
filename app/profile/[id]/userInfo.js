@@ -1,10 +1,16 @@
+"use client";
+
 import Button from "@/components/button/button";
 import classes from "./userInfo.module.css";
 import getCookie from "@/function/server/getCookie";
 import deleteCookie from "@/function/server/deleteCookie";
+import { useEffect, useState } from "react";
+import Input from "@/components/input/input";
 
 export default function UserInfo({ profile, loginUser }) {
-    const edit = () => {};
+    const [edit, setEdit] = useState(false);
+    const [nickname, setNickname] = useState("");
+
     const withdraw = async () => {
         if (confirm("탈퇴하시겠습니까? 데이터는 복구할 수 없습니다.")) {
             const response = await fetch(
@@ -23,14 +29,30 @@ export default function UserInfo({ profile, loginUser }) {
         }
     };
 
+    const saveEdit = async () => {};
+
     return (
         <div className={classes.box}>
             <div className={classes.user}>
                 <div className={classes["image-wrapper"]}>
-                    <img className={classes.image} src={profile?.image} />
+                    {edit ? (
+                        <img
+                            className={classes["image-wrapper"]}
+                            src={profile?.image}
+                        />
+                    ) : (
+                        <img className={classes.image} src={profile?.image} />
+                    )}
                 </div>
                 <div className={classes.info}>
-                    <div>{profile?.nickname}</div>
+                    {edit ? (
+                        <Input
+                            value={nickname}
+                            onChange={() => setNickname(nickname)}
+                        />
+                    ) : (
+                        <div>{profile?.nickname}</div>
+                    )}
                     <div className={classes.created}>
                         {profile?.createdAt
                             ? new Date(
@@ -46,12 +68,33 @@ export default function UserInfo({ profile, loginUser }) {
             </div>
             {profile?.id ? (
                 profile?.id === loginUser?.id ? (
-                    <div className={classes.buttons}>
-                        <Button onClick={edit}>Edit</Button>
-                        <Button type="danger" onClick={withdraw}>
-                            Withdraw
-                        </Button>
-                    </div>
+                    edit ? (
+                        <div className={classes.buttons}>
+                            <Button
+                                onClick={() => {
+                                    setEdit(!edit);
+                                }}
+                            >
+                                Cancel
+                            </Button>
+                            <Button type="primary" onClick={saveEdit}>
+                                Save
+                            </Button>
+                        </div>
+                    ) : (
+                        <div className={classes.buttons}>
+                            <Button
+                                onClick={() => {
+                                    setEdit(!edit);
+                                }}
+                            >
+                                Edit
+                            </Button>
+                            <Button type="danger" onClick={withdraw}>
+                                Withdraw
+                            </Button>
+                        </div>
+                    )
                 ) : (
                     <>
                         <Button>Follow</Button>

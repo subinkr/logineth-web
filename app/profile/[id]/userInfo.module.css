@@ -43,6 +43,9 @@
 }
 
 .image-wrapper {
+    border-radius: 50%;
+    object-fit: cover;
+
     width: 100px;
     height: 100px;
     position: relative;
