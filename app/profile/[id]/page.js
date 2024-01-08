@@ -5,14 +5,14 @@ import { useRecoilState } from "recoil";
 import UserInfo from "./userInfo";
 import { useEffect, useState } from "react";
 import getProfile from "./getProfile";
-import checkUser from "@/function/client/checkUser";
+import checkLoginUser from "@/function/client/checkLoginUser";
 
 export default function Profile({ params }) {
     const [loginUser, setLoginUser] = useRecoilState(profileState);
     const [profile, setProfile] = useState({});
 
     useEffect(() => {
-        checkUser(setLoginUser);
+        checkLoginUser(setLoginUser);
         if (!profile.id) {
             const runGetProfile = async () => {
                 const result = await getProfile(params.id);
