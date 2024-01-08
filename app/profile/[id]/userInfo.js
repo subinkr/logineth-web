@@ -54,8 +54,20 @@ export default function UserInfo({ profile, loginUser }) {
         alert(result.message);
     };
 
-    const fileSelect = () => {
-        // TODO: Image upload
+    const fileSelect = async (e) => {
+        const file = e.target.files[0];
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_SERVER}/image`,
+            {
+                method: "post",
+                body: formData,
+            }
+        );
+        const result = await response.json();
+        setImage(result.image);
     };
 
     const editImage = () => {
