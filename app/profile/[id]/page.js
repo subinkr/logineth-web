@@ -1,32 +1,30 @@
 "use client";
 
 import { profileState } from "@/components/recoil/profile";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import UserInfo from "./userInfo";
 import { useEffect, useState } from "react";
+import getProfile from "./getProfile";
+import checkLoginUser from "@/function/client/checkLoginUser";
 
 export default function Profile({ params }) {
-    const profile = useRecoilValue(profileState);
-    const [thisProfile, setThisProfile] = useState({});
+    const [loginUser, setLoginUser] = useRecoilState(profileState);
+    const [profile, setProfile] = useState({});
 
     useEffect(() => {
-        if (!thisProfile.id) {
-            const getProfile = async () => {
-                const response = await fetch(
-                    `${process.env.NEXT_PUBLIC_API_SERVER}/profile/${params.id}`
-                );
-                const result = await response.json();
-                const { user } = result;
-                setThisProfile(user);
-                console.log(user);
+        checkLoginUser(setLoginUser);
+        if (!profile.id) {
+            const runGetProfile = async () => {
+                const result = await getProfile(params.id);
+                setProfile(result);
             };
-            getProfile();
+            runGetProfile();
         }
     }, []);
 
     return (
         <>
-            <UserInfo thisProfile={thisProfile} loginUser={profile} />
+            <UserInfo profile={profile} loginUser={loginUser} />
         </>
     );
 }
