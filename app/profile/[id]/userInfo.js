@@ -1,5 +1,6 @@
 import Button from "@/components/button/button";
 import classes from "./userInfo.module.css";
+import getCookie from "@/function/server/getCookie";
 
 export default function UserInfo({ thisProfile, loginUser }) {
     return (
