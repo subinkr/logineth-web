@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/button/button";
 import classes from "./page.module.css";
 
 export default function Login() {
@@ -34,9 +35,9 @@ export default function Login() {
 
     return (
         <div className={classes.login}>
-            <button onClick={github}>Github</button>
-            <button onClick={google}>Google</button>
-            <button onClick={kakao}>Kakao</button>
+            <Button onClick={github}>Github</Button>
+            <Button onClick={google}>Google</Button>
+            <Button onClick={kakao}>Kakao</Button>
         </div>
     );
 }
