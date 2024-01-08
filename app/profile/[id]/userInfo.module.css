@@ -36,11 +36,10 @@
 }
 
 .image:hover {
+    position: absolute;
     width: 200px;
     height: 200px;
-    top: 50;
-    left: 50;
-    transform: translate(-50%, -50%);
+    transform: translate(-25%, -25%);
     transition: all 0.5s;
     z-index: 1;
 }
