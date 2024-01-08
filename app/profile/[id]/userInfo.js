@@ -1,7 +1,28 @@
 import Button from "@/components/button/button";
 import classes from "./userInfo.module.css";
+import getCookie from "@/function/server/getCookie";
+import deleteCookie from "@/function/server/deleteCookie";
 
 export default function UserInfo({ profile, loginUser }) {
+    const edit = () => {};
+    const withdraw = async () => {
+        if (confirm("탈퇴하시겠습니까? 데이터는 복구할 수 없습니다.")) {
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_SERVER}/register/withdraw/${profile.id}`,
+                {
+                    method: "delete",
+                    headers: {
+                        Authorization: `Bearer ${await getCookie()}`,
+                    },
+                }
+            );
+            const result = await response.json();
+            alert(result.message);
+
+            await deleteCookie();
+        }
+    };
+
     return (
         <div className={classes.box}>
             <div className={classes.user}>
@@ -26,8 +47,10 @@ export default function UserInfo({ profile, loginUser }) {
             {profile?.id ? (
                 profile?.id === loginUser?.id ? (
                     <div className={classes.buttons}>
-                        <Button>Edit</Button>
-                        <Button type="danger">Withdraw</Button>
+                        <Button onClick={edit}>Edit</Button>
+                        <Button type="danger" onClick={withdraw}>
+                            Withdraw
+                        </Button>
                     </div>
                 ) : (
                     <>
