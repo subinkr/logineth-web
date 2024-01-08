@@ -2,19 +2,19 @@ import Button from "@/components/button/button";
 import classes from "./userInfo.module.css";
 import getCookie from "@/function/server/getCookie";
 
-export default function UserInfo({ thisProfile, loginUser }) {
+export default function UserInfo({ profile, loginUser }) {
     return (
         <div className={classes.box}>
             <div className={classes.user}>
                 <div className={classes["image-wrapper"]}>
-                    <img className={classes.image} src={thisProfile?.image} />
+                    <img className={classes.image} src={profile?.image} />
                 </div>
                 <div className={classes.info}>
-                    <div>{thisProfile?.nickname}</div>
+                    <div>{profile?.nickname}</div>
                     <div className={classes.created}>
-                        {thisProfile?.createdAt
+                        {profile?.createdAt
                             ? new Date(
-                                  Date.parse(thisProfile?.createdAt)
+                                  Date.parse(profile?.createdAt)
                               ).toLocaleDateString(undefined, {
                                   year: "numeric",
                                   month: "2-digit",
@@ -24,8 +24,8 @@ export default function UserInfo({ thisProfile, loginUser }) {
                     </div>
                 </div>
             </div>
-            {thisProfile?.id ? (
-                thisProfile?.id === loginUser?.id ? (
+            {profile?.id ? (
+                profile?.id === loginUser?.id ? (
                     <div className={classes.buttons}>
                         <Button>Edit</Button>
                         <Button type="danger">Withdraw</Button>

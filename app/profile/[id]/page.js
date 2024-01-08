@@ -8,15 +8,15 @@ import getProfile from "./getProfile";
 import checkUser from "@/function/client/checkUser";
 
 export default function Profile({ params }) {
-    const [profile, setProfile] = useRecoilState(profileState);
-    const [thisProfile, setThisProfile] = useState({});
+    const [loginUser, setLoginUser] = useRecoilState(profileState);
+    const [profile, setProfile] = useState({});
 
     useEffect(() => {
-        checkUser(setProfile);
-        if (!thisProfile.id) {
+        checkUser(setLoginUser);
+        if (!profile.id) {
             const runGetProfile = async () => {
                 const result = await getProfile(params.id);
-                setThisProfile(result);
+                setProfile(result);
             };
             runGetProfile();
         }
@@ -24,7 +24,7 @@ export default function Profile({ params }) {
 
     return (
         <>
-            <UserInfo thisProfile={thisProfile} loginUser={profile} />
+            <UserInfo profile={profile} loginUser={loginUser} />
         </>
     );
 }
