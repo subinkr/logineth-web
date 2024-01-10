@@ -49,6 +49,8 @@ export default function UserInfo({ profile, loginUser }) {
             }
         );
         const result = await response.json();
+        profile.image = image;
+        profile.nickname = nickname;
         setEdit(false);
 
         alert(result.message);
@@ -56,6 +58,9 @@ export default function UserInfo({ profile, loginUser }) {
 
     const fileSelect = async (e) => {
         const file = e.target.files[0];
+        if (!file.name) {
+            return;
+        }
         const formData = new FormData();
         formData.append("file", file);
 
@@ -129,7 +134,13 @@ export default function UserInfo({ profile, loginUser }) {
                     profile?.id === loginUser?.id ? (
                         edit ? (
                             <div className={classes.buttons}>
-                                <Button onClick={() => setEdit(false)}>
+                                <Button
+                                    onClick={() => {
+                                        setImage(profile?.image);
+                                        setNickname(profile?.nickname);
+                                        setEdit(false);
+                                    }}
+                                >
                                     Cancel
                                 </Button>
                                 <Button type="primary" onClick={saveEdit}>
