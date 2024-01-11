@@ -6,8 +6,9 @@ import getCookie from "@/function/server/getCookie";
 import deleteCookie from "@/function/server/deleteCookie";
 import { useEffect, useRef, useState } from "react";
 import Input from "@/components/input/input";
+import Follow from "./follow";
 
-export default function UserInfo({ profile, loginUser }) {
+export default function UserInfo({ targetUser, loginUser }) {
     const [edit, setEdit] = useState(false);
     const [image, setImage] = useState("");
     const [nickname, setNickname] = useState("");
@@ -17,7 +18,7 @@ export default function UserInfo({ profile, loginUser }) {
     const withdraw = async () => {
         if (confirm("탈퇴하시겠습니까? 데이터는 복구할 수 없습니다.")) {
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_API_SERVER}/register/withdraw/${profile.id}`,
+                `${process.env.NEXT_PUBLIC_API_SERVER}/register/withdraw/${targetUser.id}`,
                 {
                     method: "delete",
                     headers: {
@@ -34,7 +35,7 @@ export default function UserInfo({ profile, loginUser }) {
 
     const saveEdit = async () => {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_SERVER}/profile/${profile.id}/edit`,
+            `${process.env.NEXT_PUBLIC_API_SERVER}/profile/${targetUser.id}/edit`,
             {
                 method: "put",
                 headers: {
@@ -49,8 +50,8 @@ export default function UserInfo({ profile, loginUser }) {
             }
         );
         const result = await response.json();
-        profile.image = image;
-        profile.nickname = nickname;
+        targetUser.image = image;
+        targetUser.nickname = nickname;
         setEdit(false);
 
         alert(result.message);
@@ -85,8 +86,8 @@ export default function UserInfo({ profile, loginUser }) {
 
     useEffect(() => {
         if (edit) {
-            setImage(image ? image : profile?.image);
-            setNickname(nickname ? nickname : profile?.nickname);
+            setImage(image ? image : targetUser?.image);
+            setNickname(nickname ? nickname : targetUser?.nickname);
         }
     }, [edit]);
 
@@ -107,7 +108,7 @@ export default function UserInfo({ profile, loginUser }) {
                         ) : (
                             <img
                                 className={classes.image}
-                                src={image ? image : profile?.image}
+                                src={image ? image : targetUser?.image}
                             />
                         )}
                     </div>
@@ -115,12 +116,14 @@ export default function UserInfo({ profile, loginUser }) {
                         {edit ? (
                             <Input value={nickname} onChange={editNickname} />
                         ) : (
-                            <div>{nickname ? nickname : profile?.nickname}</div>
+                            <div>
+                                {nickname ? nickname : targetUser?.nickname}
+                            </div>
                         )}
                         <div className={classes.created}>
-                            {profile?.createdAt
+                            {targetUser?.createdAt
                                 ? new Date(
-                                      Date.parse(profile?.createdAt)
+                                      Date.parse(targetUser?.createdAt)
                                   ).toLocaleDateString(undefined, {
                                       year: "numeric",
                                       month: "2-digit",
@@ -130,14 +133,14 @@ export default function UserInfo({ profile, loginUser }) {
                         </div>
                     </div>
                 </div>
-                {profile?.id ? (
-                    profile?.id === loginUser?.id ? (
+                {targetUser?.id ? (
+                    targetUser?.id === loginUser?.id ? (
                         edit ? (
                             <div className={classes.buttons}>
                                 <Button
                                     onClick={() => {
-                                        setImage(profile?.image);
-                                        setNickname(profile?.nickname);
+                                        setImage(targetUser?.image);
+                                        setNickname(targetUser?.nickname);
                                         setEdit(false);
                                     }}
                                 >
@@ -158,9 +161,7 @@ export default function UserInfo({ profile, loginUser }) {
                             </div>
                         )
                     ) : (
-                        <>
-                            <Button>Follow</Button>
-                        </>
+                        <Follow targetUserID={targetUser.id} />
                     )
                 ) : (
                     <></>

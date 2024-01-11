@@ -9,14 +9,14 @@ import checkLoginUser from "@/function/client/checkLoginUser";
 
 export default function Profile({ params }) {
     const [loginUser, setLoginUser] = useRecoilState(profileState);
-    const [profile, setProfile] = useState({});
+    const [targetUser, setTargetUser] = useState({});
 
     useEffect(() => {
         checkLoginUser(setLoginUser);
-        if (!profile.id) {
+        if (!targetUser.id) {
             const runGetProfile = async () => {
                 const result = await getProfile(params.id);
-                setProfile(result);
+                setTargetUser(result);
             };
             runGetProfile();
         }
@@ -24,7 +24,7 @@ export default function Profile({ params }) {
 
     return (
         <>
-            <UserInfo profile={profile} loginUser={loginUser} />
+            <UserInfo targetUser={targetUser} loginUser={loginUser} />
         </>
     );
 }
