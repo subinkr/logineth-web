@@ -3,13 +3,12 @@
 import classes from "./rooms.module.css";
 import getRooms from "./getRooms";
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { profileState } from "../recoil/profile";
 import Button from "../button/button";
 import Room from "./room";
 
 export default function Rooms() {
-    const profile = useRecoilValue(profileState);
     const [loginUser, setLoginUser] = useRecoilState(profileState);
     const [rooms, setRooms] = useState(null);
     const [showRoom, setShowRoom] = useState(null);
@@ -26,7 +25,10 @@ export default function Rooms() {
                 setLoginUser(newLoginUser);
             }
         };
-        runRooms();
+
+        if (loginUser.id) {
+            runRooms();
+        }
     }, [loginUser]);
 
     const enterRoom = (idx) => {
@@ -36,38 +38,45 @@ export default function Rooms() {
 
     return (
         <>
-            {profile.id && rooms?.length ? (
-                <div className={classes["room-area"]}>
-                    {showRoom ? (
-                        <>
-                            <Room room={rooms[roomIdx]} />
-                            <Button onClick={() => setShowRoom(false)}>
-                                Close
-                            </Button>
-                        </>
-                    ) : (
-                        <div className={classes.rooms}>
-                            {rooms.map((room, idx) => (
-                                <div key={`room-${idx}`} hidden={!showRooms}>
-                                    <Button onClick={() => enterRoom(idx)}>
-                                        {
-                                            room.users.filter(
-                                                (user) =>
-                                                    user.id !== loginUser.id
-                                            )[0]?.nickname
-                                        }
-                                    </Button>
-                                </div>
-                            ))}
-                            <Button
-                                className={"primary"}
-                                onClick={() => setShowRooms(!showRooms)}
-                            >
-                                Friends
-                            </Button>
-                        </div>
-                    )}
-                </div>
+            {loginUser.id ? (
+                rooms?.length ? (
+                    <div className={classes["room-area"]}>
+                        {showRoom ? (
+                            <>
+                                <Room room={rooms[roomIdx]} />
+                                <Button onClick={() => setShowRoom(false)}>
+                                    Close
+                                </Button>
+                            </>
+                        ) : (
+                            <div className={classes.rooms}>
+                                {rooms.map((room, idx) => (
+                                    <div
+                                        key={`room-${idx}`}
+                                        hidden={!showRooms}
+                                    >
+                                        <Button onClick={() => enterRoom(idx)}>
+                                            {
+                                                room.users.filter(
+                                                    (user) =>
+                                                        user.id !== loginUser.id
+                                                )[0]?.nickname
+                                            }
+                                        </Button>
+                                    </div>
+                                ))}
+                                <Button
+                                    className={"primary"}
+                                    onClick={() => setShowRooms(!showRooms)}
+                                >
+                                    Friends
+                                </Button>
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <></>
+                )
             ) : (
                 <></>
             )}
