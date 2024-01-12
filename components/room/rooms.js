@@ -3,12 +3,13 @@
 import classes from "./rooms.module.css";
 import getRooms from "./getRooms";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { profileState } from "../recoil/profile";
 import Button from "../button/button";
 import Room from "./room";
 
 export default function Rooms() {
+    const profile = useRecoilValue(profileState);
     const [loginUser, setLoginUser] = useRecoilState(profileState);
     const [rooms, setRooms] = useState(null);
     const [showRoom, setShowRoom] = useState(null);
@@ -35,7 +36,7 @@ export default function Rooms() {
 
     return (
         <>
-            {rooms?.length ? (
+            {profile.id && rooms?.length ? (
                 <div className={classes["room-area"]}>
                     {showRoom ? (
                         <>
