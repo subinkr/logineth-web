@@ -149,7 +149,7 @@ export default function UserInfo({ targetUser, loginUser }) {
                                 >
                                     Cancel
                                 </Button>
-                                <Button type="primary" onClick={saveEdit}>
+                                <Button className="primary" onClick={saveEdit}>
                                     Save
                                 </Button>
                             </div>
@@ -158,7 +158,7 @@ export default function UserInfo({ targetUser, loginUser }) {
                                 <Button onClick={() => setEdit(true)}>
                                     Edit
                                 </Button>
-                                <Button type="danger" onClick={withdraw}>
+                                <Button className="danger" onClick={withdraw}>
                                     Withdraw
                                 </Button>
                             </div>
