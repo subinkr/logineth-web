@@ -54,7 +54,8 @@ export default function Room({ room }) {
         chatRef.current.scrollTop = chatRef.current.scrollHeight;
     }, [message]);
 
-    const sendMessage = () => {
+    const sendMessage = (e) => {
+        e.preventDefault();
         socket.emit("send-message", {
             content: inputRef.current.value,
         });
@@ -88,12 +89,16 @@ export default function Room({ room }) {
                     </div>
                 ))}
             </div>
-            <div className={classes.message}>
+            <form className={classes.message}>
                 <Input ref={inputRef} />
-                <Button type={"main"} onClick={sendMessage}>
+                <Button
+                    className={"main"}
+                    onClick={sendMessage}
+                    type={"submit"}
+                >
                     Send message
                 </Button>
-            </div>
+            </form>
         </div>
     );
 }
