@@ -7,19 +7,23 @@ import { profileState } from "@/components/recoil/profile";
 import getCookie from "@/function/server/getCookie";
 import Button from "@/components/button/button";
 
-export default function Follow({ targetUserID }) {
+export default function Follow({ targetUser }) {
     const [loginUser, setLoginUser] = useRecoilState(profileState);
+    const [followingUsers, setFollowingUsers] = useState([]);
     const [isFollowing, setIsFollowing] = useState(false);
 
     useEffect(() => {
         const runFollowingUsers = async () => {
-            const { followingUsers } = await getFollowingUsers();
+            const { followingUsers: newFollowingUsers } =
+                await getFollowingUsers();
+            setFollowingUsers(newFollowingUsers);
+
             const newLoginUser = { ...loginUser };
-            newLoginUser.followingUsers = followingUsers;
+            newLoginUser.followingUsers = newFollowingUsers;
             setLoginUser(newLoginUser);
 
-            const followingIdx = followingUsers.findIndex(
-                (user) => user.id === targetUserID
+            const followingIdx = newFollowingUsers.findIndex(
+                (user) => user.id === targetUser.id
             );
             if (followingIdx !== -1) {
                 setIsFollowing(true);
@@ -30,7 +34,7 @@ export default function Follow({ targetUserID }) {
 
     const following = async () => {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_SERVER}/following/${targetUserID}`,
+            `${process.env.NEXT_PUBLIC_API_SERVER}/following/${targetUser.id}`,
             {
                 method: "post",
                 headers: {
@@ -40,12 +44,24 @@ export default function Follow({ targetUserID }) {
         );
         const result = await response.json();
         setIsFollowing(true);
+
+        const followingIdx = followingUsers.findIndex(
+            (user) => user.id === targetUser.id
+        );
+        if (followingIdx === -1) {
+            const newLoginUser = { ...loginUser };
+            const newFollowingUsers = [...followingUsers, targetUser];
+            newLoginUser.followingUsers = newFollowingUsers;
+            setLoginUser(newLoginUser);
+            setFollowingUsers(newFollowingUsers);
+        }
+
         alert(result.message);
     };
 
     const unFollowing = async () => {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_SERVER}/unfollowing/${targetUserID}`,
+            `${process.env.NEXT_PUBLIC_API_SERVER}/unfollowing/${targetUser.id}`,
             {
                 method: "delete",
                 headers: {
@@ -55,6 +71,20 @@ export default function Follow({ targetUserID }) {
         );
         const result = await response.json();
         setIsFollowing(false);
+
+        const followingIdx = followingUsers.findIndex(
+            (user) => user.id === targetUser.id
+        );
+        if (followingIdx !== -1) {
+            const newFollowingUsers = [...followingUsers];
+            newFollowingUsers.splice(followingIdx, 1);
+
+            const newLoginUser = { ...loginUser };
+            newLoginUser.followingUsers = newFollowingUsers;
+            setLoginUser(newLoginUser);
+            setFollowingUsers(newFollowingUsers);
+        }
+
         alert(result.message);
     };
 

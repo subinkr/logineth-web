@@ -9,11 +9,19 @@ import Input from "@/components/input/input";
 import Follow from "./follow";
 
 export default function UserInfo({ targetUser, loginUser }) {
+    const [cookie, setCookie] = useState(null);
     const [edit, setEdit] = useState(false);
     const [image, setImage] = useState("");
     const [nickname, setNickname] = useState("");
     const [bio, setBio] = useState("");
     const inputRef = useRef(null);
+
+    useEffect(() => {
+        const runCookie = async () => {
+            setCookie(await getCookie());
+        };
+        runCookie();
+    }, []);
 
     const withdraw = async () => {
         if (confirm("탈퇴하시겠습니까? 데이터는 복구할 수 없습니다.")) {
@@ -160,8 +168,10 @@ export default function UserInfo({ targetUser, loginUser }) {
                                 </Button>
                             </div>
                         )
+                    ) : cookie ? (
+                        <Follow targetUser={targetUser} />
                     ) : (
-                        <Follow targetUserID={targetUser.id} />
+                        <></>
                     )
                 ) : (
                     <></>
