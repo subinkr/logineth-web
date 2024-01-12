@@ -7,6 +7,7 @@ import deleteCookie from "@/function/server/deleteCookie";
 import { useEffect, useRef, useState } from "react";
 import Input from "@/components/input/input";
 import Follow from "./follow";
+import getDate from "@/function/client/getDate";
 
 export default function UserInfo({ targetUser, loginUser }) {
     const [cookie, setCookie] = useState(null);
@@ -130,13 +131,7 @@ export default function UserInfo({ targetUser, loginUser }) {
                         )}
                         <div className={classes.created}>
                             {targetUser?.createdAt
-                                ? new Date(
-                                      Date.parse(targetUser?.createdAt)
-                                  ).toLocaleDateString(undefined, {
-                                      year: "numeric",
-                                      month: "2-digit",
-                                      day: "2-digit",
-                                  })
+                                ? getDate(targetUser?.createdAt)
                                 : "User not exist"}
                         </div>
                     </div>
