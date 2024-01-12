@@ -68,6 +68,12 @@ export default function Room({ room }) {
 
     return (
         <div className={classes.room}>
+            <div className={classes.header}>
+                {
+                    room.users.filter((user) => user.id !== loginUser.id)[0]
+                        ?.nickname
+                }
+            </div>
             <div ref={chatRef} className={classes.chats}>
                 {message?.chats?.map((chat, idx) => (
                     <div
