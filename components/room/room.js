@@ -9,6 +9,7 @@ import { useRecoilValue } from "recoil";
 import { profileState } from "../recoil/profile";
 import classes from "./room.module.css";
 import getCookie from "@/function/server/getCookie";
+import Chat from "./chat";
 
 export default function Room({ room }) {
     const loginUser = useRecoilValue(profileState);
@@ -45,12 +46,7 @@ export default function Room({ room }) {
 
     useEffect(() => {
         if (chat?.content) {
-            const chatDiv = document.createElement("div");
-            chatDiv.className =
-                chat.user.id !== loginUser.id ? classes.left : classes.right;
-            chatDiv.innerText = `${chat.content}`;
-            chatRef.current.appendChild(chatDiv);
-            chatRef.current.scrollTop = chatRef.current.scrollHeight;
+            setMessage({ ...message, chats: [...message.chats, chat] });
         }
     }, [chat]);
 
@@ -83,7 +79,13 @@ export default function Room({ room }) {
                                 ? classes.left
                                 : classes.right
                         }
-                    >{`${chat.content}`}</div>
+                    >
+                        {chat.user.id !== loginUser.id ? (
+                            <Chat chat={chat} left />
+                        ) : (
+                            <Chat chat={chat} />
+                        )}
+                    </div>
                 ))}
             </div>
             <div className={classes.message}>
