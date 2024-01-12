@@ -7,6 +7,7 @@ import deleteCookie from "@/function/server/deleteCookie";
 import { useEffect, useRef, useState } from "react";
 import Input from "@/components/input/input";
 import Follow from "./follow";
+import getDate from "@/function/client/getDate";
 
 export default function UserInfo({ targetUser, loginUser }) {
     const [cookie, setCookie] = useState(null);
@@ -130,13 +131,7 @@ export default function UserInfo({ targetUser, loginUser }) {
                         )}
                         <div className={classes.created}>
                             {targetUser?.createdAt
-                                ? new Date(
-                                      Date.parse(targetUser?.createdAt)
-                                  ).toLocaleDateString(undefined, {
-                                      year: "numeric",
-                                      month: "2-digit",
-                                      day: "2-digit",
-                                  })
+                                ? getDate(targetUser?.createdAt)
                                 : "User not exist"}
                         </div>
                     </div>
@@ -154,7 +149,7 @@ export default function UserInfo({ targetUser, loginUser }) {
                                 >
                                     Cancel
                                 </Button>
-                                <Button type="primary" onClick={saveEdit}>
+                                <Button className="primary" onClick={saveEdit}>
                                     Save
                                 </Button>
                             </div>
@@ -163,7 +158,7 @@ export default function UserInfo({ targetUser, loginUser }) {
                                 <Button onClick={() => setEdit(true)}>
                                     Edit
                                 </Button>
-                                <Button type="danger" onClick={withdraw}>
+                                <Button className="danger" onClick={withdraw}>
                                     Withdraw
                                 </Button>
                             </div>

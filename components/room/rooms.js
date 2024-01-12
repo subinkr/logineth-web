@@ -59,7 +59,7 @@ export default function Rooms() {
                                 </div>
                             ))}
                             <Button
-                                type={"primary"}
+                                className={"primary"}
                                 onClick={() => setShowRooms(!showRooms)}
                             >
                                 Friends

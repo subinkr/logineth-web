@@ -9,6 +9,7 @@ import { useRecoilValue } from "recoil";
 import { profileState } from "../recoil/profile";
 import classes from "./room.module.css";
 import getCookie from "@/function/server/getCookie";
+import Chat from "./chat";
 
 export default function Room({ room }) {
     const loginUser = useRecoilValue(profileState);
@@ -45,12 +46,7 @@ export default function Room({ room }) {
 
     useEffect(() => {
         if (chat?.content) {
-            const chatDiv = document.createElement("div");
-            chatDiv.className =
-                chat.user.id !== loginUser.id ? classes.left : classes.right;
-            chatDiv.innerText = `${chat.content}`;
-            chatRef.current.appendChild(chatDiv);
-            chatRef.current.scrollTop = chatRef.current.scrollHeight;
+            setMessage({ ...message, chats: [...message.chats, chat] });
         }
     }, [chat]);
 
@@ -58,7 +54,8 @@ export default function Room({ room }) {
         chatRef.current.scrollTop = chatRef.current.scrollHeight;
     }, [message]);
 
-    const sendMessage = () => {
+    const sendMessage = (e) => {
+        e.preventDefault();
         socket.emit("send-message", {
             content: inputRef.current.value,
         });
@@ -68,6 +65,12 @@ export default function Room({ room }) {
 
     return (
         <div className={classes.room}>
+            <div className={classes.header}>
+                {
+                    room.users.filter((user) => user.id !== loginUser.id)[0]
+                        ?.nickname
+                }
+            </div>
             <div ref={chatRef} className={classes.chats}>
                 {message?.chats?.map((chat, idx) => (
                     <div
@@ -77,15 +80,25 @@ export default function Room({ room }) {
                                 ? classes.left
                                 : classes.right
                         }
-                    >{`${chat.content}`}</div>
+                    >
+                        {chat.user.id !== loginUser.id ? (
+                            <Chat chat={chat} left />
+                        ) : (
+                            <Chat chat={chat} />
+                        )}
+                    </div>
                 ))}
             </div>
-            <div className={classes.message}>
+            <form className={classes.message}>
                 <Input ref={inputRef} />
-                <Button type={"main"} onClick={sendMessage}>
+                <Button
+                    className={"main"}
+                    onClick={sendMessage}
+                    type={"submit"}
+                >
                     Send message
                 </Button>
-            </div>
+            </form>
         </div>
     );
 }
