@@ -10,9 +10,8 @@ import { profileState } from "../recoil/profile";
 import classes from "./room.module.css";
 import getCookie from "@/function/server/getCookie";
 import Chat from "./chat";
-import getRooms from "./getRooms";
 
-export default function Room({ setRooms, room, showRoom, setShowRoom }) {
+export default function Room({ room, showRoom, setShowRoom }) {
     const loginUser = useRecoilValue(profileState);
     const [message, setMessage] = useState({});
     const [socket, setSocket] = useState(null);
@@ -66,11 +65,11 @@ export default function Room({ setRooms, room, showRoom, setShowRoom }) {
         await socket.emit("send-message", {
             content: inputRef.current.value,
         });
-        setChat({
-            content: inputRef.current.value,
-            user: loginUser,
-            createdAt: new Date(),
-        });
+        // setChat({
+        //     content: inputRef.current.value,
+        //     user: loginUser,
+        //     createdAt: new Date(),
+        // });
         inputRef.current.value = "";
     };
 
