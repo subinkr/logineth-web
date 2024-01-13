@@ -7,6 +7,7 @@ import { useRecoilState } from "recoil";
 import { profileState } from "../recoil/profile";
 import Button from "../button/button";
 import Room from "./room";
+import NotiCircle from "../noti/circle";
 
 export default function Rooms() {
     const [loginUser, setLoginUser] = useRecoilState(profileState);
@@ -29,7 +30,7 @@ export default function Rooms() {
         if (loginUser.id) {
             runRooms();
         }
-    }, [loginUser]);
+    }, [loginUser, showRoom]);
 
     const enterRoom = (idx) => {
         setShowRoom(true);
@@ -44,6 +45,7 @@ export default function Rooms() {
                         {showRoom ? (
                             <>
                                 <Room
+                                    setRooms={setRooms}
                                     room={rooms[roomIdx]}
                                     showRoom={showRoom}
                                     setShowRoom={setShowRoom}
@@ -64,6 +66,14 @@ export default function Rooms() {
                                                 )[0]?.nickname
                                             }
                                         </Button>
+                                        <NotiCircle
+                                            hidden={
+                                                room.viewUsers.findIndex(
+                                                    (user) =>
+                                                        user.id === loginUser.id
+                                                ) !== -1
+                                            }
+                                        />
                                     </div>
                                 ))}
                                 <Button
