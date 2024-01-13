@@ -43,10 +43,11 @@ export default function Rooms() {
                     <div className={classes["room-area"]}>
                         {showRoom ? (
                             <>
-                                <Room room={rooms[roomIdx]} />
-                                <Button onClick={() => setShowRoom(false)}>
-                                    Close
-                                </Button>
+                                <Room
+                                    room={rooms[roomIdx]}
+                                    showRoom={showRoom}
+                                    setShowRoom={setShowRoom}
+                                />
                             </>
                         ) : (
                             <div className={classes.rooms}>

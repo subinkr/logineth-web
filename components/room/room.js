@@ -11,7 +11,7 @@ import classes from "./room.module.css";
 import getCookie from "@/function/server/getCookie";
 import Chat from "./chat";
 
-export default function Room({ room }) {
+export default function Room({ room, showRoom, setShowRoom }) {
     const loginUser = useRecoilValue(profileState);
     const [message, setMessage] = useState({});
     const [socket, setSocket] = useState(null);
@@ -54,51 +54,65 @@ export default function Room({ room }) {
         chatRef.current.scrollTop = chatRef.current.scrollHeight;
     }, [message]);
 
-    const sendMessage = (e) => {
+    useEffect(() => {
+        if (!showRoom) {
+            socket.disconnect();
+        }
+    }, [showRoom]);
+
+    const sendMessage = async (e) => {
         e.preventDefault();
-        socket.emit("send-message", {
+        await socket.emit("send-message", {
             content: inputRef.current.value,
         });
         // setChat({ content: inputRef.current.value, user: loginUser });
         inputRef.current.value = "";
     };
 
+    const closeRoom = async () => {
+        await socket.emit("close-room", {});
+        setShowRoom(false);
+    };
+
     return (
-        <div className={classes.room}>
-            <div className={classes.header}>
-                {
-                    room.users.filter((user) => user.id !== loginUser.id)[0]
-                        ?.nickname
-                }
-            </div>
-            <div ref={chatRef} className={classes.chats}>
-                {message?.chats?.map((chat, idx) => (
-                    <div
-                        key={`chat-${idx}`}
-                        className={
-                            chat.user.id !== loginUser.id
-                                ? classes.left
-                                : classes.right
-                        }
+        <>
+            <div className={classes.room}>
+                <div className={classes.header}>
+                    {
+                        room.users.filter((user) => user.id !== loginUser.id)[0]
+                            ?.nickname
+                    }
+                </div>
+                <div ref={chatRef} className={classes.chats}>
+                    {message?.chats?.map((chat, idx) => (
+                        <div
+                            key={`chat-${idx}`}
+                            className={
+                                chat.user.id !== loginUser.id
+                                    ? classes.left
+                                    : classes.right
+                            }
+                        >
+                            {chat.user.id !== loginUser.id ? (
+                                <Chat chat={chat} left />
+                            ) : (
+                                <Chat chat={chat} />
+                            )}
+                        </div>
+                    ))}
+                </div>
+                <form className={classes.message}>
+                    <Input ref={inputRef} />
+                    <Button
+                        className={"main"}
+                        onClick={sendMessage}
+                        type={"submit"}
                     >
-                        {chat.user.id !== loginUser.id ? (
-                            <Chat chat={chat} left />
-                        ) : (
-                            <Chat chat={chat} />
-                        )}
-                    </div>
-                ))}
+                        Send message
+                    </Button>
+                </form>
             </div>
-            <form className={classes.message}>
-                <Input ref={inputRef} />
-                <Button
-                    className={"main"}
-                    onClick={sendMessage}
-                    type={"submit"}
-                >
-                    Send message
-                </Button>
-            </form>
-        </div>
+            <Button onClick={closeRoom}>Close</Button>
+        </>
     );
 }
