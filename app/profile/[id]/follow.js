@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import getFollowingUsers from "./getFollowingUsers";
+import getFollowingUsers from "@/function/server/getFollowingUsers";
 import { useRecoilState } from "recoil";
 import { profileState } from "@/components/recoil/profile";
 import getCookie from "@/function/server/getCookie";

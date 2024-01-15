@@ -59,11 +59,13 @@ export default function UserInfo({ targetUser, loginUser }) {
             }
         );
         const result = await response.json();
+        alert(result.message);
+        if (result.statusCode === 400) {
+            return;
+        }
         targetUser.image = image;
         targetUser.nickname = nickname;
         setEdit(false);
-
-        alert(result.message);
     };
 
     const fileSelect = async (e) => {
@@ -125,8 +127,13 @@ export default function UserInfo({ targetUser, loginUser }) {
                         {edit ? (
                             <Input value={nickname} onChange={editNickname} />
                         ) : (
-                            <div>
-                                {nickname ? nickname : targetUser?.nickname}
+                            <div className={classes["user-text"]}>
+                                <div>
+                                    {nickname ? nickname : targetUser?.nickname}
+                                </div>
+                                <div className={classes["user-id"]}>
+                                    #{targetUser?.id}
+                                </div>
                             </div>
                         )}
                         <div className={classes.created}>

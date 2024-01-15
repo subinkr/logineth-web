@@ -8,6 +8,7 @@ import { profileState } from "../recoil/profile";
 import Button from "../button/button";
 import Room from "./room";
 import NotiCircle from "../noti/circle";
+import Friend from "./friend";
 
 export default function Rooms() {
     const [loginUser, setLoginUser] = useRecoilState(profileState);
@@ -27,7 +28,7 @@ export default function Rooms() {
             }
         };
 
-        if (loginUser.id) {
+        if (loginUser.id && !showRoom) {
             runRooms();
         }
     }, [loginUser, showRoom]);
@@ -45,7 +46,6 @@ export default function Rooms() {
                         {showRoom ? (
                             <>
                                 <Room
-                                    setRooms={setRooms}
                                     room={rooms[roomIdx]}
                                     showRoom={showRoom}
                                     setShowRoom={setShowRoom}
@@ -58,14 +58,11 @@ export default function Rooms() {
                                         key={`room-${idx}`}
                                         hidden={!showRooms}
                                     >
-                                        <Button onClick={() => enterRoom(idx)}>
-                                            {
-                                                room.users.filter(
-                                                    (user) =>
-                                                        user.id !== loginUser.id
-                                                )[0]?.nickname
-                                            }
-                                        </Button>
+                                        <Friend
+                                            room={room}
+                                            loginUser={loginUser}
+                                            onClick={() => enterRoom(idx)}
+                                        />
                                         <NotiCircle
                                             hidden={
                                                 room.viewUsers.findIndex(
@@ -76,12 +73,28 @@ export default function Rooms() {
                                         />
                                     </div>
                                 ))}
-                                <Button
-                                    className={"primary"}
-                                    onClick={() => setShowRooms(!showRooms)}
-                                >
-                                    Friends
-                                </Button>
+                                {showRooms ? (
+                                    <div className={classes["button-wrapper"]}>
+                                        <Button className={"find-friend"}>
+                                            친구찾기
+                                        </Button>
+                                        <Button
+                                            className={"friend-list"}
+                                            onClick={() =>
+                                                setShowRooms(!showRooms)
+                                            }
+                                        >
+                                            친구목록
+                                        </Button>
+                                    </div>
+                                ) : (
+                                    <Button
+                                        className={"primary"}
+                                        onClick={() => setShowRooms(!showRooms)}
+                                    >
+                                        친구목록
+                                    </Button>
+                                )}
                             </div>
                         )}
                     </div>

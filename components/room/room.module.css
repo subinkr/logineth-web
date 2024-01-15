@@ -20,9 +20,12 @@
 .header {
     border-radius: 8px 8px 0 0;
 
+    padding: var(--padding);
+
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    gap: var(--gap-comment);
 
     width: 100%;
     height: 100px;
@@ -30,37 +33,63 @@
     border-bottom: 1px solid var(--color-secondary);
 }
 
-.chat {
+.image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    transition: all 0.5s;
+}
+
+.image:hover {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    transform: translate(-25%, -25%);
+    transition: all 0.5s;
+}
+
+.image-wrapper {
+    width: 50px;
+    height: 50px;
+    position: relative;
+}
+
+.friend-info {
     display: flex;
-    align-items: flex-end;
-    gap: 8px;
+    gap: var(--gap-comment);
+}
+
+.friend-id {
+    color: var(--color-secondary);
+}
+
+.follow-state {
+    text-align: right;
+    font-size: var(--font-size-comment);
+    color: var(--color-secondary);
 }
 
 .chats {
     display: flex;
     flex-direction: column;
     justify-content: start;
-    gap: 8px;
+    gap: var(--gap-comment);
     overflow-y: scroll;
     flex: 1;
     padding: 24px;
 }
 
-.time {
-    color: var(--color-secondary);
-    font-size: var(--font-size-comment);
-}
-
 .left {
     display: flex;
     justify-content: left;
-    gap: 8px;
+    gap: var(--gap-comment);
     text-align: left;
 }
 
 .right {
     display: flex;
     justify-content: right;
-    gap: 8px;
+    gap: var(--gap-comment);
     text-align: right;
 }

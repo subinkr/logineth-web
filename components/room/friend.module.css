@@ -1,0 +1,47 @@
+.friend {
+    background-color: var(--color-reverse);
+    border-radius: 8px;
+
+    color: var(--color-primary);
+
+    cursor: pointer;
+
+    font-size: var(--font-size-comment);
+
+    border: 1px solid var(--color-secondary);
+
+    width: 300px;
+    height: 100px;
+}
+
+.friend-info {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--gap-comment);
+    padding: 16px;
+}
+
+.friend-summary {
+    flex: 1;
+}
+
+.friend-text-info {
+    display: flex;
+    gap: var(--gap-comment);
+}
+
+.friend-id {
+    color: var(--color-secondary);
+}
+
+.image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    transition: all 0.5s;
+}
+
+.last-chat {
+    text-align: left;
+}

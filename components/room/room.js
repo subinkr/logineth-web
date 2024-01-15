@@ -10,13 +10,18 @@ import { profileState } from "../recoil/profile";
 import classes from "./room.module.css";
 import getCookie from "@/function/server/getCookie";
 import Chat from "./chat";
-import getRooms from "./getRooms";
+import Link from "next/link";
+import getFollowingUsers from "@/function/server/getFollowingUsers";
 
-export default function Room({ setRooms, room, showRoom, setShowRoom }) {
+export default function Room({ room, showRoom, setShowRoom }) {
     const loginUser = useRecoilValue(profileState);
     const [message, setMessage] = useState({});
     const [socket, setSocket] = useState(null);
     const [chat, setChat] = useState(null);
+    const [targetUser, setTargetUser] = useState(
+        room.users.filter((user) => user.id !== loginUser.id)[0]
+    );
+    const [followState, setFollowState] = useState(false);
     const chatRef = useRef(null);
     const inputRef = useRef(null);
 
@@ -30,6 +35,14 @@ export default function Room({ setRooms, room, showRoom, setShowRoom }) {
                         },
                     })
                 );
+
+                const { followingUsers } = await getFollowingUsers();
+                const isFollowingUser = followingUsers.findIndex(
+                    (user) => user.id === targetUser.id
+                );
+                if (isFollowingUser !== -1) {
+                    setFollowState(true);
+                }
             };
             runSocket();
             inputRef.current.focus();
@@ -66,11 +79,11 @@ export default function Room({ setRooms, room, showRoom, setShowRoom }) {
         await socket.emit("send-message", {
             content: inputRef.current.value,
         });
-        setChat({
-            content: inputRef.current.value,
-            user: loginUser,
-            createdAt: new Date(),
-        });
+        // setChat({
+        //     content: inputRef.current.value,
+        //     user: loginUser,
+        //     createdAt: new Date(),
+        // });
         inputRef.current.value = "";
     };
 
@@ -82,12 +95,25 @@ export default function Room({ setRooms, room, showRoom, setShowRoom }) {
     return (
         <>
             <div className={classes.room}>
-                <div className={classes.header}>
-                    {
-                        room.users.filter((user) => user.id !== loginUser.id)[0]
-                            ?.nickname
-                    }
-                </div>
+                <Link
+                    className={classes.header}
+                    href={`/profile/${targetUser.id}`}
+                >
+                    <div className={classes["image-wrapper"]}>
+                        <img className={classes.image} src={targetUser.image} />
+                    </div>
+                    <div className={classes["friend-status"]}>
+                        <div className={classes["friend-info"]}>
+                            {targetUser.nickname}
+                            <div className={classes["friend-id"]}>
+                                #{targetUser.id}
+                            </div>
+                        </div>
+                        <div className={classes["follow-state"]}>
+                            {followState ? "친구" : "팔로워"}
+                        </div>
+                    </div>
+                </Link>
                 <div ref={chatRef} className={classes.chats}>
                     {message?.chats?.map((chat, idx) => (
                         <div
@@ -109,7 +135,7 @@ export default function Room({ setRooms, room, showRoom, setShowRoom }) {
                 <form className={classes.message}>
                     <Input ref={inputRef} />
                     <Button
-                        className={"main"}
+                        className={"send-message"}
                         onClick={sendMessage}
                         type={"submit"}
                     >

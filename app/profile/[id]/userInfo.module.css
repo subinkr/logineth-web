@@ -63,3 +63,12 @@
     align-items: center;
     gap: var(--gap-content);
 }
+
+.user-text {
+    display: flex;
+    gap: 8px;
+}
+
+.user-id {
+    color: var(--color-secondary);
+}
