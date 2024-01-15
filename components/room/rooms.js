@@ -73,12 +73,28 @@ export default function Rooms() {
                                         />
                                     </div>
                                 ))}
-                                <Button
-                                    className={"primary"}
-                                    onClick={() => setShowRooms(!showRooms)}
-                                >
-                                    Friends
-                                </Button>
+                                {showRooms ? (
+                                    <div className={classes["button-wrapper"]}>
+                                        <Button className={"find-friend"}>
+                                            친구찾기
+                                        </Button>
+                                        <Button
+                                            className={"friend-list"}
+                                            onClick={() =>
+                                                setShowRooms(!showRooms)
+                                            }
+                                        >
+                                            친구목록
+                                        </Button>
+                                    </div>
+                                ) : (
+                                    <Button
+                                        className={"primary"}
+                                        onClick={() => setShowRooms(!showRooms)}
+                                    >
+                                        친구목록
+                                    </Button>
+                                )}
                             </div>
                         )}
                     </div>

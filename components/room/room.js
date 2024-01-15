@@ -135,7 +135,7 @@ export default function Room({ room, showRoom, setShowRoom }) {
                 <form className={classes.message}>
                     <Input ref={inputRef} />
                     <Button
-                        className={"main"}
+                        className={"send-message"}
                         onClick={sendMessage}
                         type={"submit"}
                     >

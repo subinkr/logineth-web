@@ -4,6 +4,12 @@
     bottom: 50px;
 }
 
+.button-wrapper {
+    width: 300px;
+    display: flex;
+    justify-content: right;
+}
+
 .rooms {
     display: flex;
     flex-direction: column;
