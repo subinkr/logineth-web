@@ -1,0 +1,16 @@
+.chat {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    font-size: var(--font-size-comment);
+}
+
+.time {
+    color: var(--color-secondary);
+    font-size: var(--font-size-comment);
+}
+
+.content {
+    max-width: 150px;
+    word-break: break-all;
+}

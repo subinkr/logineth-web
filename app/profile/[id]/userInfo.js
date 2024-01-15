@@ -125,8 +125,13 @@ export default function UserInfo({ targetUser, loginUser }) {
                         {edit ? (
                             <Input value={nickname} onChange={editNickname} />
                         ) : (
-                            <div>
-                                {nickname ? nickname : targetUser?.nickname}
+                            <div className={classes["user-text"]}>
+                                <div>
+                                    {nickname ? nickname : targetUser?.nickname}
+                                </div>
+                                <div className={classes["user-id"]}>
+                                    #{targetUser?.id}
+                                </div>
                             </div>
                         )}
                         <div className={classes.created}>
