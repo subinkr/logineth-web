@@ -10,6 +10,7 @@ import { profileState } from "../recoil/profile";
 import classes from "./room.module.css";
 import getCookie from "@/function/server/getCookie";
 import Chat from "./chat";
+import Link from "next/link";
 
 export default function Room({ room, showRoom, setShowRoom }) {
     const loginUser = useRecoilValue(profileState);
@@ -81,12 +82,39 @@ export default function Room({ room, showRoom, setShowRoom }) {
     return (
         <>
             <div className={classes.room}>
-                <div className={classes.header}>
-                    {
+                <Link
+                    className={classes.header}
+                    href={`/profile/${
                         room.users.filter((user) => user.id !== loginUser.id)[0]
-                            ?.nickname
-                    }
-                </div>
+                            ?.id
+                    }`}
+                >
+                    <div className={classes["image-wrapper"]}>
+                        <img
+                            className={classes.image}
+                            src={
+                                room.users.filter(
+                                    (user) => user.id !== loginUser.id
+                                )[0]?.image
+                            }
+                        />
+                    </div>
+                    <div className={classes["friend-info"]}>
+                        {
+                            room.users.filter(
+                                (user) => user.id !== loginUser.id
+                            )[0]?.nickname
+                        }
+                        <div className={classes["friend-id"]}>
+                            #
+                            {
+                                room.users.filter(
+                                    (user) => user.id !== loginUser.id
+                                )[0]?.id
+                            }
+                        </div>
+                    </div>
+                </Link>
                 <div ref={chatRef} className={classes.chats}>
                     {message?.chats?.map((chat, idx) => (
                         <div

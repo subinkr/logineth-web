@@ -17,7 +17,7 @@
 .friend-info {
     display: flex;
     justify-content: space-between;
-    gap: 8px;
+    gap: var(--gap-comment);
     padding: 16px;
 }
 
@@ -27,7 +27,7 @@
 
 .friend-text-info {
     display: flex;
-    gap: 8px;
+    gap: var(--gap-comment);
 }
 
 .friend-id {
