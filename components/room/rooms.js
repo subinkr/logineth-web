@@ -59,72 +59,11 @@ export default function Rooms() {
                                         key={`room-${idx}`}
                                         hidden={!showRooms}
                                     >
-                                        <Friend onClick={() => enterRoom(idx)}>
-                                            <div
-                                                className={
-                                                    classes["friend-info"]
-                                                }
-                                            >
-                                                <img
-                                                    className={classes.image}
-                                                    src={
-                                                        room.users.filter(
-                                                            (user) =>
-                                                                user.id !==
-                                                                loginUser.id
-                                                        )[0]?.image
-                                                    }
-                                                />
-                                                <div
-                                                    className={
-                                                        classes[
-                                                            "friend-summary"
-                                                        ]
-                                                    }
-                                                >
-                                                    <div
-                                                        className={
-                                                            classes[
-                                                                "friend-text-info"
-                                                            ]
-                                                        }
-                                                    >
-                                                        <div>
-                                                            {
-                                                                room.users.filter(
-                                                                    (user) =>
-                                                                        user.id !==
-                                                                        loginUser.id
-                                                                )[0]?.nickname
-                                                            }
-                                                        </div>
-                                                        <div
-                                                            className={
-                                                                classes[
-                                                                    "friend-id"
-                                                                ]
-                                                            }
-                                                        >
-                                                            #
-                                                            {
-                                                                room.users.filter(
-                                                                    (user) =>
-                                                                        user.id !==
-                                                                        loginUser.id
-                                                                )[0]?.id
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        className={
-                                                            classes["last-chat"]
-                                                        }
-                                                    >
-                                                        {room.lastChat}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </Friend>
+                                        <Friend
+                                            room={room}
+                                            loginUser={loginUser}
+                                            onClick={() => enterRoom(idx)}
+                                        />
                                         <NotiCircle
                                             hidden={
                                                 room.viewUsers.findIndex(
