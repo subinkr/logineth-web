@@ -1,0 +1,15 @@
+.friend {
+    background-color: var(--color-reverse);
+    border-radius: 8px;
+
+    color: var(--color-primary);
+
+    cursor: pointer;
+
+    font-size: var(--font-size-comment);
+
+    border: 1px solid var(--color-secondary);
+
+    width: 300px;
+    height: 100px;
+}
