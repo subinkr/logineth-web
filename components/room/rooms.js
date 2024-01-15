@@ -46,7 +46,6 @@ export default function Rooms() {
                         {showRoom ? (
                             <>
                                 <Room
-                                    setRooms={setRooms}
                                     room={rooms[roomIdx]}
                                     showRoom={showRoom}
                                     setShowRoom={setShowRoom}

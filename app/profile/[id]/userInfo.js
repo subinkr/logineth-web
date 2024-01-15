@@ -59,11 +59,13 @@ export default function UserInfo({ targetUser, loginUser }) {
             }
         );
         const result = await response.json();
+        alert(result.message);
+        if (result.statusCode === 400) {
+            return;
+        }
         targetUser.image = image;
         targetUser.nickname = nickname;
         setEdit(false);
-
-        alert(result.message);
     };
 
     const fileSelect = async (e) => {

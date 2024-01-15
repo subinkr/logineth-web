@@ -11,12 +11,17 @@ import classes from "./room.module.css";
 import getCookie from "@/function/server/getCookie";
 import Chat from "./chat";
 import Link from "next/link";
+import getFollowingUsers from "@/function/server/getFollowingUsers";
 
 export default function Room({ room, showRoom, setShowRoom }) {
     const loginUser = useRecoilValue(profileState);
     const [message, setMessage] = useState({});
     const [socket, setSocket] = useState(null);
     const [chat, setChat] = useState(null);
+    const [targetUser, setTargetUser] = useState(
+        room.users.filter((user) => user.id !== loginUser.id)[0]
+    );
+    const [followState, setFollowState] = useState(false);
     const chatRef = useRef(null);
     const inputRef = useRef(null);
 
@@ -30,6 +35,14 @@ export default function Room({ room, showRoom, setShowRoom }) {
                         },
                     })
                 );
+
+                const { followingUsers } = await getFollowingUsers();
+                const isFollowingUser = followingUsers.findIndex(
+                    (user) => user.id === targetUser.id
+                );
+                if (isFollowingUser !== -1) {
+                    setFollowState(true);
+                }
             };
             runSocket();
             inputRef.current.focus();
@@ -84,34 +97,20 @@ export default function Room({ room, showRoom, setShowRoom }) {
             <div className={classes.room}>
                 <Link
                     className={classes.header}
-                    href={`/profile/${
-                        room.users.filter((user) => user.id !== loginUser.id)[0]
-                            ?.id
-                    }`}
+                    href={`/profile/${targetUser.id}`}
                 >
                     <div className={classes["image-wrapper"]}>
-                        <img
-                            className={classes.image}
-                            src={
-                                room.users.filter(
-                                    (user) => user.id !== loginUser.id
-                                )[0]?.image
-                            }
-                        />
+                        <img className={classes.image} src={targetUser.image} />
                     </div>
-                    <div className={classes["friend-info"]}>
-                        {
-                            room.users.filter(
-                                (user) => user.id !== loginUser.id
-                            )[0]?.nickname
-                        }
-                        <div className={classes["friend-id"]}>
-                            #
-                            {
-                                room.users.filter(
-                                    (user) => user.id !== loginUser.id
-                                )[0]?.id
-                            }
+                    <div className={classes["friend-status"]}>
+                        <div className={classes["friend-info"]}>
+                            {targetUser.nickname}
+                            <div className={classes["friend-id"]}>
+                                #{targetUser.id}
+                            </div>
+                        </div>
+                        <div className={classes["follow-state"]}>
+                            {followState ? "친구" : "팔로워"}
                         </div>
                     </div>
                 </Link>
