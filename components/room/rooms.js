@@ -40,70 +40,56 @@ export default function Rooms() {
 
     return (
         <>
-            {loginUser.id ? (
-                rooms?.length ? (
-                    <div className={classes["room-area"]}>
-                        {showRoom ? (
-                            <>
-                                <Room
-                                    room={rooms[roomIdx]}
-                                    showRoom={showRoom}
-                                    setShowRoom={setShowRoom}
+            <div className={classes["room-area"]}>
+                {showRoom ? (
+                    <>
+                        <Room
+                            room={rooms[roomIdx]}
+                            showRoom={showRoom}
+                            setShowRoom={setShowRoom}
+                        />
+                    </>
+                ) : (
+                    <div className={classes.rooms}>
+                        {rooms?.map((room, idx) => (
+                            <div key={`room-${idx}`} hidden={!showRooms}>
+                                <Friend
+                                    room={room}
+                                    loginUser={loginUser}
+                                    onClick={() => enterRoom(idx)}
                                 />
-                            </>
-                        ) : (
-                            <div className={classes.rooms}>
-                                {rooms.map((room, idx) => (
-                                    <div
-                                        key={`room-${idx}`}
-                                        hidden={!showRooms}
-                                    >
-                                        <Friend
-                                            room={room}
-                                            loginUser={loginUser}
-                                            onClick={() => enterRoom(idx)}
-                                        />
-                                        <NotiCircle
-                                            hidden={
-                                                room.viewUsers.findIndex(
-                                                    (user) =>
-                                                        user.id === loginUser.id
-                                                ) !== -1
-                                            }
-                                        />
-                                    </div>
-                                ))}
-                                {showRooms ? (
-                                    <div className={classes["button-wrapper"]}>
-                                        <Button className={"find-friend"}>
-                                            친구찾기
-                                        </Button>
-                                        <Button
-                                            className={"friend-list"}
-                                            onClick={() =>
-                                                setShowRooms(!showRooms)
-                                            }
-                                        >
-                                            친구목록
-                                        </Button>
-                                    </div>
-                                ) : (
-                                    <Button
-                                        className={"primary"}
-                                        onClick={() => setShowRooms(!showRooms)}
-                                    >
-                                        친구목록
-                                    </Button>
-                                )}
+                                <NotiCircle
+                                    hidden={
+                                        room.viewUsers.findIndex(
+                                            (user) => user.id === loginUser.id
+                                        ) !== -1
+                                    }
+                                />
                             </div>
+                        ))}
+                        {showRooms ? (
+                            <div className={classes["button-wrapper"]}>
+                                <Button className={"find-friend"}>
+                                    친구찾기
+                                </Button>
+                                <Button
+                                    className={"friend-list"}
+                                    onClick={() => setShowRooms(!showRooms)}
+                                >
+                                    친구목록
+                                </Button>
+                            </div>
+                        ) : (
+                            <Button
+                                className={"primary"}
+                                onClick={() => setShowRooms(!showRooms)}
+                            >
+                                친구목록
+                            </Button>
                         )}
                     </div>
-                ) : (
-                    <></>
-                )
-            ) : (
-                <></>
-            )}
+                )}
+            </div>
         </>
     );
 }
