@@ -22,5 +22,5 @@ export default function LoginGooglePage() {
         googleOAuth();
     }, []);
 
-    return <>Getting google user info</>;
+    return <>구글 로그인 중...</>;
 }

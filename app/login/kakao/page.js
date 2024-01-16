@@ -22,5 +22,5 @@ export default function LoginKakaoPage() {
         kakaoOAuth();
     }, []);
 
-    return <>Getting kakao user info</>;
+    return <>카카오 로그인 중...</>;
 }

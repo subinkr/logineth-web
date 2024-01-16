@@ -139,11 +139,11 @@ export default function Room({ room, showRoom, setShowRoom }) {
                         onClick={sendMessage}
                         type={"submit"}
                     >
-                        Send message
+                        메세지 전송
                     </Button>
                 </form>
             </div>
-            <Button onClick={closeRoom}>Close</Button>
+            <Button onClick={closeRoom}>닫기</Button>
         </>
     );
 }

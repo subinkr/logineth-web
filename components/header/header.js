@@ -11,14 +11,13 @@ export default function Header() {
                 <div className={classes.category}>
                     {cookies().get("accessToken")?.value ? (
                         <>
-                            <Link href={"/logout"}>Logout</Link>
+                            <Link href={"/logout"}>로그아웃</Link>
                             <Rooms />
                         </>
                     ) : (
                         <>
-                            <Link href={"/about"}>About</Link>
-                            <Link href={"/services"}>Our services</Link>
-                            <Link href={"/login"}>Login</Link>
+                            <Link href={"/about"}>서비스 소개</Link>
+                            <Link href={"/login"}>로그인</Link>
                         </>
                     )}
                 </div>
