@@ -9,6 +9,8 @@ import Button from "../button/button";
 import Room from "./room";
 import NotiCircle from "../noti/circle";
 import Friend from "./friend";
+import { io } from "socket.io-client";
+import getCookie from "@/function/server/getCookie";
 
 export default function Rooms() {
     const [loginUser, setLoginUser] = useRecoilState(profileState);
@@ -16,22 +18,43 @@ export default function Rooms() {
     const [showRoom, setShowRoom] = useState(null);
     const [showRooms, setShowRooms] = useState(false);
     const [roomIdx, setRoomIdx] = useState(null);
+    const [findFriends, setFindFriends] = useState(null);
+    const [socket, setSocket] = useState([]);
+    const [chat, setChat] = useState(null);
+
+    useEffect(() => {
+        if (rooms && socket.length < rooms.length) {
+            const runSocket = async () => {
+                for (let i = 0; i < rooms.length; i++) {
+                    const newSocket = io(
+                        `${process.env.NEXT_PUBLIC_API_SERVER}/room/${rooms[i].id}`,
+                        {
+                            extraHeaders: {
+                                Authorization: `Bearer ${await getCookie()}`,
+                            },
+                        }
+                    );
+                    newSocket.on(`profile/${loginUser.id}`, () => {
+                        setChat(true);
+                    });
+                    setSocket(socket.push(newSocket));
+                }
+            };
+            runSocket();
+        }
+    }, [rooms]);
 
     useEffect(() => {
         const runRooms = async () => {
             const { rooms: newRooms } = await getRooms();
-            setRooms(newRooms);
-            if (!rooms) {
-                const newLoginUser = { ...loginUser };
-                newLoginUser.rooms = newRooms;
-                setLoginUser(newLoginUser);
-            }
+            setRooms(newRooms.reverse());
+            setChat(false);
         };
 
-        if (loginUser.id && !showRoom) {
+        if ((loginUser.id && !showRoom) || chat) {
             runRooms();
         }
-    }, [loginUser, showRoom]);
+    }, [loginUser, showRoom, showRooms, chat]);
 
     const enterRoom = (idx) => {
         setShowRoom(true);
@@ -40,70 +63,64 @@ export default function Rooms() {
 
     return (
         <>
-            {loginUser.id ? (
-                rooms?.length ? (
-                    <div className={classes["room-area"]}>
+            <div className={classes["room-area"]}>
+                {showRoom || findFriends ? (
+                    <>
                         {showRoom ? (
-                            <>
-                                <Room
-                                    room={rooms[roomIdx]}
-                                    showRoom={showRoom}
-                                    setShowRoom={setShowRoom}
-                                />
-                            </>
+                            <Room
+                                room={rooms[roomIdx]}
+                                showRoom={showRoom}
+                                setShowRoom={setShowRoom}
+                            />
                         ) : (
-                            <div className={classes.rooms}>
-                                {rooms.map((room, idx) => (
-                                    <div
-                                        key={`room-${idx}`}
-                                        hidden={!showRooms}
-                                    >
-                                        <Friend
-                                            room={room}
-                                            loginUser={loginUser}
-                                            onClick={() => enterRoom(idx)}
-                                        />
-                                        <NotiCircle
-                                            hidden={
-                                                room.viewUsers.findIndex(
-                                                    (user) =>
-                                                        user.id === loginUser.id
-                                                ) !== -1
-                                            }
-                                        />
-                                    </div>
-                                ))}
-                                {showRooms ? (
-                                    <div className={classes["button-wrapper"]}>
-                                        <Button className={"find-friend"}>
-                                            친구찾기
-                                        </Button>
-                                        <Button
-                                            className={"friend-list"}
-                                            onClick={() =>
-                                                setShowRooms(!showRooms)
-                                            }
-                                        >
-                                            친구목록
-                                        </Button>
-                                    </div>
-                                ) : (
-                                    <Button
-                                        className={"primary"}
-                                        onClick={() => setShowRooms(!showRooms)}
-                                    >
-                                        친구목록
-                                    </Button>
-                                )}
+                            <>{/* <FindFriends /> */}</>
+                        )}
+                    </>
+                ) : (
+                    <div className={classes.rooms}>
+                        {rooms?.map((room, idx) => (
+                            <div
+                                key={`room-${idx}`}
+                                className={classes["room-content"]}
+                                hidden={!showRooms}
+                            >
+                                <Friend
+                                    room={room}
+                                    loginUser={loginUser}
+                                    onClick={() => enterRoom(idx)}
+                                />
+                                <NotiCircle
+                                    hidden={
+                                        room.viewUsers.findIndex(
+                                            (user) => user.id === loginUser.id
+                                        ) !== -1
+                                    }
+                                />
                             </div>
+                        ))}
+                        {showRooms ? (
+                            <div className={classes["button-wrapper"]}>
+                                <Button className={"find-friend"}>
+                                    친구찾기
+                                </Button>
+                                <Button
+                                    className={"friend-list"}
+                                    onClick={() => setShowRooms(!showRooms)}
+                                >
+                                    친구목록
+                                </Button>
+                            </div>
+                        ) : (
+                            <Button
+                                className={"primary"}
+                                onClick={() => setShowRooms(!showRooms)}
+                            >
+                                친구목록
+                            </Button>
                         )}
                     </div>
-                ) : (
-                    <></>
-                )
-            ) : (
-                <></>
-            )}
+                )}
+            </div>
         </>
     );
 }

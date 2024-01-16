@@ -139,7 +139,7 @@ export default function UserInfo({ targetUser, loginUser }) {
                         <div className={classes.created}>
                             {targetUser?.createdAt
                                 ? getDate(targetUser?.createdAt)
-                                : "User not exist"}
+                                : "존재하지 않는 유저입니다."}
                         </div>
                     </div>
                 </div>
@@ -154,19 +154,19 @@ export default function UserInfo({ targetUser, loginUser }) {
                                         setEdit(false);
                                     }}
                                 >
-                                    Cancel
+                                    취소
                                 </Button>
                                 <Button className="primary" onClick={saveEdit}>
-                                    Save
+                                    저장
                                 </Button>
                             </div>
                         ) : (
                             <div className={classes.buttons}>
                                 <Button onClick={() => setEdit(true)}>
-                                    Edit
+                                    수정
                                 </Button>
                                 <Button className="danger" onClick={withdraw}>
-                                    Withdraw
+                                    탈퇴
                                 </Button>
                             </div>
                         )

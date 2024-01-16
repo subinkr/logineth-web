@@ -13,5 +13,5 @@ export default function Logout() {
         deleteCookie();
     }, []);
 
-    return <>Good bye!</>;
+    return <>안녕히 가세요!</>;
 }

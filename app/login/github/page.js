@@ -22,5 +22,5 @@ export default function LoginGithubPage() {
         githubOAuth();
     }, []);
 
-    return <>Getting github user info</>;
+    return <>깃허브 로그인 중...</>;
 }
