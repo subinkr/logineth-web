@@ -70,11 +70,23 @@
     color: var(--color-secondary);
 }
 
+.date {
+    padding-top: var(--padding);
+    color: var(--color-secondary);
+    text-align: center;
+}
+
+.time {
+    padding: var(--padding);
+    color: var(--color-secondary);
+    font-size: var(--font-size-comment);
+    text-align: center;
+}
+
 .chats {
     display: flex;
     flex-direction: column;
     justify-content: start;
-    gap: var(--gap-comment);
     overflow-y: scroll;
     flex: 1;
     padding: 24px;

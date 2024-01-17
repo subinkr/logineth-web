@@ -1,5 +1,6 @@
 import getTime from "@/function/client/getTime";
 import classes from "./friend.module.css";
+import getDate from "@/function/client/getDate";
 
 export default function Friend({ room, loginUser, onClick }) {
     return (
@@ -33,7 +34,9 @@ export default function Friend({ room, loginUser, onClick }) {
                     <div className={classes["last-chat"]}>
                         {room.lastChat}
                         <span className={classes.time}>
-                            {getTime(room.updatedAt)}
+                            {getDate(new Date()) !== getDate(room.updatedAt)
+                                ? ` · ${getDate(room.updatedAt)}`
+                                : ` · ${getTime(room.updatedAt)}`}
                         </span>
                     </div>
                 </div>

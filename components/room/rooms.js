@@ -49,7 +49,7 @@ export default function Rooms() {
             setSockets(newSockets);
         };
 
-        if (sockets.length < rooms.length) {
+        if (rooms && sockets.length < rooms.length) {
             runSocket();
         }
     }, [rooms]);

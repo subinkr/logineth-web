@@ -12,6 +12,8 @@ import getCookie from "@/function/server/getCookie";
 import Chat from "./chat";
 import Link from "next/link";
 import getFollowingUsers from "@/function/server/getFollowingUsers";
+import getTime from "@/function/client/getTime";
+import getDateAndDay from "@/function/client/getDateAndDay";
 
 export default function Room({ room, showRoom, setShowRoom }) {
     const loginUser = useRecoilValue(profileState);
@@ -24,6 +26,9 @@ export default function Room({ room, showRoom, setShowRoom }) {
     const [followState, setFollowState] = useState(false);
     const chatRef = useRef(null);
     const inputRef = useRef(null);
+
+    let chatDate = "";
+    let chatTime = "";
 
     useEffect(() => {
         if (!socket) {
@@ -116,20 +121,47 @@ export default function Room({ room, showRoom, setShowRoom }) {
                 </Link>
                 <div ref={chatRef} className={classes.chats}>
                     {message?.chats?.map((chat, idx) => (
-                        <div
-                            key={`chat-${idx}`}
-                            className={
-                                chat.user.id !== loginUser.id
-                                    ? classes.left
-                                    : classes.right
-                            }
-                        >
-                            {chat.user.id !== loginUser.id ? (
-                                <Chat chat={chat} left />
+                        <>
+                            {!chatDate ||
+                            chatDate !== getDateAndDay(chat.createdAt) ? (
+                                <>
+                                    <div className={classes.date}>
+                                        {
+                                            (chatDate = getDateAndDay(
+                                                chat.createdAt
+                                            ))
+                                        }
+                                    </div>
+                                </>
                             ) : (
-                                <Chat chat={chat} />
+                                <></>
                             )}
-                        </div>
+                            {!chatTime ||
+                            chatTime !== getTime(chat.createdAt) ? (
+                                <>
+                                    <div className={classes.time}>
+                                        {(chatTime = getTime(chat.createdAt))}
+                                    </div>
+                                </>
+                            ) : (
+                                <></>
+                            )}
+
+                            <div
+                                key={`chat-${idx}`}
+                                className={
+                                    chat.user.id !== loginUser.id
+                                        ? classes.left
+                                        : classes.right
+                                }
+                            >
+                                {chat.user.id !== loginUser.id ? (
+                                    <Chat chat={chat} left />
+                                ) : (
+                                    <Chat chat={chat} />
+                                )}
+                            </div>
+                        </>
                     ))}
                 </div>
                 <form className={classes.message}>
