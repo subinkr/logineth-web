@@ -94,13 +94,15 @@ export default function Follow({ targetUser }) {
         <>
             {isFollowing ? (
                 <>
-                    <Button type="danger" onClick={unFollowing}>
+                    <Button className="danger" onClick={unFollowing}>
                         {language?.unFollow}
                     </Button>
                 </>
             ) : (
                 <>
-                    <Button onClick={following}>{language?.follow}</Button>
+                    <Button className="default" onClick={following}>
+                        {language?.follow}
+                    </Button>
                 </>
             )}
         </>

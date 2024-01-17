@@ -71,7 +71,7 @@ export default function Rooms() {
             setRooms(newRooms?.reverse());
         };
 
-        if (loginUser.id && showRooms && !showRoom) {
+        if (loginUser?.id && showRooms && !showRoom) {
             runRooms();
         }
     }, [loginUser, showRoom, showRooms]);
