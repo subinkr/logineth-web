@@ -14,47 +14,65 @@ import getCookie from "@/function/server/getCookie";
 
 export default function Rooms() {
     const [loginUser, setLoginUser] = useRecoilState(profileState);
-    const [rooms, setRooms] = useState(null);
+    const [rooms, setRooms] = useState([]);
     const [showRoom, setShowRoom] = useState(null);
     const [showRooms, setShowRooms] = useState(false);
     const [roomIdx, setRoomIdx] = useState(null);
     const [findFriends, setFindFriends] = useState(null);
-    const [socket, setSocket] = useState([]);
-    const [chat, setChat] = useState(null);
+    const [sockets, setSockets] = useState([]);
 
     useEffect(() => {
-        if (rooms && socket.length < rooms.length) {
-            const runSocket = async () => {
-                for (let i = 0; i < rooms.length; i++) {
-                    const newSocket = io(
-                        `${process.env.NEXT_PUBLIC_API_SERVER}/room/${rooms[i].id}`,
-                        {
-                            extraHeaders: {
-                                Authorization: `Bearer ${await getCookie()}`,
-                            },
-                        }
-                    );
-                    newSocket.on(`profile/${loginUser.id}`, () => {
-                        setChat(true);
-                    });
-                    setSocket(socket.push(newSocket));
-                }
-            };
+        const runSocket = async () => {
+            for (let i = 0; i < sockets.length; i++) {
+                sockets[i].disconnect();
+            }
+
+            const newSockets = [];
+            for (let i = 0; i < rooms.length; i++) {
+                const newSocket = io(
+                    `${process.env.NEXT_PUBLIC_API_SERVER}/room/${rooms[i].id}`,
+                    {
+                        extraHeaders: {
+                            Authorization: `Bearer ${await getCookie()}`,
+                        },
+                    }
+                );
+                newSocket.on(`profile/${loginUser.id}`, (data) => {
+                    const newRooms = [
+                        ...rooms.filter((room) => room.id !== data.id),
+                        data,
+                    ];
+                    setRooms(newRooms);
+                });
+                newSockets.push(newSocket);
+            }
+            setSockets(newSockets);
+        };
+
+        if (sockets.length < rooms.length) {
             runSocket();
         }
     }, [rooms]);
 
     useEffect(() => {
+        if (!showRooms || showRoom) {
+            for (let i = 0; i < sockets.length; i++) {
+                sockets[i].disconnect();
+            }
+            setSockets([]);
+        }
+    }, [showRooms, showRoom]);
+
+    useEffect(() => {
         const runRooms = async () => {
             const { rooms: newRooms } = await getRooms();
             setRooms(newRooms.reverse());
-            setChat(false);
         };
 
-        if ((loginUser.id && !showRoom) || chat) {
+        if (loginUser.id && showRooms && !showRoom) {
             runRooms();
         }
-    }, [loginUser, showRoom, showRooms, chat]);
+    }, [loginUser, showRoom, showRooms]);
 
     const enterRoom = (idx) => {
         setShowRoom(true);

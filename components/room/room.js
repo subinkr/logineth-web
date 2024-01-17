@@ -76,7 +76,7 @@ export default function Room({ room, showRoom, setShowRoom }) {
 
     const sendMessage = async (e) => {
         e.preventDefault();
-        await socket.emit("send-message", {
+        await socket?.emit("send-message", {
             content: inputRef.current.value,
         });
         // setChat({
@@ -88,7 +88,7 @@ export default function Room({ room, showRoom, setShowRoom }) {
     };
 
     const closeRoom = async () => {
-        await socket.emit("close-room", {});
+        await socket?.emit("close-room", {});
         setShowRoom(false);
     };
 
