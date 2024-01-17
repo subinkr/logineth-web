@@ -1,3 +1,4 @@
+import getTime from "@/function/client/getTime";
 import classes from "./friend.module.css";
 
 export default function Friend({ room, loginUser, onClick }) {
@@ -29,7 +30,12 @@ export default function Friend({ room, loginUser, onClick }) {
                             }
                         </div>
                     </div>
-                    <div className={classes["last-chat"]}>{room.lastChat}</div>
+                    <div className={classes["last-chat"]}>
+                        {room.lastChat}
+                        <span className={classes.time}>
+                            {getTime(room.updatedAt)}
+                        </span>
+                    </div>
                 </div>
             </div>
         </button>

@@ -45,3 +45,7 @@
 .last-chat {
     text-align: left;
 }
+
+.time {
+    color: var(--color-secondary);
+}
