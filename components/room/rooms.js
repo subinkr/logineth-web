@@ -126,7 +126,9 @@ export default function Rooms() {
                             </Button>
                             <Button
                                 className={
-                                    showRooms ? "friend-list" : "primary"
+                                    showRooms
+                                        ? "friend-list"
+                                        : "invisible-friend-list"
                                 }
                                 onClick={() => setShowRooms(!showRooms)}
                             >

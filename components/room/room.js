@@ -125,46 +125,50 @@ export default function Room({ room, showRoom, setShowRoom }) {
                 </Link>
                 <div ref={chatRef} className={classes.chats}>
                     {message?.chats?.map((chat, idx) => (
-                        <>
-                            {!chatDate ||
-                            chatDate !==
-                                getDateAndDay(
-                                    language?.locale,
-                                    chat.createdAt
-                                ) ? (
-                                <>
-                                    <div className={classes.date}>
-                                        {
-                                            (chatDate = getDateAndDay(
-                                                language?.locale,
+                        <div key={`chat-${idx}`}>
+                            <div>
+                                {!chatDate ||
+                                chatDate !==
+                                    getDateAndDay(
+                                        language?.locale,
+                                        chat.createdAt
+                                    ) ? (
+                                    <>
+                                        <div className={classes.date}>
+                                            {
+                                                (chatDate = getDateAndDay(
+                                                    language?.locale,
 
-                                                chat.createdAt
-                                            ))
-                                        }
-                                    </div>
-                                </>
-                            ) : (
-                                <></>
-                            )}
-                            {!chatTime ||
-                            chatTime !==
-                                getTime(language?.locale, chat.createdAt) ? (
-                                <>
-                                    <div className={classes.time}>
-                                        {
-                                            (chatTime = getTime(
-                                                language?.locale,
-                                                chat.createdAt
-                                            ))
-                                        }
-                                    </div>
-                                </>
-                            ) : (
-                                <></>
-                            )}
+                                                    chat.createdAt
+                                                ))
+                                            }
+                                        </div>
+                                    </>
+                                ) : (
+                                    <></>
+                                )}
+                                {!chatTime ||
+                                chatTime !==
+                                    getTime(
+                                        language?.locale,
+                                        chat.createdAt
+                                    ) ? (
+                                    <>
+                                        <div className={classes.time}>
+                                            {
+                                                (chatTime = getTime(
+                                                    language?.locale,
+                                                    chat.createdAt
+                                                ))
+                                            }
+                                        </div>
+                                    </>
+                                ) : (
+                                    <></>
+                                )}
+                            </div>
 
                             <div
-                                key={`chat-${idx}`}
                                 className={
                                     chat.user.id !== loginUser.id
                                         ? classes.left
@@ -177,7 +181,7 @@ export default function Room({ room, showRoom, setShowRoom }) {
                                     <Chat chat={chat} />
                                 )}
                             </div>
-                        </>
+                        </div>
                     ))}
                 </div>
                 <form className={classes.message}>
@@ -191,7 +195,9 @@ export default function Room({ room, showRoom, setShowRoom }) {
                     </Button>
                 </form>
             </div>
-            <Button onClick={closeRoom}>{language?.close}</Button>
+            <Button className={"default"} onClick={closeRoom}>
+                {language?.close}
+            </Button>
         </>
     );
 }
