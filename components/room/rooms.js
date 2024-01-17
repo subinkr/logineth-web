@@ -66,7 +66,7 @@ export default function Rooms() {
     useEffect(() => {
         const runRooms = async () => {
             const { rooms: newRooms } = await getRooms();
-            setRooms(newRooms.reverse());
+            setRooms(newRooms?.reverse());
         };
 
         if (loginUser.id && showRooms && !showRoom) {
