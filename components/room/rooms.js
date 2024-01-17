@@ -3,7 +3,7 @@
 import classes from "./rooms.module.css";
 import getRooms from "./getRooms";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { profileState } from "../recoil/profile";
 import Button from "../button/button";
 import Room from "./room";
@@ -11,8 +11,10 @@ import NotiCircle from "../noti/circle";
 import Friend from "./friend";
 import { io } from "socket.io-client";
 import getCookie from "@/function/server/getCookie";
+import { languageState } from "../recoil/language";
 
 export default function Rooms() {
+    const language = useRecoilValue(languageState);
     const [loginUser, setLoginUser] = useRecoilState(profileState);
     const [rooms, setRooms] = useState([]);
     const [showRoom, setShowRoom] = useState(null);
@@ -78,7 +80,6 @@ export default function Rooms() {
         setShowRoom(true);
         setRoomIdx(idx);
     };
-
     return (
         <>
             <div className={classes["room-area"]}>
@@ -116,26 +117,22 @@ export default function Rooms() {
                                 />
                             </div>
                         ))}
-                        {showRooms ? (
-                            <div className={classes["button-wrapper"]}>
-                                <Button className={"find-friend"}>
-                                    친구찾기
-                                </Button>
-                                <Button
-                                    className={"friend-list"}
-                                    onClick={() => setShowRooms(!showRooms)}
-                                >
-                                    친구목록
-                                </Button>
-                            </div>
-                        ) : (
+                        <div className={classes["button-wrapper"]}>
                             <Button
-                                className={"primary"}
+                                className={"find-friend"}
+                                hidden={!showRooms}
+                            >
+                                {language?.findFriends}
+                            </Button>
+                            <Button
+                                className={
+                                    showRooms ? "friend-list" : "primary"
+                                }
                                 onClick={() => setShowRooms(!showRooms)}
                             >
-                                친구목록
+                                {language?.friends}
                             </Button>
-                        )}
+                        </div>
                     </div>
                 )}
             </div>

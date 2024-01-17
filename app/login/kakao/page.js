@@ -1,14 +1,16 @@
 "use client";
 
 import { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import getKakaoToken from "./getKakaoToken";
 import { profileState } from "@/components/recoil/profile";
 import callRedirect from "@/function/server/callRedirect";
 import getAccessToken from "@/function/server/getAccessToken";
+import { languageState } from "@/components/recoil/language";
 
 export default function LoginKakaoPage() {
     const setProfile = useSetRecoilState(profileState);
+    const language = useRecoilValue(languageState);
 
     useEffect(() => {
         const kakaoOAuth = async () => {
@@ -22,5 +24,5 @@ export default function LoginKakaoPage() {
         kakaoOAuth();
     }, []);
 
-    return <>카카오 로그인 중...</>;
+    return <>{language?.kakao}</>;
 }

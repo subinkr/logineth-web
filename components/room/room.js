@@ -14,9 +14,11 @@ import Link from "next/link";
 import getFollowingUsers from "@/function/server/getFollowingUsers";
 import getTime from "@/function/client/getTime";
 import getDateAndDay from "@/function/client/getDateAndDay";
+import { languageState } from "../recoil/language";
 
 export default function Room({ room, showRoom, setShowRoom }) {
     const loginUser = useRecoilValue(profileState);
+    const language = useRecoilValue(languageState);
     const [message, setMessage] = useState({});
     const [socket, setSocket] = useState(null);
     const [chat, setChat] = useState(null);
@@ -115,7 +117,9 @@ export default function Room({ room, showRoom, setShowRoom }) {
                             </div>
                         </div>
                         <div className={classes["follow-state"]}>
-                            {followState ? "친구" : "팔로워"}
+                            {followState
+                                ? language?.friend
+                                : language?.follower}
                         </div>
                     </div>
                 </Link>
@@ -123,11 +127,17 @@ export default function Room({ room, showRoom, setShowRoom }) {
                     {message?.chats?.map((chat, idx) => (
                         <>
                             {!chatDate ||
-                            chatDate !== getDateAndDay(chat.createdAt) ? (
+                            chatDate !==
+                                getDateAndDay(
+                                    language?.locale,
+                                    chat.createdAt
+                                ) ? (
                                 <>
                                     <div className={classes.date}>
                                         {
                                             (chatDate = getDateAndDay(
+                                                language?.locale,
+
                                                 chat.createdAt
                                             ))
                                         }
@@ -137,10 +147,16 @@ export default function Room({ room, showRoom, setShowRoom }) {
                                 <></>
                             )}
                             {!chatTime ||
-                            chatTime !== getTime(chat.createdAt) ? (
+                            chatTime !==
+                                getTime(language?.locale, chat.createdAt) ? (
                                 <>
                                     <div className={classes.time}>
-                                        {(chatTime = getTime(chat.createdAt))}
+                                        {
+                                            (chatTime = getTime(
+                                                language?.locale,
+                                                chat.createdAt
+                                            ))
+                                        }
                                     </div>
                                 </>
                             ) : (
@@ -171,11 +187,11 @@ export default function Room({ room, showRoom, setShowRoom }) {
                         onClick={sendMessage}
                         type={"submit"}
                     >
-                        메세지 전송
+                        {language?.sendMessage}
                     </Button>
                 </form>
             </div>
-            <Button onClick={closeRoom}>닫기</Button>
+            <Button onClick={closeRoom}>{language?.close}</Button>
         </>
     );
 }
