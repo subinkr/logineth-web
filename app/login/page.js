@@ -35,9 +35,15 @@ export default function Login() {
 
     return (
         <div className={classes.login}>
-            <Button onClick={github}>Github</Button>
-            <Button onClick={google}>Google</Button>
-            <Button onClick={kakao}>Kakao</Button>
+            <Button className={"default"} onClick={github}>
+                Github
+            </Button>
+            <Button className={"default"} onClick={google}>
+                Google
+            </Button>
+            <Button className={"default"} onClick={kakao}>
+                Kakao
+            </Button>
         </div>
     );
 }

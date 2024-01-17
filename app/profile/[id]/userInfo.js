@@ -168,7 +168,10 @@ export default function UserInfo({ targetUser, loginUser }) {
                             </div>
                         ) : (
                             <div className={classes.buttons}>
-                                <Button onClick={() => setEdit(true)}>
+                                <Button
+                                    className="default"
+                                    onClick={() => setEdit(true)}
+                                >
                                     {language?.edit}
                                 </Button>
                                 <Button className="danger" onClick={withdraw}>
