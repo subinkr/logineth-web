@@ -12,9 +12,13 @@ import getCookie from "@/function/server/getCookie";
 import Chat from "./chat";
 import Link from "next/link";
 import getFollowingUsers from "@/function/server/getFollowingUsers";
+import getTime from "@/function/client/getTime";
+import getDateAndDay from "@/function/client/getDateAndDay";
+import { languageState } from "../recoil/language";
 
 export default function Room({ room, showRoom, setShowRoom }) {
     const loginUser = useRecoilValue(profileState);
+    const language = useRecoilValue(languageState);
     const [message, setMessage] = useState({});
     const [socket, setSocket] = useState(null);
     const [chat, setChat] = useState(null);
@@ -24,6 +28,9 @@ export default function Room({ room, showRoom, setShowRoom }) {
     const [followState, setFollowState] = useState(false);
     const chatRef = useRef(null);
     const inputRef = useRef(null);
+
+    let chatDate = "";
+    let chatTime = "";
 
     useEffect(() => {
         if (!socket) {
@@ -76,7 +83,7 @@ export default function Room({ room, showRoom, setShowRoom }) {
 
     const sendMessage = async (e) => {
         e.preventDefault();
-        await socket.emit("send-message", {
+        await socket?.emit("send-message", {
             content: inputRef.current.value,
         });
         // setChat({
@@ -88,7 +95,7 @@ export default function Room({ room, showRoom, setShowRoom }) {
     };
 
     const closeRoom = async () => {
-        await socket.emit("close-room", {});
+        await socket?.emit("close-room", {});
         setShowRoom(false);
     };
 
@@ -110,26 +117,67 @@ export default function Room({ room, showRoom, setShowRoom }) {
                             </div>
                         </div>
                         <div className={classes["follow-state"]}>
-                            {followState ? "친구" : "팔로워"}
+                            {followState
+                                ? language?.friend
+                                : language?.follower}
                         </div>
                     </div>
                 </Link>
                 <div ref={chatRef} className={classes.chats}>
                     {message?.chats?.map((chat, idx) => (
-                        <div
-                            key={`chat-${idx}`}
-                            className={
-                                chat.user.id !== loginUser.id
-                                    ? classes.left
-                                    : classes.right
-                            }
-                        >
-                            {chat.user.id !== loginUser.id ? (
-                                <Chat chat={chat} left />
+                        <>
+                            {!chatDate ||
+                            chatDate !==
+                                getDateAndDay(
+                                    language?.locale,
+                                    chat.createdAt
+                                ) ? (
+                                <>
+                                    <div className={classes.date}>
+                                        {
+                                            (chatDate = getDateAndDay(
+                                                language?.locale,
+
+                                                chat.createdAt
+                                            ))
+                                        }
+                                    </div>
+                                </>
                             ) : (
-                                <Chat chat={chat} />
+                                <></>
                             )}
-                        </div>
+                            {!chatTime ||
+                            chatTime !==
+                                getTime(language?.locale, chat.createdAt) ? (
+                                <>
+                                    <div className={classes.time}>
+                                        {
+                                            (chatTime = getTime(
+                                                language?.locale,
+                                                chat.createdAt
+                                            ))
+                                        }
+                                    </div>
+                                </>
+                            ) : (
+                                <></>
+                            )}
+
+                            <div
+                                key={`chat-${idx}`}
+                                className={
+                                    chat.user.id !== loginUser.id
+                                        ? classes.left
+                                        : classes.right
+                                }
+                            >
+                                {chat.user.id !== loginUser.id ? (
+                                    <Chat chat={chat} left />
+                                ) : (
+                                    <Chat chat={chat} />
+                                )}
+                            </div>
+                        </>
                     ))}
                 </div>
                 <form className={classes.message}>
@@ -139,11 +187,11 @@ export default function Room({ room, showRoom, setShowRoom }) {
                         onClick={sendMessage}
                         type={"submit"}
                     >
-                        메세지 전송
+                        {language?.sendMessage}
                     </Button>
                 </form>
             </div>
-            <Button onClick={closeRoom}>닫기</Button>
+            <Button onClick={closeRoom}>{language?.close}</Button>
         </>
     );
 }

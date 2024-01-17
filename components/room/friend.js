@@ -1,6 +1,14 @@
+"use client";
+
+import getTime from "@/function/client/getTime";
 import classes from "./friend.module.css";
+import getDate from "@/function/client/getDate";
+import { useRecoilValue } from "recoil";
+import { languageState } from "../recoil/language";
 
 export default function Friend({ room, loginUser, onClick }) {
+    const language = useRecoilValue(languageState);
+
     return (
         <button className={classes.friend} onClick={onClick}>
             <div className={classes["friend-info"]}>
@@ -29,7 +37,21 @@ export default function Friend({ room, loginUser, onClick }) {
                             }
                         </div>
                     </div>
-                    <div className={classes["last-chat"]}>{room.lastChat}</div>
+                    <div className={classes["last-chat"]}>
+                        {room.lastChat}
+                        <span className={classes.time}>
+                            {getDate(language?.locale, new Date()) !==
+                            getDate(language?.locale, room.updatedAt)
+                                ? ` · ${getDate(
+                                      language?.locale,
+                                      room.updatedAt
+                                  )}`
+                                : ` · ${getTime(
+                                      language?.locale,
+                                      room.updatedAt
+                                  )}`}
+                        </span>
+                    </div>
                 </div>
             </div>
         </button>

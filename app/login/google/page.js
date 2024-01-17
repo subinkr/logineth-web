@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { profileState } from "@/components/recoil/profile";
 import callRedirect from "@/function/server/callRedirect";
 import getAccessToken from "@/function/server/getAccessToken";
+import { languageState } from "@/components/recoil/language";
 
 export default function LoginGooglePage() {
     const setProfile = useSetRecoilState(profileState);
+    const language = useRecoilValue(languageState);
 
     useEffect(() => {
         const googleOAuth = async () => {
@@ -22,5 +24,5 @@ export default function LoginGooglePage() {
         googleOAuth();
     }, []);
 
-    return <>구글 로그인 중...</>;
+    return <>{language?.google}</>;
 }

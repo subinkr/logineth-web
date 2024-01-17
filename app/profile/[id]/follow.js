@@ -2,15 +2,17 @@
 
 import { useEffect, useState } from "react";
 import getFollowingUsers from "@/function/server/getFollowingUsers";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { profileState } from "@/components/recoil/profile";
 import getCookie from "@/function/server/getCookie";
 import Button from "@/components/button/button";
+import { languageState } from "@/components/recoil/language";
 
 export default function Follow({ targetUser }) {
     const [loginUser, setLoginUser] = useRecoilState(profileState);
     const [followingUsers, setFollowingUsers] = useState([]);
     const [isFollowing, setIsFollowing] = useState(false);
+    const language = useRecoilValue(languageState);
 
     useEffect(() => {
         const runFollowingUsers = async () => {
@@ -93,12 +95,12 @@ export default function Follow({ targetUser }) {
             {isFollowing ? (
                 <>
                     <Button type="danger" onClick={unFollowing}>
-                        UnFollow
+                        {language?.unFollow}
                     </Button>
                 </>
             ) : (
                 <>
-                    <Button onClick={following}>Follow</Button>
+                    <Button onClick={following}>{language?.follow}</Button>
                 </>
             )}
         </>

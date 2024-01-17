@@ -1,14 +1,16 @@
 "use client";
 
 import { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import getGithubToken from "./getGithubToken";
 import { profileState } from "@/components/recoil/profile";
 import callRedirect from "@/function/server/callRedirect";
 import getAccessToken from "@/function/server/getAccessToken";
+import { languageState } from "@/components/recoil/language";
 
 export default function LoginGithubPage() {
     const setProfile = useSetRecoilState(profileState);
+    const language = useRecoilValue(languageState);
 
     useEffect(() => {
         const githubOAuth = async () => {
@@ -22,5 +24,5 @@ export default function LoginGithubPage() {
         githubOAuth();
     }, []);
 
-    return <>깃허브 로그인 중...</>;
+    return <>{language?.github}</>;
 }

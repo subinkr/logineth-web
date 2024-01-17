@@ -8,8 +8,11 @@ import { useEffect, useRef, useState } from "react";
 import Input from "@/components/input/input";
 import Follow from "./follow";
 import getDate from "@/function/client/getDate";
+import { useRecoilValue } from "recoil";
+import { languageState } from "@/components/recoil/language";
 
 export default function UserInfo({ targetUser, loginUser }) {
+    const language = useRecoilValue(languageState);
     const [cookie, setCookie] = useState(null);
     const [edit, setEdit] = useState(false);
     const [image, setImage] = useState("");
@@ -138,8 +141,11 @@ export default function UserInfo({ targetUser, loginUser }) {
                         )}
                         <div className={classes.created}>
                             {targetUser?.createdAt
-                                ? getDate(targetUser?.createdAt)
-                                : "존재하지 않는 유저입니다."}
+                                ? getDate(
+                                      language?.locale,
+                                      targetUser?.createdAt
+                                  )
+                                : language?.notExistUser}
                         </div>
                     </div>
                 </div>
@@ -154,19 +160,19 @@ export default function UserInfo({ targetUser, loginUser }) {
                                         setEdit(false);
                                     }}
                                 >
-                                    취소
+                                    {language?.cancel}
                                 </Button>
                                 <Button className="primary" onClick={saveEdit}>
-                                    저장
+                                    {language?.save}
                                 </Button>
                             </div>
                         ) : (
                             <div className={classes.buttons}>
                                 <Button onClick={() => setEdit(true)}>
-                                    수정
+                                    {language?.edit}
                                 </Button>
                                 <Button className="danger" onClick={withdraw}>
-                                    탈퇴
+                                    {language?.withdraw}
                                 </Button>
                             </div>
                         )
