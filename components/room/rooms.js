@@ -12,6 +12,7 @@ import Friend from "./friend";
 import { io } from "socket.io-client";
 import getCookie from "@/function/server/getCookie";
 import { languageState } from "../recoil/language";
+import FindFriends from "./findFriends";
 
 export default function Rooms() {
     const language = useRecoilValue(languageState);
@@ -92,7 +93,13 @@ export default function Rooms() {
                                 setShowRoom={setShowRoom}
                             />
                         ) : (
-                            <>{/* <FindFriends /> */}</>
+                            <>
+                                {
+                                    <FindFriends
+                                        setFindFriends={setFindFriends}
+                                    />
+                                }
+                            </>
                         )}
                     </>
                 ) : (
@@ -121,6 +128,7 @@ export default function Rooms() {
                             <Button
                                 className={"find-friend"}
                                 hidden={!showRooms}
+                                onClick={() => setFindFriends(!findFriends)}
                             >
                                 {language?.findFriends}
                             </Button>
