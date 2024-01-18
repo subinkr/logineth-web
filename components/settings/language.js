@@ -10,14 +10,15 @@ import { useEffect, useState } from "react";
 import getCookie from "@/function/server/getCookie";
 
 export default function Language({ hidden }) {
+    const languages = [english, korean];
     const [loginUser, setLoginUser] = useRecoilState(profileState);
     const [language, setLanguage] = useRecoilState(languageState);
     const [idx, setIdx] = useState(0);
-    const languages = [english, korean];
 
     useEffect(() => {
         if (loginUser.language) {
             setLanguage(languages[loginUser.language]);
+            setIdx(loginUser.language);
         } else {
             setLanguage(languages[idx % languages.length]);
         }
@@ -34,20 +35,20 @@ export default function Language({ hidden }) {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        language: (loginUser.language + 1) % languages.length,
+                        setting: (idx + 1) % languages.length,
                     }),
                 }
             );
             const { user } = await response.json();
             setLoginUser(user);
-            setIdx(user.language);
+            setIdx((idx + 1) % languages.length);
         };
 
         if (typeof loginUser.language === "number") {
             runLanguage();
             setIdx(loginUser.language);
         } else {
-            setIdx(idx + 1);
+            setIdx((idx + 1) % languages.length);
         }
         setLanguage(languages[(idx + 1) % languages.length]);
     };
