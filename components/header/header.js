@@ -2,7 +2,7 @@ import Link from "next/link";
 import classes from "./header.module.css";
 import AfterLogin from "./afterLogin";
 import BeforeLogin from "./beforeLogin";
-import Language from "./language";
+import Setting from "./setting";
 
 const Header = ({ cookie }) => {
     return (
@@ -10,7 +10,7 @@ const Header = ({ cookie }) => {
             <header className={classes.header}>
                 <Link href={"/"}>LOGINETH</Link>
                 <div className={classes.category}>
-                    <Language />
+                    <Setting />
                     {cookie ? <AfterLogin /> : <BeforeLogin />}
                 </div>
             </header>
