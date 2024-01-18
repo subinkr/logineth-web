@@ -9,7 +9,7 @@ import { korean } from "../recoil/language/korean";
 import { useEffect, useState } from "react";
 import getCookie from "@/function/server/getCookie";
 
-export default function Language() {
+export default function Language({ hidden }) {
     const [loginUser, setLoginUser] = useRecoilState(profileState);
     const [language, setLanguage] = useRecoilState(languageState);
     const [idx, setIdx] = useState(0);
@@ -53,7 +53,7 @@ export default function Language() {
     };
 
     return (
-        <div className={classes["language-wrapper"]}>
+        <div className={classes["language-wrapper"]} hidden={hidden}>
             <button className={classes.language} onClick={changeLanguage}>
                 🌎 {language?.language}
             </button>
