@@ -26,7 +26,7 @@ export default function Language() {
     const changeLanguage = () => {
         const runLanguage = async () => {
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_API_SERVER}/language`,
+                `${process.env.NEXT_PUBLIC_API_SERVER}/setting/language`,
                 {
                     method: "post",
                     headers: {
