@@ -154,6 +154,7 @@ export default function UserInfo({ targetUser, loginUser }) {
                         edit ? (
                             <div className={classes.buttons}>
                                 <Button
+                                    className="default"
                                     onClick={() => {
                                         setImage(targetUser?.image);
                                         setNickname(targetUser?.nickname);

@@ -1,6 +1,7 @@
 export const english = {
     locale: "en-US",
     language: "Language",
+    screen: "screen",
 
     github: "Getting github info...",
     google: "Getting google info...",

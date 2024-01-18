@@ -2,41 +2,24 @@
 
 import classes from "./setting.module.css";
 import { useEffect, useState } from "react";
-import Language from "./language";
-import { useRecoilState } from "recoil";
-import { profileState } from "../recoil/profile";
+import Language from "../settings/language";
+import Screen from "../settings/screen";
 
 export default function Setting() {
-    const [loginUser, setLoginUser] = useRecoilState(profileState);
     const [setting, setSetting] = useState(true);
-    const [language, setLanguage] = useState("");
 
     useEffect(() => {
         setSetting(false);
     }, []);
 
-    useEffect(() => {
-        setLanguage(loginUser.language);
-        if (setting && language === loginUser.language) {
-            setSetting(false);
-        }
-        if (!setting) {
-            setSetting(true);
-            setLoginUser({ ...loginUser });
-        }
-    }, [loginUser]);
-
     return (
         <div>
-            {setting ? (
-                <>
-                    <Language />
-                </>
-            ) : (
-                <></>
-            )}
+            <>
+                <Screen hidden={!setting} />
+                <Language hidden={!setting} />
+            </>
             <button
-                className={classes.setting}
+                className={setting ? classes["setting-on"] : classes.setting}
                 onClick={() => setSetting(!setting)}
             >
                 ⚙️
