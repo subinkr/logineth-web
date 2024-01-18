@@ -36,7 +36,7 @@ export default function Setting() {
                 <></>
             )}
             <button
-                className={classes.setting}
+                className={setting ? classes["setting-on"] : classes.setting}
                 onClick={() => setSetting(!setting)}
             >
                 ⚙️

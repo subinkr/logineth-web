@@ -6,8 +6,8 @@
 }
 
 .primary {
-    background-color: var(--color-primary);
-    color: var(--color-reverse);
+    background-color: var(--color-ok);
+    color: var(--color-primary);
 
     font-size: var(--font-size-comment);
 

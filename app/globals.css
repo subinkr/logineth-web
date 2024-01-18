@@ -1,7 +1,8 @@
 :root {
     --color-primary: #111;
     --color-secondary: rgba(128, 128, 128, 0.8);
-    --color-danger: rgba(255, 0, 0, 0.6);
+    --color-danger: rgba(255, 0, 0, 0.5);
+    --color-ok: rgba(0, 255, 0, 0.5);
 
     --color-reverse: #eee;
 
@@ -47,6 +48,12 @@ body {
     height: 100%;
 }
 
+body.reverse {
+    --color-primary: var(--color-reverse);
+
+    --color-reverse: var(--color-primary);
+}
+
 input,
 select,
 textarea,
@@ -74,6 +81,11 @@ button {
     font-size: var(--font-size-comment);
 
     cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--color-primary);
+    color: var(--color-reverse);
 }
 
 input {
