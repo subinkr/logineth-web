@@ -1,6 +1,7 @@
 export const korean = {
     locale: "ko-KR",
     language: "언어",
+    color: "화면",
 
     github: "깃허브 로그인 중...",
     google: "구글 로그인 중...",

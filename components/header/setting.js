@@ -2,7 +2,8 @@
 
 import classes from "./setting.module.css";
 import { useEffect, useState } from "react";
-import Language from "./language";
+import Language from "../settings/language";
+import Color from "../settings/color";
 import { useRecoilState } from "recoil";
 import { profileState } from "../recoil/profile";
 
@@ -30,6 +31,7 @@ export default function Setting() {
         <div>
             {setting ? (
                 <>
+                    <Color />
                     <Language />
                 </>
             ) : (
