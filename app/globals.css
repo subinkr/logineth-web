@@ -1,10 +1,10 @@
 :root {
-    --color-primary: #111;
+    --color-primary: #eee;
+    --color-reverse: #111;
+
     --color-secondary: rgba(128, 128, 128, 0.8);
     --color-danger: rgba(255, 0, 0, 0.5);
     --color-ok: rgba(0, 255, 0, 0.5);
-
-    --color-reverse: #eee;
 
     --font-size-title: 48px;
     --font-size-content: 24px;
@@ -23,19 +23,21 @@
     --padding: 20px;
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --color-primary: #eee;
-
-        --color-reverse: #111;
-    }
-}
-
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font: auto "Fira Sans", sans-serif;
+}
+
+html.white {
+    --color-primary: #111;
+    --color-reverse: #eee;
+}
+
+html.dark {
+    --color-primary: #eee;
+    --color-reverse: #111;
 }
 
 html,
@@ -46,12 +48,6 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
-}
-
-body.reverse {
-    --color-primary: var(--color-reverse);
-
-    --color-reverse: var(--color-primary);
 }
 
 input,
