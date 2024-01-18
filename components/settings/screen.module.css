@@ -1,11 +1,11 @@
-.color-wrapper {
+.screen-wrapper {
     position: absolute;
     left: 50px;
     bottom: 150px;
     width: 200px;
 }
 
-.color {
+.screen {
     position: absolute;
     padding: 0 8px 2px 8px;
     top: 0%;
@@ -21,7 +21,7 @@
     background-color: var(--color-reverse);
     color: var(--color-primary);
 }
-.color:hover {
+.screen:hover {
     background-color: var(--color-primary);
     color: var(--color-reverse);
 }

@@ -3,7 +3,7 @@
 import classes from "./setting.module.css";
 import { useEffect, useState } from "react";
 import Language from "../settings/language";
-import Color from "../settings/color";
+import Screen from "../settings/screen";
 
 export default function Setting() {
     const [setting, setSetting] = useState(true);
@@ -15,7 +15,7 @@ export default function Setting() {
     return (
         <div>
             <>
-                <Color hidden={!setting} />
+                <Screen hidden={!setting} />
                 <Language hidden={!setting} />
             </>
             <button
