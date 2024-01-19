@@ -39,18 +39,20 @@ export default function Friend({ room, loginUser, onClick }) {
                     </div>
                     <div className={classes["last-chat"]}>
                         {room.lastChat}
-                        <span className={classes.time}>
-                            {getDate(language?.locale, new Date()) !==
-                            getDate(language?.locale, room.updatedAt)
-                                ? ` · ${getDate(
-                                      language?.locale,
-                                      room.updatedAt
-                                  )}`
-                                : ` · ${getTime(
-                                      language?.locale,
-                                      room.updatedAt
-                                  )}`}
-                        </span>
+                        {room.lastChat && (
+                            <span className={classes.time}>
+                                {getDate(language?.locale, new Date()) !==
+                                getDate(language?.locale, room.updatedAt)
+                                    ? ` · ${getDate(
+                                          language?.locale,
+                                          room.updatedAt
+                                      )}`
+                                    : ` · ${getTime(
+                                          language?.locale,
+                                          room.updatedAt
+                                      )}`}
+                            </span>
+                        )}
                     </div>
                 </div>
             </div>

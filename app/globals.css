@@ -54,6 +54,7 @@ input,
 select,
 textarea,
 button {
+    color: var(--color-primary);
     border: none;
 }
 
