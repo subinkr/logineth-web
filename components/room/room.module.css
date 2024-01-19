@@ -2,7 +2,7 @@
     background-color: var(--color-reverse);
 
     box-shadow: 0 0 20px var(--color-secondary);
-    border-radius: 8px 8px 0 0;
+    border-radius: 8px;
 
     display: flex;
     flex-direction: column;
