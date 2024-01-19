@@ -15,6 +15,7 @@ import getFollowingUsers from "@/function/server/getFollowingUsers";
 import getTime from "@/function/client/getTime";
 import getDateAndDay from "@/function/client/getDateAndDay";
 import { languageState } from "../recoil/language";
+import TargetUser from "./targetUser";
 
 export default function Room({ room, showRoom, setShowRoom }) {
     const loginUser = useRecoilValue(profileState);
@@ -102,27 +103,11 @@ export default function Room({ room, showRoom, setShowRoom }) {
     return (
         <>
             <div className={classes.room}>
-                <Link
-                    className={classes.header}
-                    href={`/profile/${targetUser.id}`}
-                >
-                    <div className={classes["image-wrapper"]}>
-                        <img className={classes.image} src={targetUser.image} />
-                    </div>
-                    <div className={classes["friend-status"]}>
-                        <div className={classes["friend-info"]}>
-                            {targetUser.nickname}
-                            <div className={classes["friend-id"]}>
-                                @{targetUser.id}
-                            </div>
-                        </div>
-                        <div className={classes["follow-state"]}>
-                            {followState
-                                ? language?.friend
-                                : language?.follower}
-                        </div>
-                    </div>
-                </Link>
+                <TargetUser
+                    className="header"
+                    targetUser={targetUser}
+                    followState={followState}
+                />
                 <div ref={chatRef} className={classes.chats}>
                     {message?.chats?.map((chat, idx) => (
                         <div key={`chat-${idx}`}>
