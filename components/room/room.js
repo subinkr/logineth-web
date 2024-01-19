@@ -27,6 +27,7 @@ export default function Room({ room, showRoom, setShowRoom }) {
         room.users.filter((user) => user.id !== loginUser.id)[0]
     );
     const [followState, setFollowState] = useState(false);
+    const [height, setHeight] = useState(0);
     const chatRef = useRef(null);
     const inputRef = useRef(null);
 
@@ -73,7 +74,11 @@ export default function Room({ room, showRoom, setShowRoom }) {
     }, [chat]);
 
     useEffect(() => {
-        chatRef.current.scrollTop = chatRef.current.scrollHeight;
+        chatRef.current.scrollTop = chatRef.current.scrollHeight - height;
+
+        if (message.nextPage) {
+            chatRef.current.addEventListener("scroll", callback);
+        }
     }, [message]);
 
     useEffect(() => {
@@ -81,6 +86,18 @@ export default function Room({ room, showRoom, setShowRoom }) {
             socket.disconnect();
         }
     }, [showRoom]);
+
+    const callback = async () => {
+        if (message.nextPage) {
+            if (chatRef.current.scrollTop === 0) {
+                const result = await getChats(room.id, message.nextPage);
+                message.chats.unshift(...result.chats);
+                setMessage({ ...result, chats: message.chats });
+                setHeight(chatRef.current.scrollHeight);
+                chatRef.current.removeEventListener("scroll", callback);
+            }
+        }
+    };
 
     const sendMessage = async (e) => {
         e.preventDefault();
