@@ -29,4 +29,5 @@ export const english = {
 
     findFriends: "Find friends",
     friends: "Friends",
+    notFound: "Cannot find result",
 };

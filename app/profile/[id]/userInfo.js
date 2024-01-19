@@ -135,7 +135,7 @@ export default function UserInfo({ targetUser, loginUser }) {
                                     {nickname ? nickname : targetUser?.nickname}
                                 </div>
                                 <div className={classes["user-id"]}>
-                                    #{targetUser?.id}
+                                    @{targetUser?.id}
                                 </div>
                             </div>
                         )}

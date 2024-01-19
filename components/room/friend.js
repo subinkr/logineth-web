@@ -29,7 +29,7 @@ export default function Friend({ room, loginUser, onClick }) {
                             }
                         </div>
                         <div className={classes["friend-id"]}>
-                            #
+                            @
                             {
                                 room.users.filter(
                                     (user) => user.id !== loginUser.id
