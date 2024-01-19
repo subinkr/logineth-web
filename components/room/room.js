@@ -113,7 +113,7 @@ export default function Room({ room, showRoom, setShowRoom }) {
                         <div className={classes["friend-info"]}>
                             {targetUser.nickname}
                             <div className={classes["friend-id"]}>
-                                #{targetUser.id}
+                                @{targetUser.id}
                             </div>
                         </div>
                         <div className={classes["follow-state"]}>
