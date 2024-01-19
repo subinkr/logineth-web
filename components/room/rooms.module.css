@@ -24,3 +24,9 @@
 .room-content {
     position: relative;
 }
+
+@media (max-width: 768px) {
+    .room-area {
+        display: none;
+    }
+}

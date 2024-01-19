@@ -82,70 +82,62 @@ export default function Rooms() {
         setRoomIdx(idx);
     };
     return (
-        <>
-            <div className={classes["room-area"]}>
-                {showRoom || findFriends ? (
-                    <>
-                        {showRoom ? (
-                            <Room
-                                room={rooms[roomIdx]}
-                                showRoom={showRoom}
-                                setShowRoom={setShowRoom}
+        <div className={classes["room-area"]}>
+            {showRoom || findFriends ? (
+                <>
+                    {showRoom ? (
+                        <Room
+                            room={rooms[roomIdx]}
+                            showRoom={showRoom}
+                            setShowRoom={setShowRoom}
+                        />
+                    ) : (
+                        <>{<FindFriends setFindFriends={setFindFriends} />}</>
+                    )}
+                </>
+            ) : (
+                <div className={classes.rooms}>
+                    {rooms?.map((room, idx) => (
+                        <div
+                            key={`room-${idx}`}
+                            className={classes["room-content"]}
+                            hidden={!showRooms}
+                        >
+                            <Friend
+                                room={room}
+                                loginUser={loginUser}
+                                onClick={() => enterRoom(idx)}
                             />
-                        ) : (
-                            <>
-                                {
-                                    <FindFriends
-                                        setFindFriends={setFindFriends}
-                                    />
+                            <NotiCircle
+                                hidden={
+                                    room.viewUsers.findIndex(
+                                        (user) => user.id === loginUser.id
+                                    ) !== -1
                                 }
-                            </>
-                        )}
-                    </>
-                ) : (
-                    <div className={classes.rooms}>
-                        {rooms?.map((room, idx) => (
-                            <div
-                                key={`room-${idx}`}
-                                className={classes["room-content"]}
-                                hidden={!showRooms}
-                            >
-                                <Friend
-                                    room={room}
-                                    loginUser={loginUser}
-                                    onClick={() => enterRoom(idx)}
-                                />
-                                <NotiCircle
-                                    hidden={
-                                        room.viewUsers.findIndex(
-                                            (user) => user.id === loginUser.id
-                                        ) !== -1
-                                    }
-                                />
-                            </div>
-                        ))}
-                        <div className={classes["button-wrapper"]}>
-                            <Button
-                                className={"find-friend"}
-                                hidden={!showRooms}
-                                onClick={() => setFindFriends(!findFriends)}
-                            >
-                                {language?.findFriends}
-                            </Button>
-                            <Button
-                                className={
-                                    showRooms
-                                        ? "friend-list"
-                                        : "invisible-friend-list"
-                                }
-                                onClick={() => setShowRooms(!showRooms)}
-                            >
-                                {language?.friends}
-                            </Button>
+                            />
                         </div>
+                    ))}
+                    <div className={classes["button-wrapper"]}>
+                        <Button
+                            className={"find-friend"}
+                            hidden={!showRooms}
+                            onClick={() => setFindFriends(!findFriends)}
+                        >
+                            {language?.findFriends}
+                        </Button>
+                        <Button
+                            className={
+                                showRooms
+                                    ? "friend-list"
+                                    : "invisible-friend-list"
+                            }
+                            onClick={() => setShowRooms(!showRooms)}
+                        >
+                            {language?.friends}
+                        </Button>
                     </div>
-                )}
-            </div>
-        </>
+                </div>
+            )}
+        </div>
     );
 }

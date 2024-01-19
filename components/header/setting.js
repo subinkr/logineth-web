@@ -13,7 +13,7 @@ export default function Setting() {
     }, []);
 
     return (
-        <div>
+        <div className={classes["setting-area"]}>
             <>
                 <Screen hidden={!setting} />
                 <Language hidden={!setting} />
