@@ -29,4 +29,5 @@ export const korean = {
 
     findFriends: "친구찾기",
     friends: "친구목록",
+    notFound: "검색 결과를 찾을 수 없습니다.",
 };
