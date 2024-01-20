@@ -1,0 +1,18 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap-title);
+}
+
+.link {
+    font-size: var(--font-size-content);
+    font-weight: 500;
+}
+
+@media (min-width: 768px) {
+    .category {
+        display: none;
+    }
+}

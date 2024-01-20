@@ -35,13 +35,13 @@ export default function Login() {
 
     return (
         <div className={classes.login}>
-            <Button className={"default"} onClick={github}>
+            <Button className={"react-button"} onClick={github}>
                 Github
             </Button>
-            <Button className={"default"} onClick={google}>
+            <Button className={"react-button"} onClick={google}>
                 Google
             </Button>
-            <Button className={"default"} onClick={kakao}>
+            <Button className={"react-button"} onClick={kakao}>
                 Kakao
             </Button>
         </div>

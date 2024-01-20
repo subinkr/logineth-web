@@ -1,3 +1,5 @@
+"use client";
+
 import classes from "./button.module.css";
 
 export default function Button({ className, onClick, type, hidden, children }) {

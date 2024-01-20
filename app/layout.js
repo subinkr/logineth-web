@@ -12,16 +12,17 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+    const cookie = cookies().get("accessToken")?.value;
     return (
         <html lang="en">
             <body>
                 <UseRecoil>
-                    <Header cookie={cookies().get("accessToken")?.value} />
+                    <Header cookie={cookie} />
                     <div className={classes.children}>{children}</div>
                     <div className={classes["bottom-wrapper"]}>
                         <div className={classes.bottom}>
                             <SmallSetting />
-                            <SmallRooms />
+                            <SmallRooms cookie={cookie} />
                         </div>
                     </div>
                 </UseRecoil>

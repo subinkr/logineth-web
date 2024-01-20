@@ -1,10 +1,14 @@
 import Link from "next/link";
 import classes from "./smallRooms.module.css";
 
-export default function SmallRooms() {
+export default function SmallRooms({ cookie }) {
     return (
-        <Link href={"/rooms"}>
-            <button className={classes.rooms}>💬</button>
-        </Link>
+        <>
+            {cookie && (
+                <Link href={"/rooms"}>
+                    <button className={classes.rooms}>💬</button>
+                </Link>
+            )}
+        </>
     );
 }

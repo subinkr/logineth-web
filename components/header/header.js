@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import classes from "./header.module.css";
 import AfterLogin from "./afterLogin";
@@ -13,7 +15,9 @@ const Header = ({ cookie }) => {
                     <Setting />
                     {cookie ? <AfterLogin /> : <BeforeLogin />}
                 </div>
-                <button className={classes["small-category"]}>🍔</button>
+                <Link className={classes["small-category"]} href={"/category"}>
+                    🍔
+                </Link>
             </header>
         </div>
     );

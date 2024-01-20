@@ -6,11 +6,12 @@
     border: 1px solid var(--color-secondary);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .react-button {
         width: 100%;
         border: 0;
         border-radius: 0;
+        font-size: var(--font-size-content);
     }
 }
 

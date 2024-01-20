@@ -10,6 +10,10 @@ export default function Home() {
     const [loginUser, setLoginUser] = useRecoilState(profileState);
 
     useEffect(() => {
+        checkLoginUser(setLoginUser);
+    }, []);
+
+    useEffect(() => {
         const setRedirect = async () => {
             if (loginUser.id) {
                 callRedirect(`/profile/${loginUser.id}`);
@@ -18,9 +22,8 @@ export default function Home() {
             }
         };
 
-        checkLoginUser(setLoginUser);
         setRedirect();
-    }, []);
+    }, [loginUser]);
 
     return <></>;
 }
