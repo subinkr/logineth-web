@@ -16,7 +16,7 @@
     height: var(--min-height);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .box {
         flex-direction: column;
         height: auto;
@@ -71,7 +71,7 @@
     gap: var(--gap-content);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .user {
         flex-direction: column;
     }
