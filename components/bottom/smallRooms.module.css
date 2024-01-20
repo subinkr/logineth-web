@@ -1,0 +1,6 @@
+.rooms {
+    font-size: var(--font-size-content);
+}
+.rooms:hover {
+    background-color: var(--color-reverse);
+}

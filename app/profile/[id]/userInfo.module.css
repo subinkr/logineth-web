@@ -16,6 +16,13 @@
     height: var(--min-height);
 }
 
+@media (max-width: 768px) {
+    .box {
+        flex-direction: column;
+        height: auto;
+    }
+}
+
 .buttons {
     display: flex;
     gap: var(--gap-content);
@@ -62,6 +69,12 @@
     display: flex;
     align-items: center;
     gap: var(--gap-content);
+}
+
+@media (max-width: 768px) {
+    .user {
+        flex-direction: column;
+    }
 }
 
 .user-text {

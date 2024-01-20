@@ -77,6 +77,9 @@ button {
     color: var(--color-primary);
     font-size: var(--font-size-comment);
 
+    width: 100px;
+    height: 50px;
+
     cursor: pointer;
 }
 

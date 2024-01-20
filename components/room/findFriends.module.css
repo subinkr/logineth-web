@@ -38,6 +38,7 @@
 .users {
     flex: 1;
     overflow-y: scroll;
+    border-radius: 8px;
 }
 
 .not-found {
