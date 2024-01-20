@@ -58,7 +58,7 @@ export default function Follow({ targetUser }) {
             setFollowingUsers(newFollowingUsers);
         }
 
-        alert(result.message);
+        alert(result.message && language.followingMessage);
     };
 
     const unFollowing = async () => {
@@ -87,7 +87,7 @@ export default function Follow({ targetUser }) {
             setFollowingUsers(newFollowingUsers);
         }
 
-        alert(result.message);
+        alert(result.message && language.unFollowingMessage);
     };
 
     return (

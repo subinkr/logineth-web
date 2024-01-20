@@ -39,7 +39,7 @@ export default function UserInfo({ targetUser, loginUser }) {
                 }
             );
             const result = await response.json();
-            alert(result.message);
+            alert(result.message && language.withdrawMessage);
 
             await deleteCookie();
         }
@@ -62,10 +62,11 @@ export default function UserInfo({ targetUser, loginUser }) {
             }
         );
         const result = await response.json();
-        alert(result.message);
         if (result.statusCode === 400) {
+            alert(result.message && language.badEditMessage);
             return;
         }
+        alert(result.message && language.saveEditMessage);
         targetUser.image = image;
         targetUser.nickname = nickname;
         setEdit(false);

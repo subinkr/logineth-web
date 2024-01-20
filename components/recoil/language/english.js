@@ -30,4 +30,12 @@ export const english = {
     findFriends: "Find friends",
     friends: "Friends",
     notFound: "Cannot find result",
+
+    followingMessage: "Following",
+    unFollowingMessage: "UnFollowing",
+
+    withdrawMessage:
+        "Are you sure you want to leave? User info cannot be recovered.",
+    saveEditMessage: "Saved",
+    badEditMessage: "Nickname must be between 1 to 10 characters.",
 };
