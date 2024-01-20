@@ -2,6 +2,3 @@
     height: 100%;
     font-size: var(--font-size-content);
 }
-.setting:hover {
-    background-color: var(--color-reverse);
-}

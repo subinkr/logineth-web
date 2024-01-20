@@ -3,6 +3,8 @@
     display: flex;
     flex: 1;
     justify-content: center;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .bottom-wrapper {

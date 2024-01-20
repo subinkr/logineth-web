@@ -8,3 +8,9 @@
     width: 100%;
     height: var(--font-size-title);
 }
+
+@media (max-width: 767px) {
+    .input {
+        font-size: var(--font-size-comment);
+    }
+}

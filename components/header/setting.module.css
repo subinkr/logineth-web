@@ -40,9 +40,3 @@
     background-color: var(--color-primary);
     color: var(--color-reverse);
 }
-
-@media (max-width: 767px) {
-    .setting-area {
-        display: none;
-    }
-}

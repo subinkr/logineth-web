@@ -13,6 +13,7 @@ const Header = ({ cookie }) => {
                     <Setting />
                     {cookie ? <AfterLogin /> : <BeforeLogin />}
                 </div>
+                <button className={classes["small-category"]}>🍔</button>
             </header>
         </div>
     );
