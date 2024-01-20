@@ -28,7 +28,7 @@ export default function UserInfo({ targetUser, loginUser }) {
     }, []);
 
     const withdraw = async () => {
-        if (confirm("탈퇴하시겠습니까? 데이터는 복구할 수 없습니다.")) {
+        if (confirm(language.withdrawAskMessage)) {
             const response = await fetch(
                 `${process.env.NEXT_PUBLIC_API_SERVER}/register/withdraw/${targetUser.id}`,
                 {

@@ -71,10 +71,10 @@ export default function rooms() {
             setRooms(newRooms?.reverse());
         };
 
-        if (loginUser?.id) {
+        if (loginUser?.id && !showRoom) {
             runRooms();
         }
-    }, [loginUser]);
+    }, [loginUser, showRoom]);
 
     const enterRoom = (idx) => {
         setShowRoom(true);
@@ -92,7 +92,7 @@ export default function rooms() {
                             setShowRoom={setShowRoom}
                         />
                     ) : (
-                        <>{<FindFriends setFindFriends={setFindFriends} />}</>
+                        <FindFriends setFindFriends={setFindFriends} />
                     )}
                 </>
             ) : (
@@ -120,7 +120,7 @@ export default function rooms() {
                     </div>
                     <div className={classes["button-wrapper"]}>
                         <Button
-                            className={"small-find-friend"}
+                            className={"react-button"}
                             onClick={() => setFindFriends(!findFriends)}
                         >
                             {language?.findFriends}

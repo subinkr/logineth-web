@@ -34,8 +34,9 @@ export const english = {
     followingMessage: "Following",
     unFollowingMessage: "UnFollowing",
 
-    withdrawMessage:
+    withdrawAskMessage:
         "Are you sure you want to leave? User info cannot be recovered.",
+    withdrawMessage: "Withdraw complete.",
     saveEditMessage: "Saved",
     badEditMessage: "Nickname must be between 1 to 10 characters.",
 };

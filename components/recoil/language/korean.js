@@ -34,7 +34,8 @@ export const korean = {
     followingMessage: "팔로우했습니다.",
     unFollowingMessage: "언팔로우했습니다.",
 
-    withdrawMessage: "탈퇴하시겠습니까? 유저 정보는 복구할 수 없습니다.",
+    withdrawAskMessage: "탈퇴하시겠습니까? 유저 정보는 복구할 수 없습니다.",
+    withdrawMessage: "탈퇴했습니다.",
     saveEditMessage: "저장되었습니다.",
     badEditMessage: "닉네임은 1글자에서 10글자 사이여야 합니다.",
 };

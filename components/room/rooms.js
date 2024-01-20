@@ -92,7 +92,7 @@ export default function Rooms() {
                             setShowRoom={setShowRoom}
                         />
                     ) : (
-                        <>{<FindFriends setFindFriends={setFindFriends} />}</>
+                        <FindFriends setFindFriends={setFindFriends} />
                     )}
                 </>
             ) : (

@@ -61,7 +61,7 @@ export default function FindFriends({ setFindFriends }) {
     return (
         <>
             <div className={classes.room}>
-                <form>
+                <form className={classes.form}>
                     <input ref={inputRef} className={classes.header} />
                     <Button className="search" type="submit" onClick={search}>
                         🔍
@@ -83,10 +83,18 @@ export default function FindFriends({ setFindFriends }) {
                         </div>
                     )}
                 </div>
+                <button
+                    className={classes["small-close"]}
+                    onClick={closeFindFriends}
+                >
+                    {language?.close}
+                </button>
             </div>
-            <Button className={"default"} onClick={closeFindFriends}>
-                {language?.close}
-            </Button>
+            <div className={classes.close}>
+                <Button className={"default"} onClick={closeFindFriends}>
+                    {language?.close}
+                </Button>
+            </div>
         </>
     );
 }

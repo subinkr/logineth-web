@@ -1,3 +1,4 @@
 .rooms {
     font-size: var(--font-size-content);
+    height: 100%;
 }

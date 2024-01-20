@@ -197,9 +197,11 @@ export default function Room({ room, showRoom, setShowRoom }) {
                     </Button>
                 </form>
             </div>
-            <Button className={"default"} onClick={closeRoom}>
-                {language?.close}
-            </Button>
+            <div className={classes["button-wrapper"]}>
+                <Button className={"react-button"} onClick={closeRoom}>
+                    {language?.close}
+                </Button>
+            </div>
         </>
     );
 }
