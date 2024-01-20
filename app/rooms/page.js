@@ -14,7 +14,7 @@ import { io } from "socket.io-client";
 import getCookie from "@/function/server/getCookie";
 import Room from "@/components/room/room";
 
-export default function rooms() {
+export default function Rooms() {
     const language = useRecoilValue(languageState);
     const loginUser = useRecoilValue(profileState);
     const [showRoom, setShowRoom] = useState(null);
