@@ -37,15 +37,20 @@ export default function Room({ room, showRoom, setShowRoom }) {
 
     const focusoutCallback = () => {
         inputRef.current.removeEventListener("focusout", focusoutCallback);
+        inputRef.current.removeEventListener("focus", focusCallback);
         inputRef.current.addEventListener("focus", focusCallback);
-        setRoomHeight(null);
+        setRoomHeight(window.VisualViewport.height);
     };
 
     const focusCallback = () => {
         inputRef.current.removeEventListener("focus", focusCallback);
+        inputRef.current.removeEventListener("focusout", focusoutCallback);
+        inputRef.current.addEventListener("focus", focusCallback);
         inputRef.current.addEventListener("focusout", focusoutCallback);
-        setRoomHeight(roomRef.current.scrollHeight);
+        setRoomHeight(window.VisualViewport.height);
     };
+
+    useEffect(() => {}, [roomHeight]);
 
     useEffect(() => {
         if (!socket) {
