@@ -14,6 +14,7 @@ export default function LayoutProvider({ cookie, children }) {
     const pathname = usePathname();
     const layoutRef = useRef();
     const [height, setHeight] = useState(null);
+    const [windowHeight, setWindowHeight] = useState(null);
 
     const callback = () => {
         if (layoutRef.current?.offsetWidth > 768) {
@@ -27,7 +28,13 @@ export default function LayoutProvider({ cookie, children }) {
         setHeight(window.visualViewport.height);
     };
 
-    useEffect(() => {}, [height]);
+    useEffect(() => {
+        if (windowHeight < height) {
+            setWindowHeight(height);
+        } else if (windowHeight > height) {
+            setWindowHeight(height);
+        }
+    }, [height]);
 
     useEffect(() => {
         window.addEventListener("resize", callback);
@@ -47,14 +54,39 @@ export default function LayoutProvider({ cookie, children }) {
             lang="en"
             className={classes.layout}
             ref={layoutRef}
-            style={height && { height: height, position: "sticky" }}
+            style={
+                windowHeight < height && {
+                    height: height,
+                    overflow: "hidden",
+                    touchAction: "none",
+                }
+            }
         >
-            <body>
+            <body
+                style={
+                    windowHeight < height && {
+                        height: height,
+                        overflow: "hidden",
+                        touchAction: "none",
+                    }
+                }
+            >
                 <UseRecoil>
                     {pathname !== "/rooms" ? (
                         <div className={classes["not-room"]}>
                             <Header cookie={cookie} />
-                            <div className={classes.children}>{children}</div>
+                            <div
+                                className={classes.children}
+                                style={
+                                    windowHeight < height && {
+                                        height: height,
+                                        overflow: "hidden",
+                                        touchAction: "none",
+                                    }
+                                }
+                            >
+                                {children}
+                            </div>
                             <div className={classes["bottom-wrapper"]}>
                                 <div className={classes.bottom}>
                                     <SmallSetting />
