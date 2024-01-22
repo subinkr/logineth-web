@@ -1,5 +1,6 @@
 "use client";
 
+import classes from "./page.module.css";
 import { profileState } from "@/components/recoil/profile";
 import { useRecoilState } from "recoil";
 import UserInfo from "./userInfo";
@@ -23,8 +24,8 @@ export default function Profile({ params }) {
     }, []);
 
     return (
-        <>
+        <div className={classes.profile}>
             <UserInfo targetUser={targetUser} loginUser={loginUser} />
-        </>
+        </div>
     );
 }

@@ -12,7 +12,7 @@
 
     padding: var(--padding);
 
-    width: 100%;
+    width: 90%;
     height: var(--min-height);
 }
 
@@ -20,6 +20,11 @@
     .box {
         flex-direction: column;
         height: auto;
+    }
+
+    .created {
+        display: flex;
+        justify-content: center;
     }
 }
 
@@ -71,18 +76,21 @@
     gap: var(--gap-content);
 }
 
+.user-text {
+    display: flex;
+    justify-content: start;
+    gap: 8px;
+}
+
 @media (max-width: 767px) {
     .user {
         flex-direction: column;
     }
+
     .user-text {
+        justify-content: center;
         font-size: var(--font-size-comment);
     }
-}
-
-.user-text {
-    display: flex;
-    gap: 8px;
 }
 
 .user-id {
