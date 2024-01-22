@@ -84,7 +84,7 @@ export default function Rooms() {
     return (
         <div className={classes["rooms-area"]}>
             {showRoom || findFriends ? (
-                <>
+                <div className={classes["room-or-friends"]}>
                     {showRoom ? (
                         <Room
                             room={rooms[roomIdx]}
@@ -94,7 +94,7 @@ export default function Rooms() {
                     ) : (
                         <FindFriends setFindFriends={setFindFriends} />
                     )}
-                </>
+                </div>
             ) : (
                 <>
                     <div className={classes.rooms}>
