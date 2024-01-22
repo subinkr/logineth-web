@@ -30,19 +30,21 @@ export default function Room({ room, showRoom, setShowRoom }) {
     const [roomHeight, setRoomHeight] = useState(null);
     const chatRef = useRef(null);
     const inputRef = useRef(null);
+    const roomRef = useRef(null);
 
     let chatDate = "";
     let chatTime = "";
+
     const focusoutCallback = () => {
-        inputRef.current?.removeEventListener("focusout", focusoutCallback);
-        inputRef.current?.addEventListener("focus", focusCallback);
+        inputRef.current.removeEventListener("focusout", focusoutCallback);
+        inputRef.current.addEventListener("focus", focusCallback);
         setRoomHeight(null);
     };
 
     const focusCallback = () => {
-        inputRef.current?.removeEventListener("focus", focusCallback);
-        inputRef.current?.addEventListener("focusout", focusoutCallback);
-        setRoomHeight(chatRef.current?.innerHeight);
+        inputRef.current.removeEventListener("focus", focusCallback);
+        inputRef.current.addEventListener("focusout", focusoutCallback);
+        setRoomHeight(roomRef.current.scrollHeight);
     };
 
     useEffect(() => {
@@ -65,8 +67,6 @@ export default function Room({ room, showRoom, setShowRoom }) {
                 }
             };
             runSocket();
-            inputRef.current?.addEventListener("focus", focusCallback);
-            inputRef.current?.focus();
         } else {
             const runChats = async (page = 1) => {
                 setMessage(await getChats(room.id, page));
@@ -76,6 +76,8 @@ export default function Room({ room, showRoom, setShowRoom }) {
             socket.on(`${room.id}`, (data) => {
                 setChat(data);
             });
+
+            inputRef.current.addEventListener("focus", focusCallback);
         }
 
         return () => {
@@ -137,6 +139,7 @@ export default function Room({ room, showRoom, setShowRoom }) {
     return (
         <>
             <div
+                ref={roomRef}
                 className={classes.room}
                 style={roomHeight && { height: roomHeight }}
             >
