@@ -28,6 +28,7 @@ export default function Room({ room, showRoom, setShowRoom }) {
     const [followState, setFollowState] = useState(false);
     const [height, setHeight] = useState(0);
     const [windowHeight, setWindowHeight] = useState(0);
+    const [beforeWindowHeight, setBeforeWindowHeight] = useState(0);
     const chatRef = useRef(null);
     const inputRef = useRef(null);
     const roomRef = useRef(null);
@@ -37,9 +38,22 @@ export default function Room({ room, showRoom, setShowRoom }) {
 
     const viewportCallback = () => {
         setWindowHeight(window.visualViewport.height);
+        setBeforeWindowHeight(windowHeight);
     };
 
-    useEffect(() => {}, [windowHeight]);
+    useEffect(() => {
+        if (beforeWindowHeight > windowHeight) {
+            chatRef.current.scrollTop = chatRef.current.scrollHeight - height;
+        }
+        window.visualViewport.addEventListener("resize", viewportCallback);
+
+        return () => {
+            window.visualViewport?.removeEventListener(
+                "resize",
+                viewportCallback
+            );
+        };
+    }, [windowHeight]);
 
     useEffect(() => {
         if (!socket) {
@@ -70,16 +84,7 @@ export default function Room({ room, showRoom, setShowRoom }) {
             socket.on(`${room.id}`, (data) => {
                 setChat(data);
             });
-
-            window.visualViewport.addEventListener("resize", viewportCallback);
         }
-
-        return () => {
-            window.visualViewport?.removeEventListener(
-                "resize",
-                viewportCallback
-            );
-        };
     }, [socket]);
 
     useEffect(() => {
@@ -145,11 +150,14 @@ export default function Room({ room, showRoom, setShowRoom }) {
                     ref={chatRef}
                     className={classes.chats}
                     style={
-                        window.scrollHeight > windowHeight
+                        window.innerWidth < 768 &&
+                        beforeWindowHeight > windowHeight
                             ? {
                                   touchAction: "none",
                               }
-                            : {}
+                            : {
+                                  touchAction: "auto",
+                              }
                     }
                 >
                     {message?.chats?.map((chat, idx) => (
