@@ -10,7 +10,6 @@ import { profileState } from "../recoil/profile";
 import classes from "./room.module.css";
 import getCookie from "@/function/server/getCookie";
 import Chat from "./chat";
-import Link from "next/link";
 import getFollowingUsers from "@/function/server/getFollowingUsers";
 import getTime from "@/function/client/getTime";
 import getDateAndDay from "@/function/client/getDateAndDay";
@@ -70,13 +69,14 @@ export default function Room({ room, showRoom, setShowRoom }) {
     useEffect(() => {
         if (chat?.content) {
             setMessage({ ...message, chats: [...message.chats, chat] });
+            setHeight(0);
         }
     }, [chat]);
 
     useEffect(() => {
         chatRef.current.scrollTop = chatRef.current.scrollHeight - height;
 
-        if (message.nextPage) {
+        if (message.nextPage && !chat) {
             chatRef.current.addEventListener("scroll", callback);
         }
     }, [message]);
@@ -88,14 +88,14 @@ export default function Room({ room, showRoom, setShowRoom }) {
     }, [showRoom]);
 
     const callback = async () => {
-        if (message.nextPage) {
-            if (chatRef.current.scrollTop === 0) {
-                const result = await getChats(room.id, message.nextPage);
-                message.chats.unshift(...result.chats);
-                setMessage({ ...result, chats: message.chats });
-                setHeight(chatRef.current.scrollHeight);
-                chatRef.current.removeEventListener("scroll", callback);
-            }
+        if (chatRef.current.scrollTop === 0) {
+            chatRef.current.removeEventListener("scroll", callback);
+            const result = await getChats(room.id, message.nextPage);
+
+            message.chats.unshift(...result.chats);
+            setMessage({ ...result, chats: message.chats });
+            setChat(null);
+            setHeight(chatRef.current.scrollHeight);
         }
     };
 
