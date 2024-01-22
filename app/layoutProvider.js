@@ -6,12 +6,13 @@ import SmallSetting from "@/components/bottom/smallSetting";
 import SmallRooms from "@/components/bottom/smallRooms";
 import { usePathname } from "next/navigation";
 import Setting from "@/components/header/setting";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import callRedirect from "@/function/server/callRedirect";
 
 export default function LayoutProvider({ cookie, children }) {
     const pathname = usePathname();
     const layoutRef = useRef();
+    const [height, setHeight] = useState(null);
 
     const callback = () => {
         if (layoutRef.current?.offsetWidth > 768) {
@@ -21,16 +22,31 @@ export default function LayoutProvider({ cookie, children }) {
         }
     };
 
+    const viewPortCallback = () => {
+        setHeight(window.visualViewport.height);
+    };
+
+    useEffect(() => {}, [height]);
+
     useEffect(() => {
         window.addEventListener("resize", callback);
+        window.visualViewport.addEventListener("resize", viewPortCallback);
 
         return () => {
             window.removeEventListener("resize", callback);
+            window.visualViewport.removeEventListener(
+                "resize",
+                viewPortCallback
+            );
         };
     }, [pathname]);
 
     return (
-        <div className={classes.layout} ref={layoutRef}>
+        <div
+            className={classes.layout}
+            ref={layoutRef}
+            style={height && { height: height }}
+        >
             {pathname !== "/rooms" ? (
                 <div className={classes["not-room"]}>
                     <Header cookie={cookie} />

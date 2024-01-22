@@ -27,30 +27,12 @@ export default function Room({ room, showRoom, setShowRoom }) {
     );
     const [followState, setFollowState] = useState(false);
     const [height, setHeight] = useState(0);
-    const [roomHeight, setRoomHeight] = useState(null);
     const chatRef = useRef(null);
     const inputRef = useRef(null);
     const roomRef = useRef(null);
 
     let chatDate = "";
     let chatTime = "";
-
-    const focusoutCallback = () => {
-        inputRef.current.removeEventListener("focusout", focusoutCallback);
-        inputRef.current.removeEventListener("focus", focusCallback);
-        inputRef.current.addEventListener("focus", focusCallback);
-        setRoomHeight(window.VisualViewport.height);
-    };
-
-    const focusCallback = () => {
-        inputRef.current.removeEventListener("focus", focusCallback);
-        inputRef.current.removeEventListener("focusout", focusoutCallback);
-        inputRef.current.addEventListener("focus", focusCallback);
-        inputRef.current.addEventListener("focusout", focusoutCallback);
-        setRoomHeight(window.VisualViewport.height);
-    };
-
-    useEffect(() => {}, [roomHeight]);
 
     useEffect(() => {
         if (!socket) {
@@ -81,13 +63,9 @@ export default function Room({ room, showRoom, setShowRoom }) {
             socket.on(`${room.id}`, (data) => {
                 setChat(data);
             });
-
-            inputRef.current.addEventListener("focus", focusCallback);
         }
 
-        return () => {
-            inputRef.current?.removeEventListener("focus", focusCallback);
-        };
+        return () => {};
     }, [socket]);
 
     useEffect(() => {
@@ -143,11 +121,7 @@ export default function Room({ room, showRoom, setShowRoom }) {
 
     return (
         <>
-            <div
-                ref={roomRef}
-                className={classes.room}
-                style={roomHeight && { height: roomHeight }}
-            >
+            <div ref={roomRef} className={classes.room}>
                 <TargetUser
                     className="header"
                     targetUser={targetUser}
