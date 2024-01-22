@@ -27,12 +27,19 @@ export default function Room({ room, showRoom, setShowRoom }) {
     );
     const [followState, setFollowState] = useState(false);
     const [height, setHeight] = useState(0);
+    const [windowHeight, setWindowHeight] = useState(0);
     const chatRef = useRef(null);
     const inputRef = useRef(null);
     const roomRef = useRef(null);
 
     let chatDate = "";
     let chatTime = "";
+
+    const viewportCallback = () => {
+        setWindowHeight(window.visualViewport.height);
+    };
+
+    useEffect(() => {}, [windowHeight]);
 
     useEffect(() => {
         if (!socket) {
@@ -63,7 +70,16 @@ export default function Room({ room, showRoom, setShowRoom }) {
             socket.on(`${room.id}`, (data) => {
                 setChat(data);
             });
+
+            window.visualViewport.addEventListener("resize", viewportCallback);
         }
+
+        return () => {
+            window.visualViewport?.removeEventListener(
+                "resize",
+                viewportCallback
+            );
+        };
     }, [socket]);
 
     useEffect(() => {
@@ -125,7 +141,17 @@ export default function Room({ room, showRoom, setShowRoom }) {
                     targetUser={targetUser}
                     followState={followState}
                 />
-                <div ref={chatRef} className={classes.chats}>
+                <div
+                    ref={chatRef}
+                    className={classes.chats}
+                    style={
+                        window.scrollHeight > windowHeight
+                            ? {
+                                  touchAction: "none",
+                              }
+                            : {}
+                    }
+                >
                     {message?.chats?.map((chat, idx) => (
                         <div key={`chat-${idx}`}>
                             <div>

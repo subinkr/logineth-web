@@ -13,8 +13,8 @@ import UseRecoil from "@/function/client/useRecoil";
 export default function LayoutProvider({ cookie, children }) {
     const pathname = usePathname();
     const layoutRef = useRef();
-    const [height, setHeight] = useState(0);
-    const [windowHeight, setWindowHeight] = useState(0);
+    const [height, setHeight] = useState(null);
+    const [windowHeight, setWindowHeight] = useState(null);
 
     const callback = () => {
         if (layoutRef.current?.offsetWidth > 768) {
@@ -54,43 +54,18 @@ export default function LayoutProvider({ cookie, children }) {
             lang="en"
             className={classes.layout}
             ref={layoutRef}
-            style={
-                windowHeight < height
-                    ? {
-                          height: height,
-                          overflow: "hidden",
-                          touchAction: "none",
-                      }
-                    : {}
-            }
+            style={{
+                height: height,
+                overflow: "hidden",
+                touchAction: "none",
+            }}
         >
-            <body
-                style={
-                    windowHeight < height
-                        ? {
-                              height: height,
-                              overflow: "hidden",
-                              touchAction: "none",
-                          }
-                        : {}
-                }
-            >
+            <body>
                 <UseRecoil>
                     {pathname !== "/rooms" ? (
                         <div className={classes["not-room"]}>
                             <Header cookie={cookie} />
-                            <div
-                                className={classes.children}
-                                style={
-                                    windowHeight < height
-                                        ? {
-                                              touchAction: "none",
-                                          }
-                                        : {}
-                                }
-                            >
-                                {children}
-                            </div>
+                            <div className={classes.children}>{children}</div>
                             <div className={classes["bottom-wrapper"]}>
                                 <div className={classes.bottom}>
                                     <SmallSetting />
