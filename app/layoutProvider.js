@@ -24,8 +24,6 @@ export default function LayoutProvider({ cookie, children }) {
     };
 
     const viewPortCallback = () => {
-        document.querySelector("html").style.height =
-            window.visualViewport.height;
         setHeight(window.visualViewport.height);
     };
 
