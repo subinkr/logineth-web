@@ -27,11 +27,23 @@ export default function Room({ room, showRoom, setShowRoom }) {
     );
     const [followState, setFollowState] = useState(false);
     const [height, setHeight] = useState(0);
+    const [roomHeight, setRoomHeight] = useState(null);
     const chatRef = useRef(null);
     const inputRef = useRef(null);
 
     let chatDate = "";
     let chatTime = "";
+    const focusoutCallback = () => {
+        inputRef.current?.removeEventListener("focusout", focusoutCallback);
+        inputRef.current?.addEventListener("focus", focusCallback);
+        setRoomHeight(null);
+    };
+
+    const focusCallback = () => {
+        inputRef.current?.removeEventListener("focus", focusCallback);
+        inputRef.current?.addEventListener("focusout", focusoutCallback);
+        setRoomHeight(chatRef.current?.innerHeight);
+    };
 
     useEffect(() => {
         if (!socket) {
@@ -53,7 +65,8 @@ export default function Room({ room, showRoom, setShowRoom }) {
                 }
             };
             runSocket();
-            inputRef.current.focus();
+            inputRef.current?.addEventListener("focus", focusCallback);
+            inputRef.current?.focus();
         } else {
             const runChats = async (page = 1) => {
                 setMessage(await getChats(room.id, page));
@@ -64,6 +77,10 @@ export default function Room({ room, showRoom, setShowRoom }) {
                 setChat(data);
             });
         }
+
+        return () => {
+            inputRef.current?.removeEventListener("focus", focusCallback);
+        };
     }, [socket]);
 
     useEffect(() => {
@@ -119,7 +136,10 @@ export default function Room({ room, showRoom, setShowRoom }) {
 
     return (
         <>
-            <div className={classes.room}>
+            <div
+                className={classes.room}
+                style={roomHeight && { height: roomHeight }}
+            >
                 <TargetUser
                     className="header"
                     targetUser={targetUser}
