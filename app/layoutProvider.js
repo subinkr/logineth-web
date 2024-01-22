@@ -14,6 +14,7 @@ export default function LayoutProvider({ cookie, children }) {
     const pathname = usePathname();
     const layoutRef = useRef();
     const [height, setHeight] = useState(null);
+    const [windowHeight, setWindowHeight] = useState(null);
 
     const callback = () => {
         if (layoutRef.current?.offsetWidth > 768) {
@@ -27,7 +28,15 @@ export default function LayoutProvider({ cookie, children }) {
         setHeight(window.visualViewport.height);
     };
 
-    useEffect(() => {}, [height]);
+    useEffect(() => {
+        if (windowHeight > height) {
+            layoutRef.current.style.position = "fixed";
+            setWindowHeight(height);
+        } else if (windowHeight < height) {
+            layoutRef.current.style.position = "flex";
+            setWindowHeight(height);
+        }
+    }, [windowHeight, height]);
 
     useEffect(() => {
         window.addEventListener("resize", callback);
