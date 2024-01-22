@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import Setting from "@/components/header/setting";
 import { useEffect, useRef, useState } from "react";
 import callRedirect from "@/function/server/callRedirect";
+import UseRecoil from "@/function/client/useRecoil";
 
 export default function LayoutProvider({ cookie, children }) {
     const pathname = usePathname();
@@ -23,6 +24,8 @@ export default function LayoutProvider({ cookie, children }) {
     };
 
     const viewPortCallback = () => {
+        document.querySelector("html").style.height =
+            window.visualViewport.height;
         setHeight(window.visualViewport.height);
     };
 
@@ -42,32 +45,37 @@ export default function LayoutProvider({ cookie, children }) {
     }, [pathname]);
 
     return (
-        <div
+        <html
+            lang="en"
             className={classes.layout}
             ref={layoutRef}
             style={height && { height: height }}
         >
-            {pathname !== "/rooms" ? (
-                <div className={classes["not-room"]}>
-                    <Header cookie={cookie} />
-                    <div className={classes.children}>{children}</div>
-                    <div className={classes["bottom-wrapper"]}>
-                        <div className={classes.bottom}>
-                            <SmallSetting />
-                            <SmallRooms cookie={cookie} />
+            <body>
+                <UseRecoil>
+                    {pathname !== "/rooms" ? (
+                        <div className={classes["not-room"]}>
+                            <Header cookie={cookie} />
+                            <div className={classes.children}>{children}</div>
+                            <div className={classes["bottom-wrapper"]}>
+                                <div className={classes.bottom}>
+                                    <SmallSetting />
+                                    <SmallRooms cookie={cookie} />
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            ) : (
-                <>{children}</>
-            )}
-            {pathname !== "/settings" ? (
-                <div className={classes.setting}>
-                    <Setting />
-                </div>
-            ) : (
-                <></>
-            )}
-        </div>
+                    ) : (
+                        <>{children}</>
+                    )}
+                    {pathname !== "/settings" ? (
+                        <div className={classes.setting}>
+                            <Setting />
+                        </div>
+                    ) : (
+                        <></>
+                    )}
+                </UseRecoil>
+            </body>
+        </html>
     );
 }

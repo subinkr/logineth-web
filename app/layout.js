@@ -11,12 +11,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
     const cookie = cookies().get("accessToken")?.value;
     return (
-        <html lang="en">
-            <body>
-                <UseRecoil>
-                    <LayoutProvider cookie={cookie}>{children}</LayoutProvider>
-                </UseRecoil>
-            </body>
-        </html>
+        <>
+            <LayoutProvider cookie={cookie}>{children}</LayoutProvider>
+        </>
     );
 }
