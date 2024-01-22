@@ -1,3 +1,15 @@
+.layout {
+    width: 100%;
+    height: 100%;
+}
+
+.not-room {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .children {
     align-items: center;
     display: flex;
@@ -26,6 +38,18 @@
 
 @media (min-width: 768px) {
     .bottom {
+        display: none;
+    }
+}
+
+.setting {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-content);
+}
+
+@media (max-width: 767px) {
+    .setting {
         display: none;
     }
 }
