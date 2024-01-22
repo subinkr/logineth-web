@@ -43,7 +43,7 @@ export default function Room({ room, showRoom, setShowRoom }) {
 
     useEffect(() => {
         if (beforeWindowHeight > windowHeight) {
-            chatRef.current.scrollTop = chatRef.current.scrollHeight - height;
+            chatRef.current.scrollTop = chatRef.current.scrollHeight;
         }
         window.visualViewport.addEventListener("resize", viewportCallback);
 
