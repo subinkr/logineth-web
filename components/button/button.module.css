@@ -94,3 +94,11 @@
 .search:hover {
     background-color: var(--color-reverse);
 }
+
+.add {
+    border: 1px solid var(--color-secondary);
+    width: 90%;
+    max-width: 300px;
+    height: 40px;
+    font-size: var(--font-size-content);
+}

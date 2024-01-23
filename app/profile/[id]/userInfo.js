@@ -8,11 +8,8 @@ import { useEffect, useRef, useState } from "react";
 import Input from "@/components/input/input";
 import Follow from "./follow";
 import getDate from "@/function/client/getDate";
-import { useRecoilValue } from "recoil";
-import { languageState } from "@/components/recoil/language";
 
-export default function UserInfo({ targetUser, loginUser }) {
-    const language = useRecoilValue(languageState);
+export default function UserInfo({ targetUser, loginUser, language }) {
     const [cookie, setCookie] = useState(null);
     const [edit, setEdit] = useState(false);
     const [image, setImage] = useState("");

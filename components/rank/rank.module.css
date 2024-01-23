@@ -1,0 +1,7 @@
+.add {
+    width: 90%;
+    max-width: 300px;
+    background-color: var(--color-secondary);
+    border-radius: 8px;
+    text-align: center;
+}
