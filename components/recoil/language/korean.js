@@ -3,6 +3,8 @@ export const korean = {
     language: "언어",
     screen: "화면",
 
+    introduce: "Web3에서의 내 자신을 정의하고 작품을 만들어 판매하세요!",
+
     userInfo: "유저 정보",
     rank: "랭킹",
 
