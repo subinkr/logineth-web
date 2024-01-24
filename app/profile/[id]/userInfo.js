@@ -105,6 +105,7 @@ export default function UserInfo({ targetUser, loginUser, language }) {
 
     return (
         <>
+            <div className={classes.title}>{language?.userInfo}</div>
             <div className={classes.box}>
                 <div className={classes.user}>
                     <div className={classes["image-wrapper"]}>

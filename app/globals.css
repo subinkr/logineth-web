@@ -2,11 +2,11 @@
     --color-primary: #eee;
     --color-reverse: #111;
 
-    --color-secondary: rgba(128, 128, 128, 0.8);
+    --color-secondary: rgba(128, 128, 128, 0.5);
     --color-danger: rgba(255, 0, 0, 0.5);
     --color-ok: rgba(0, 255, 0, 0.5);
 
-    --font-size-title: 48px;
+    --font-size-title: 36px;
     --font-size-content: 24px;
     --font-size-comment: 16px;
 
@@ -78,7 +78,7 @@ button {
     color: var(--color-primary);
     font-size: var(--font-size-comment);
 
-    min-width: 100px;
+    width: 100px;
     height: 50px;
 
     cursor: pointer;

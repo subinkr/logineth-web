@@ -3,6 +3,11 @@ export const english = {
     language: "Language",
     screen: "screen",
 
+    introduce: "Define yourself, create, and sell works of Web3!",
+
+    userInfo: "User info",
+    rank: "Rankings",
+
     github: "Getting github info...",
     google: "Getting google info...",
     kakao: "Getting kakao info...",
