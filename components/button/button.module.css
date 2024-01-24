@@ -87,7 +87,7 @@
 
     background-color: var(--color-reverse);
 
-    min-width: auto;
+    width: auto;
     height: auto;
 }
 

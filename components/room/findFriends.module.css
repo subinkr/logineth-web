@@ -36,7 +36,6 @@
 .users {
     flex: 1;
     overflow-y: scroll;
-    border-radius: 8px;
     font-size: var(--font-size-comment);
 }
 
