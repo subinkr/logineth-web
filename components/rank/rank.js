@@ -24,7 +24,17 @@ export default function Rank({ targetUser, loginUser, language }) {
 
     return (
         <>
-            {ranks.length ? <></> : <></>}
+            {ranks.length ? (
+                <>
+                    <div className={classes.title}>{language?.rank}</div>
+                </>
+            ) : (
+                <>
+                    {targetUser?.id === loginUser?.id && (
+                        <div className={classes.title}>{language?.rank}</div>
+                    )}
+                </>
+            )}
             {targetUser?.id === loginUser?.id && (
                 <Button className="add">+</Button>
             )}

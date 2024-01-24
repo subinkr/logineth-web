@@ -3,6 +3,9 @@ export const korean = {
     language: "언어",
     screen: "화면",
 
+    userInfo: "유저 정보",
+    rank: "랭킹",
+
     github: "깃허브 로그인 중...",
     google: "구글 로그인 중...",
     kakao: "카카오 로그인 중...",

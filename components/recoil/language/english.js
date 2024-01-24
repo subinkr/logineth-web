@@ -3,6 +3,9 @@ export const english = {
     language: "Language",
     screen: "screen",
 
+    userInfo: "User info",
+    rank: "Rankings",
+
     github: "Getting github info...",
     google: "Getting google info...",
     kakao: "Getting kakao info...",

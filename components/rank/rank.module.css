@@ -1,7 +1,7 @@
-.add {
+.title {
+    margin-top: var(--margin);
     width: 90%;
-    max-width: 300px;
-    background-color: var(--color-secondary);
-    border-radius: 8px;
-    text-align: center;
+    max-width: var(--max-width);
+    font-size: var(--font-size-title);
+    text-align: left;
 }
