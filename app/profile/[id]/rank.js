@@ -3,6 +3,7 @@
 import classes from "./rank.module.css";
 import Button from "@/components/button/button";
 import Input from "@/components/input/input";
+import RankInfo from "@/components/rank/rankInfo";
 import getCookie from "@/function/server/getCookie";
 import { useEffect, useRef, useState } from "react";
 
@@ -11,6 +12,7 @@ export default function Rank({ targetUser, loginUser, language }) {
     const [showCreateRank, setShowCreateRank] = useState(false);
     const titleRef = useRef();
     const ranksRef = useRef();
+    const rowRef = useRef();
 
     useEffect(() => {
         const runRanks = async () => {
@@ -56,29 +58,6 @@ export default function Rank({ targetUser, loginUser, language }) {
         }
     };
 
-    const deleteRank = async (rankID) => {
-        if (confirm("삭제하시겠습니까?")) {
-            const response = await fetch(
-                `${process.env.NEXT_PUBLIC_API_SERVER}/rank/${rankID}`,
-                {
-                    method: "delete",
-                    headers: {
-                        Authorization: `Bearer ${await getCookie()}`,
-                    },
-                }
-            );
-            const result = await response.json();
-            if (response.ok) {
-                const rankIdx = ranks.findIndex((rank) => rank.id === rankID);
-                const newRanks = [...ranks];
-                newRanks.splice(rankIdx, 1);
-                setRanks(newRanks);
-                ranksRef.current.scrollLeft = 0;
-            }
-            alert(result.message);
-        }
-    };
-
     return (
         <>
             <div className={classes.title}>{language?.rank}</div>
@@ -89,7 +68,10 @@ export default function Rank({ targetUser, loginUser, language }) {
                             <div className={classes["create-rank"]}>
                                 <form className={classes.form}>
                                     <Input ref={titleRef} />
-                                    <div className={classes["button-wrapper"]}>
+                                    <div
+                                        className={classes["button-wrapper"]}
+                                        style={{ marginTop: "10px" }}
+                                    >
                                         <Button
                                             className="default"
                                             onClick={() =>
@@ -121,21 +103,14 @@ export default function Rank({ targetUser, loginUser, language }) {
                             </Button>
                         ))}
                     {ranks.map((rank, idx) => (
-                        <div key={`rank-${idx}`} className={classes.rank}>
-                            <div style={{ width: "100%" }}>
-                                <div className={classes["rank-title-wrapper"]}>
-                                    <div>{rank.title}</div>
-                                    <Button
-                                        className="none"
-                                        onClick={() => deleteRank(rank.id)}
-                                    >
-                                        🗑️
-                                    </Button>
-                                </div>
-                                <div className={classes.separator}></div>
-                                <Button className="row-add">+</Button>
-                            </div>
-                        </div>
+                        <RankInfo
+                            key={`rank-${idx}`}
+                            targetUser={targetUser}
+                            loginUser={loginUser}
+                            language={language}
+                            rank={rank}
+                            ranks={ranks}
+                        />
                     ))}
                 </div>
             </>
