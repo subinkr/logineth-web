@@ -5,8 +5,9 @@
     font-size: var(--font-size-content);
     padding: 8px;
 
-    width: 100%;
+    flex: 1;
     height: var(--font-size-title);
+    box-sizing: content-box;
 }
 
 @media (max-width: 767px) {
