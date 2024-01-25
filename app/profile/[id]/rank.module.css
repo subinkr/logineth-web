@@ -1,5 +1,5 @@
 .title {
-    margin-top: var(--margin);
+    margin: var(--margin) 0;
     width: 90%;
     max-width: var(--max-width);
     font-size: var(--font-size-title);

@@ -1,7 +1,7 @@
 "use client";
 
 import classes from "./rank.module.css";
-import Button from "../button/button";
+import Button from "@/components/button/button";
 import { useEffect, useState } from "react";
 
 export default function Rank({ targetUser, loginUser, language }) {
