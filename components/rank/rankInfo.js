@@ -1,0 +1,213 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import Button from "../button/button";
+import classes from "./rankInfo.module.css";
+import Input from "../input/input";
+import getCookie from "@/function/server/getCookie";
+import callRedirect from "@/function/server/callRedirect";
+
+export default function RankInfo({ targetUser, loginUser, language, rank }) {
+    const [showAddRow, setShowAddRow] = useState(false);
+    const [titleEdit, setTitleEdit] = useState(false);
+    const [title, setTitle] = useState(rank.title);
+    const [ranking, setRanking] = useState(rank.ranking.split("/"));
+    const rowRef = useRef();
+
+    const editTitle = (e) => {
+        setTitle(e.target.value);
+    };
+
+    const editRank = async (e) => {
+        e?.preventDefault();
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_SERVER}/rank/${rank.id}`,
+            {
+                method: "put",
+                headers: {
+                    Authorization: `Bearer ${await getCookie()}`,
+                    "Content-type": "Application/json",
+                },
+                body: JSON.stringify({ title, ranking: ranking.join("/") }),
+            }
+        );
+        const result = await response.json();
+        if (response.ok) {
+            setTitleEdit(false);
+            rank.title = title;
+        }
+    };
+
+    const deleteRank = async () => {
+        if (confirm("삭제하시겠습니까?")) {
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_SERVER}/rank/${rank.id}`,
+                {
+                    method: "delete",
+                    headers: {
+                        Authorization: `Bearer ${await getCookie()}`,
+                    },
+                }
+            );
+            const result = await response.json();
+            if (response.ok) {
+                callRedirect("/");
+            }
+            alert(result.message);
+        }
+    };
+
+    const addRow = async (e) => {
+        e.preventDefault();
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_SERVER}/rank/${rank.id}`,
+            {
+                method: "post",
+                headers: {
+                    Authorization: `Bearer ${await getCookie()}`,
+                    "Content-type": "Application/json",
+                },
+                body: JSON.stringify({ content: rowRef.current.value }),
+            }
+        );
+        const { row } = await response.json();
+
+        if (response.ok) {
+            setShowAddRow(!showAddRow);
+
+            const newRanking = [...ranking];
+            newRanking.push(row.id.toString());
+            setRanking(newRanking.filter((item) => item.length));
+
+            rank.rows.push(row);
+            callRedirect("/");
+        }
+    };
+
+    const editRow = async (rowID) => {};
+
+    const deleteRow = async (rowID) => {};
+
+    useEffect(() => {
+        editRank();
+        console.log(rank);
+    }, [ranking]);
+
+    return (
+        <div className={classes.rank}>
+            <div style={{ width: "100%" }}>
+                <div className={classes["rank-title-wrapper"]}>
+                    {titleEdit ? (
+                        <div className={classes.edit}>
+                            <form className={classes.form}>
+                                <Input value={title} onChange={editTitle} />
+                                <div className={classes["button-wrapper"]}>
+                                    <Button
+                                        className="default"
+                                        onClick={() => {
+                                            setTitleEdit(!titleEdit);
+                                            setTitle(rank.title);
+                                        }}
+                                    >
+                                        {language?.cancel}
+                                    </Button>
+                                    <Button
+                                        type="submit"
+                                        className="primary"
+                                        onClick={editRank}
+                                    >
+                                        {language?.save}
+                                    </Button>
+                                </div>
+                            </form>
+                        </div>
+                    ) : (
+                        <>
+                            <div className={classes.title}>{rank.title}</div>
+                            {targetUser?.id === loginUser?.id && (
+                                <div className={classes["button-wrapper"]}>
+                                    <Button
+                                        className="none"
+                                        onClick={() => setTitleEdit(!titleEdit)}
+                                    >
+                                        📝
+                                    </Button>
+                                    <Button
+                                        className="none"
+                                        onClick={deleteRank}
+                                    >
+                                        🗑️
+                                    </Button>
+                                </div>
+                            )}
+                        </>
+                    )}
+                </div>
+                <div className={classes.separator}></div>
+                {ranking?.map((rankRow, idx) => (
+                    <div key={`rankRow-${idx}`}>
+                        {rank.rows?.map(
+                            (row) =>
+                                rankRow === row.id.toString() && (
+                                    <div
+                                        key={`row-${idx}`}
+                                        className={classes["row-wrapper"]}
+                                    >
+                                        <div>{row.content}</div>
+                                        <div
+                                            className={
+                                                classes["button-wrapper"]
+                                            }
+                                        >
+                                            <Button
+                                                className="none"
+                                                onClick={() => editRow(row.id)}
+                                            >
+                                                📝
+                                            </Button>
+                                            <Button
+                                                className="none"
+                                                onClick={() =>
+                                                    deleteRow(row.id)
+                                                }
+                                            >
+                                                🗑️
+                                            </Button>
+                                        </div>
+                                    </div>
+                                )
+                        )}
+                    </div>
+                ))}
+                {targetUser?.id === loginUser?.id &&
+                    (showAddRow ? (
+                        <form className={classes.form}>
+                            <Input ref={rowRef} />
+                            <div className={classes["button-wrapper"]}>
+                                <Button
+                                    className="default"
+                                    onClick={() => setShowAddRow(!showAddRow)}
+                                >
+                                    {language?.cancel}
+                                </Button>
+                                <Button
+                                    type="submit"
+                                    className="primary"
+                                    onClick={addRow}
+                                >
+                                    {language?.save}
+                                </Button>
+                            </div>
+                        </form>
+                    ) : (
+                        <Button
+                            className="row-add"
+                            onClick={() => setShowAddRow(!showAddRow)}
+                        >
+                            +
+                        </Button>
+                    ))}
+            </div>
+        </div>
+    );
+}

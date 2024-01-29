@@ -1,7 +1,0 @@
-.title {
-    margin-top: var(--margin);
-    width: 90%;
-    max-width: var(--max-width);
-    font-size: var(--font-size-title);
-    text-align: left;
-}

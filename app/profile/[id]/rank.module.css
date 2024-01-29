@@ -1,0 +1,37 @@
+.title {
+    margin: var(--margin) 0;
+    width: 90%;
+    max-width: var(--max-width);
+    font-size: var(--font-size-title);
+    text-align: left;
+}
+
+.create-rank {
+    min-width: var(--min-width);
+    display: flex;
+    border: 1px solid var(--color-secondary);
+    border-radius: 8px;
+    height: fit-content;
+}
+
+.rank-wrapper {
+    width: 90%;
+    max-width: var(--max-width);
+    display: flex;
+    gap: var(--gap-content);
+    overflow-x: scroll;
+}
+
+.form {
+    width: var(--min-width);
+    height: fit-content;
+    padding: var(--padding);
+    display: flex;
+    flex-direction: column;
+}
+
+.button-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}

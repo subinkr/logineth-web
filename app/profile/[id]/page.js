@@ -7,7 +7,7 @@ import UserInfo from "./userInfo";
 import { useEffect, useState } from "react";
 import getProfile from "./getProfile";
 import checkLoginUser from "@/function/client/checkLoginUser";
-import Rank from "@/components/rank/rank";
+import Rank from "./rank";
 import { languageState } from "@/components/recoil/language";
 
 export default function Profile({ params }) {

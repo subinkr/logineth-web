@@ -5,8 +5,11 @@
     font-size: var(--font-size-content);
     padding: 8px;
 
+    flex: 1;
     width: 100%;
-    height: var(--font-size-title);
+    height: fit-content;
+    max-height: var(--font-size-title);
+    box-sizing: border-box;
 }
 
 @media (max-width: 767px) {
