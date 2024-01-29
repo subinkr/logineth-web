@@ -6,8 +6,10 @@
     padding: 8px;
 
     flex: 1;
-    height: var(--font-size-title);
-    box-sizing: content-box;
+    width: 100%;
+    height: fit-content;
+    max-height: var(--font-size-title);
+    box-sizing: border-box;
 }
 
 @media (max-width: 767px) {

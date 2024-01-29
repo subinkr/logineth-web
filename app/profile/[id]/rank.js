@@ -110,6 +110,8 @@ export default function Rank({ targetUser, loginUser, language }) {
                             language={language}
                             rank={rank}
                             ranks={ranks}
+                            setRanks={setRanks}
+                            ranksRef={ranksRef}
                         />
                     ))}
                 </div>
