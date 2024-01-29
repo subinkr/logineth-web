@@ -4,6 +4,7 @@ import classes from "./rank.module.css";
 import Button from "@/components/button/button";
 import Input from "@/components/input/input";
 import RankInfo from "@/components/rank/rankInfo";
+import callRedirect from "@/function/server/callRedirect";
 import getCookie from "@/function/server/getCookie";
 import { useEffect, useRef, useState } from "react";
 
@@ -12,7 +13,6 @@ export default function Rank({ targetUser, loginUser, language }) {
     const [showCreateRank, setShowCreateRank] = useState(false);
     const titleRef = useRef();
     const ranksRef = useRef();
-    const rowRef = useRef();
 
     useEffect(() => {
         const runRanks = async () => {
@@ -51,8 +51,7 @@ export default function Rank({ targetUser, loginUser, language }) {
         if (response.ok) {
             setRanks([result.rank, ...ranks]);
             setShowCreateRank(!showCreateRank);
-            titleRef.current.value = "";
-            ranksRef.current.scrollLeft = 0;
+            callRedirect("/");
         } else {
             alert(result.message);
         }

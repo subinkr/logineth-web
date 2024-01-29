@@ -1,24 +1,17 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "../button/button";
 import classes from "./rankInfo.module.css";
 import Input from "../input/input";
 import getCookie from "@/function/server/getCookie";
+import callRedirect from "@/function/server/callRedirect";
 
-export default function RankInfo({
-    targetUser,
-    loginUser,
-    language,
-    rank,
-    ranks,
-    setRanks,
-    ranksRef,
-}) {
+export default function RankInfo({ targetUser, loginUser, language, rank }) {
     const [showAddRow, setShowAddRow] = useState(false);
     const [titleEdit, setTitleEdit] = useState(false);
     const [title, setTitle] = useState(rank.title);
-    const [ranking, setRanking] = useState(rank.ranking);
+    const [ranking, setRanking] = useState(rank.ranking.split("/"));
     const rowRef = useRef();
 
     const editTitle = (e) => {
@@ -26,7 +19,7 @@ export default function RankInfo({
     };
 
     const editRank = async (e) => {
-        e.preventDefault();
+        e?.preventDefault();
         const response = await fetch(
             `${process.env.NEXT_PUBLIC_API_SERVER}/rank/${rank.id}`,
             {
@@ -35,12 +28,12 @@ export default function RankInfo({
                     Authorization: `Bearer ${await getCookie()}`,
                     "Content-type": "Application/json",
                 },
-                body: JSON.stringify({ title, ranking }),
+                body: JSON.stringify({ title, ranking: ranking.join("/") }),
             }
         );
         const result = await response.json();
         if (response.ok) {
-            setTitleEdit(!titleEdit);
+            setTitleEdit(false);
             rank.title = title;
         }
     };
@@ -58,11 +51,7 @@ export default function RankInfo({
             );
             const result = await response.json();
             if (response.ok) {
-                const rankIdx = ranks.findIndex((item) => item.id === rank.id);
-                const newRanks = [...ranks];
-                newRanks.splice(rankIdx, 1);
-                setRanks(newRanks);
-                ranksRef.current.scrollLeft = 0;
+                callRedirect("/");
             }
             alert(result.message);
         }
@@ -70,11 +59,39 @@ export default function RankInfo({
 
     const addRow = async (e) => {
         e.preventDefault();
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_SERVER}/rank/${rank.id}`,
+            {
+                method: "post",
+                headers: {
+                    Authorization: `Bearer ${await getCookie()}`,
+                    "Content-type": "Application/json",
+                },
+                body: JSON.stringify({ content: rowRef.current.value }),
+            }
+        );
+        const { row } = await response.json();
+
+        if (response.ok) {
+            setShowAddRow(!showAddRow);
+
+            const newRanking = [...ranking];
+            newRanking.push(row.id.toString());
+            setRanking(newRanking.filter((item) => item.length));
+
+            rank.rows.push(row);
+            callRedirect("/");
+        }
     };
 
     const editRow = async (rowID) => {};
 
     const deleteRow = async (rowID) => {};
+
+    useEffect(() => {
+        editRank();
+        console.log(rank);
+    }, [ranking]);
 
     return (
         <div className={classes.rank}>
@@ -127,21 +144,39 @@ export default function RankInfo({
                     )}
                 </div>
                 <div className={classes.separator}></div>
-                {rank.rows?.map((row, idx) => (
-                    <div key={`row-${idx}`} className={classes["row-wrapper"]}>
-                        {row.content}
-                        <Button
-                            className="none"
-                            onClick={() => editRow(row.id)}
-                        >
-                            📝
-                        </Button>
-                        <Button
-                            className="none"
-                            onClick={() => deleteRow(row.id)}
-                        >
-                            🗑️
-                        </Button>
+                {ranking?.map((rankRow, idx) => (
+                    <div key={`rankRow-${idx}`}>
+                        {rank.rows?.map(
+                            (row) =>
+                                rankRow === row.id.toString() && (
+                                    <div
+                                        key={`row-${idx}`}
+                                        className={classes["row-wrapper"]}
+                                    >
+                                        <div>{row.content}</div>
+                                        <div
+                                            className={
+                                                classes["button-wrapper"]
+                                            }
+                                        >
+                                            <Button
+                                                className="none"
+                                                onClick={() => editRow(row.id)}
+                                            >
+                                                📝
+                                            </Button>
+                                            <Button
+                                                className="none"
+                                                onClick={() =>
+                                                    deleteRow(row.id)
+                                                }
+                                            >
+                                                🗑️
+                                            </Button>
+                                        </div>
+                                    </div>
+                                )
+                        )}
                     </div>
                 ))}
                 {targetUser?.id === loginUser?.id &&
