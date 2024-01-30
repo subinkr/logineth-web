@@ -13,6 +13,19 @@ export default function Rank({ targetUser, loginUser, language }) {
     const [showCreateRank, setShowCreateRank] = useState(false);
     const titleRef = useRef();
     const ranksRef = useRef();
+    const [mousePosition, setMousePosition] = useState(null);
+
+    const callback = (e) => {
+        setMousePosition({ x: e.pageX, y: e.pageY });
+    };
+
+    useEffect(() => {
+        document.addEventListener("mousemove", callback);
+
+        return () => {
+            document.removeEventListener("mousemove", callback);
+        };
+    }, [mousePosition]);
 
     useEffect(() => {
         const runRanks = async () => {
@@ -108,9 +121,7 @@ export default function Rank({ targetUser, loginUser, language }) {
                             loginUser={loginUser}
                             language={language}
                             rank={rank}
-                            ranks={ranks}
-                            setRanks={setRanks}
-                            ranksRef={ranksRef}
+                            mousePosition={mousePosition}
                         />
                     ))}
                 </div>

@@ -42,6 +42,10 @@ export default function Room({ room, showRoom, setShowRoom }) {
     };
 
     useEffect(() => {
+        inputRef.current.focus();
+    }, []);
+
+    useEffect(() => {
         if (beforeWindowHeight > windowHeight) {
             chatRef.current.scrollTop = chatRef.current.scrollHeight;
         }

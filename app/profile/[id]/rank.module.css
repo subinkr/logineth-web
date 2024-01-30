@@ -7,7 +7,7 @@
 }
 
 .create-rank {
-    min-width: var(--min-width);
+    width: var(--min-width);
     display: flex;
     border: 1px solid var(--color-secondary);
     border-radius: 8px;

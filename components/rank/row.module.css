@@ -1,0 +1,82 @@
+.row0 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px solid gold;
+    width: 100%;
+    position: relative;
+}
+.row1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid silver;
+    width: 100%;
+    position: relative;
+}
+.row2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #cd7f32;
+    width: 100%;
+    position: relative;
+}
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--color-secondary);
+    width: 100%;
+    position: relative;
+}
+
+.row-content {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    font-size: var(--font-size-comment);
+    word-break: break-all;
+}
+
+.button-wrapper {
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--gap-comment);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.button-wrapper:hover {
+    opacity: 1;
+}
+
+.move {
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--gap-comment);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    cursor: grab;
+}
+
+.move:hover {
+    opacity: 1;
+}
+
+.form-button-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-comment);
+}
+
+.form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-comment);
+}
