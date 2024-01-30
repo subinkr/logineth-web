@@ -1,5 +1,6 @@
 "use client";
 
+import classes from "./page.module.css";
 import { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import getKakaoToken from "./getKakaoToken";
@@ -24,5 +25,5 @@ export default function LoginKakaoPage() {
         kakaoOAuth();
     }, []);
 
-    return <>{language?.kakao}</>;
+    return <div className={classes.page}>{language?.kakao}</div>;
 }

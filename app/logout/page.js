@@ -1,5 +1,6 @@
 "use client";
 
+import classes from "./page.module.css";
 import { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { profileState } from "@/components/recoil/profile";
@@ -15,5 +16,5 @@ export default function Logout() {
         deleteCookie();
     }, []);
 
-    return <>{language?.goodBye}</>;
+    return <div className={classes.logout}>{language?.goodBye}</div>;
 }

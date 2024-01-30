@@ -1,5 +1,6 @@
 "use client";
 
+import classes from "./page.module.css";
 import { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { profileState } from "@/components/recoil/profile";
@@ -24,5 +25,5 @@ export default function LoginGooglePage() {
         googleOAuth();
     }, []);
 
-    return <>{language?.google}</>;
+    return <div className={classes.page}>{language?.google}</div>;
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import classes from "./page.module.css";
 import { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import getGithubToken from "./getGithubToken";
@@ -24,5 +25,5 @@ export default function LoginGithubPage() {
         githubOAuth();
     }, []);
 
-    return <>{language?.github}</>;
+    return <div className={classes.page}>{language?.github}</div>;
 }
