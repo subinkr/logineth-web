@@ -171,6 +171,13 @@ export default function RankInfo({
                                     <div
                                         key={`row-${idx}`}
                                         className={classes["row-wrapper"]}
+                                        style={
+                                            moveRow !== null
+                                                ? {
+                                                      marginBottom: 10,
+                                                  }
+                                                : {}
+                                        }
                                     >
                                         {moveRow !== null && moveRow > idx ? (
                                             <div
@@ -188,25 +195,22 @@ export default function RankInfo({
                                         ) : (
                                             <></>
                                         )}
-                                        {moveRow !== idx ? (
-                                            <Row
-                                                className={
-                                                    idx < 3
-                                                        ? `row${idx}`
-                                                        : "row"
-                                                }
-                                                rank={rank}
-                                                row={row}
-                                                targetUser={targetUser}
-                                                loginUser={loginUser}
-                                                language={language}
-                                                ranking={ranking}
-                                                setRanking={setRanking}
-                                                idx={idx}
-                                                moveRow={moveRow}
-                                                setMoveRow={setMoveRow}
-                                            />
-                                        ) : (
+                                        <Row
+                                            className={
+                                                idx < 3 ? `row${idx}` : "row"
+                                            }
+                                            rank={rank}
+                                            row={row}
+                                            targetUser={targetUser}
+                                            loginUser={loginUser}
+                                            language={language}
+                                            ranking={ranking}
+                                            setRanking={setRanking}
+                                            idx={idx}
+                                            moveRow={moveRow}
+                                            setMoveRow={setMoveRow}
+                                        />
+                                        {moveRow === idx && (
                                             <div
                                                 className={classes.move}
                                                 style={{
