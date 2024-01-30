@@ -12,10 +12,7 @@
 }
 
 .children {
-    align-items: center;
-    display: flex;
     flex: 1;
-    justify-content: center;
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -39,6 +36,10 @@
 
 @media (min-width: 768px) {
     .bottom {
+        display: none;
+    }
+
+    .bottom-wrapper {
         display: none;
     }
 }
