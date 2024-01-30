@@ -6,13 +6,22 @@ import classes from "./rankInfo.module.css";
 import Input from "../input/input";
 import getCookie from "@/function/server/getCookie";
 import callRedirect from "@/function/server/callRedirect";
+import Row from "./row";
 
-export default function RankInfo({ targetUser, loginUser, language, rank }) {
+export default function RankInfo({
+    targetUser,
+    loginUser,
+    language,
+    rank,
+    mousePosition,
+}) {
     const [showAddRow, setShowAddRow] = useState(false);
     const [titleEdit, setTitleEdit] = useState(false);
     const [title, setTitle] = useState(rank.title);
     const [ranking, setRanking] = useState(rank.ranking.split("/"));
     const rowRef = useRef();
+    const [moveRow, setMoveRow] = useState(null);
+    const [positionRow, setPositionRow] = useState(null);
 
     const editTitle = (e) => {
         setTitle(e.target.value);
@@ -33,13 +42,12 @@ export default function RankInfo({ targetUser, loginUser, language, rank }) {
         );
         const result = await response.json();
         if (response.ok) {
-            setTitleEdit(false);
-            rank.title = title;
+            callRedirect("/");
         }
     };
 
     const deleteRank = async () => {
-        if (confirm("삭제하시겠습니까?")) {
+        if (confirm(language?.deleteAskMessage)) {
             const response = await fetch(
                 `${process.env.NEXT_PUBLIC_API_SERVER}/rank/${rank.id}`,
                 {
@@ -53,7 +61,7 @@ export default function RankInfo({ targetUser, loginUser, language, rank }) {
             if (response.ok) {
                 callRedirect("/");
             }
-            alert(result.message);
+            alert(language?.deleteMessage);
         }
     };
 
@@ -73,35 +81,46 @@ export default function RankInfo({ targetUser, loginUser, language, rank }) {
         const { row } = await response.json();
 
         if (response.ok) {
-            setShowAddRow(!showAddRow);
-
             const newRanking = [...ranking];
             newRanking.push(row.id.toString());
             setRanking(newRanking.filter((item) => item.length));
-
-            rank.rows.push(row);
-            callRedirect("/");
         }
     };
 
-    const editRow = async (rowID) => {};
-
-    const deleteRow = async (rowID) => {};
-
     useEffect(() => {
-        editRank();
-        console.log(rank);
+        if (rank.ranking !== ranking.join("/")) {
+            editRank();
+        }
     }, [ranking]);
 
+    useEffect(() => {
+        if (positionRow) {
+            const newRanking = [...ranking];
+            const moveRanking = newRanking.splice(positionRow.from, 1);
+            newRanking.splice(positionRow.to, 0, moveRanking);
+            setRanking(newRanking);
+        }
+    }, [positionRow]);
+
     return (
-        <div className={classes.rank}>
+        <div
+            className={classes.rank}
+            onMouseUp={() => setMoveRow(null)}
+            style={
+                moveRow
+                    ? {
+                          userSelect: "none",
+                      }
+                    : {}
+            }
+        >
             <div style={{ width: "100%" }}>
                 <div className={classes["rank-title-wrapper"]}>
                     {titleEdit ? (
                         <div className={classes.edit}>
                             <form className={classes.form}>
                                 <Input value={title} onChange={editTitle} />
-                                <div className={classes["button-wrapper"]}>
+                                <div className={classes["form-button-wrapper"]}>
                                     <Button
                                         className="default"
                                         onClick={() => {
@@ -122,7 +141,7 @@ export default function RankInfo({ targetUser, loginUser, language, rank }) {
                             </form>
                         </div>
                     ) : (
-                        <>
+                        <div className={classes["title-wrapper"]}>
                             <div className={classes.title}>{rank.title}</div>
                             {targetUser?.id === loginUser?.id && (
                                 <div className={classes["button-wrapper"]}>
@@ -140,7 +159,7 @@ export default function RankInfo({ targetUser, loginUser, language, rank }) {
                                     </Button>
                                 </div>
                             )}
-                        </>
+                        </div>
                     )}
                 </div>
                 <div className={classes.separator}></div>
@@ -153,27 +172,84 @@ export default function RankInfo({ targetUser, loginUser, language, rank }) {
                                         key={`row-${idx}`}
                                         className={classes["row-wrapper"]}
                                     >
-                                        <div>{row.content}</div>
-                                        <div
-                                            className={
-                                                classes["button-wrapper"]
-                                            }
-                                        >
-                                            <Button
-                                                className="none"
-                                                onClick={() => editRow(row.id)}
-                                            >
-                                                📝
-                                            </Button>
-                                            <Button
-                                                className="none"
-                                                onClick={() =>
-                                                    deleteRow(row.id)
+                                        {moveRow !== null && moveRow > idx ? (
+                                            <div
+                                                className={classes["move-row"]}
+                                                onMouseLeave={() =>
+                                                    setPositionRow(null)
                                                 }
+                                                onMouseUp={() => {
+                                                    setPositionRow({
+                                                        from: moveRow,
+                                                        to: idx,
+                                                    });
+                                                }}
+                                            ></div>
+                                        ) : (
+                                            <></>
+                                        )}
+                                        {moveRow !== idx ? (
+                                            idx < 3 ? (
+                                                <Row
+                                                    className={`row${idx}`}
+                                                    rank={rank}
+                                                    row={row}
+                                                    targetUser={targetUser}
+                                                    loginUser={loginUser}
+                                                    language={language}
+                                                    ranking={ranking}
+                                                    setRanking={setRanking}
+                                                    idx={idx}
+                                                    moveRow={moveRow}
+                                                    setMoveRow={setMoveRow}
+                                                />
+                                            ) : (
+                                                <Row
+                                                    className="row"
+                                                    rank={rank}
+                                                    row={row}
+                                                    targetUser={targetUser}
+                                                    loginUser={loginUser}
+                                                    language={language}
+                                                    ranking={ranking}
+                                                    setRanking={setRanking}
+                                                    idx={idx}
+                                                    moveRow={moveRow}
+                                                    setMoveRow={setMoveRow}
+                                                />
+                                            )
+                                        ) : (
+                                            <div
+                                                className={classes.move}
+                                                style={{
+                                                    position: "absolute",
+                                                    left: `${
+                                                        mousePosition.x + 10
+                                                    }px`,
+                                                    top: `${
+                                                        mousePosition.y + 10
+                                                    }px`,
+                                                }}
                                             >
-                                                🗑️
-                                            </Button>
-                                        </div>
+                                                {row.content}
+                                            </div>
+                                        )}
+                                        {moveRow !== null && moveRow < idx ? (
+                                            <div
+                                                className={classes["move-row"]}
+                                                onMouseLeave={() =>
+                                                    setPositionRow(null)
+                                                }
+                                                onMouseUp={() => {
+                                                    setPositionRow({
+                                                        from: moveRow,
+                                                        to: idx,
+                                                    });
+                                                }}
+                                            ></div>
+                                        ) : (
+                                            <></>
+                                        )}
                                     </div>
                                 )
                         )}
@@ -183,7 +259,7 @@ export default function RankInfo({ targetUser, loginUser, language, rank }) {
                     (showAddRow ? (
                         <form className={classes.form}>
                             <Input ref={rowRef} />
-                            <div className={classes["button-wrapper"]}>
+                            <div className={classes["form-button-wrapper"]}>
                                 <Button
                                     className="default"
                                     onClick={() => setShowAddRow(!showAddRow)}

@@ -39,6 +39,8 @@ export const english = {
     followingMessage: "Following",
     unFollowingMessage: "UnFollowing",
 
+    deleteAskMessage: "Are you sure you want to delete?",
+    deleteMessage: "Deleted.",
     withdrawAskMessage:
         "Are you sure you want to leave? User info cannot be recovered.",
     withdrawMessage: "Withdraw complete.",
