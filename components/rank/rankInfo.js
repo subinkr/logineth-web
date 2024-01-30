@@ -189,35 +189,23 @@ export default function RankInfo({
                                             <></>
                                         )}
                                         {moveRow !== idx ? (
-                                            idx < 3 ? (
-                                                <Row
-                                                    className={`row${idx}`}
-                                                    rank={rank}
-                                                    row={row}
-                                                    targetUser={targetUser}
-                                                    loginUser={loginUser}
-                                                    language={language}
-                                                    ranking={ranking}
-                                                    setRanking={setRanking}
-                                                    idx={idx}
-                                                    moveRow={moveRow}
-                                                    setMoveRow={setMoveRow}
-                                                />
-                                            ) : (
-                                                <Row
-                                                    className="row"
-                                                    rank={rank}
-                                                    row={row}
-                                                    targetUser={targetUser}
-                                                    loginUser={loginUser}
-                                                    language={language}
-                                                    ranking={ranking}
-                                                    setRanking={setRanking}
-                                                    idx={idx}
-                                                    moveRow={moveRow}
-                                                    setMoveRow={setMoveRow}
-                                                />
-                                            )
+                                            <Row
+                                                className={
+                                                    idx < 3
+                                                        ? `row${idx}`
+                                                        : "row"
+                                                }
+                                                rank={rank}
+                                                row={row}
+                                                targetUser={targetUser}
+                                                loginUser={loginUser}
+                                                language={language}
+                                                ranking={ranking}
+                                                setRanking={setRanking}
+                                                idx={idx}
+                                                moveRow={moveRow}
+                                                setMoveRow={setMoveRow}
+                                            />
                                         ) : (
                                             <div
                                                 className={classes.move}
