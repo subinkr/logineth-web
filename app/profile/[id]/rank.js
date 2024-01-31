@@ -70,8 +70,20 @@ export default function Rank({ targetUser, loginUser, language }) {
     return (
         <>
             <div className={classes.title}>{language?.rank}</div>
-            <>
+            <div className={classes["rank-area"]}>
                 <div className={classes["rank-wrapper"]}>
+                    <div
+                        style={
+                            (window.innerWidth - 920) / 2 - 16 >
+                            window.innerWidth / 20 - 16
+                                ? {
+                                      width: (window.innerWidth - 920) / 2 - 16,
+                                  }
+                                : {
+                                      width: window.innerWidth / 20 - 16,
+                                  }
+                        }
+                    ></div>
                     {targetUser?.id === loginUser?.id &&
                         (showCreateRank ? (
                             <div className={classes["create-rank"]}>
@@ -127,8 +139,20 @@ export default function Rank({ targetUser, loginUser, language }) {
                             </div>
                         );
                     })}
+                    <div
+                        style={
+                            (window.innerWidth - 920) / 2 - 16 >
+                            window.innerWidth / 20 - 16
+                                ? {
+                                      width: (window.innerWidth - 920) / 2 - 16,
+                                  }
+                                : {
+                                      width: window.innerWidth / 20 - 16,
+                                  }
+                        }
+                    ></div>
                 </div>
-            </>
+            </div>
         </>
     );
 }

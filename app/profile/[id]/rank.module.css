@@ -14,12 +14,15 @@
     height: fit-content;
 }
 
+.rank-area {
+    width: 100%;
+    overflow-x: scroll;
+}
+
 .rank-wrapper {
-    width: 90%;
-    max-width: var(--max-width);
+    min-width: fit-content;
     display: flex;
     gap: var(--gap-content);
-    overflow-x: scroll;
 }
 
 .form {
