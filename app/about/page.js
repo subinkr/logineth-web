@@ -16,7 +16,7 @@ export default function About() {
         <div className={classes["introduce-area"]}>
             <div className={classes["introduce-wrapper"]}>
                 <div className={classes.introduce}>{language?.introduce}</div>
-                {!loginUser?.id && (
+                {!loginUser && (
                     <Button
                         className="default"
                         onClick={() => callRedirect("/login")}
@@ -31,6 +31,14 @@ export default function About() {
                     alt="userInfo.png"
                     width={920}
                     height={250}
+                />
+            </div>
+            <div className={classes["rank-image"]}>
+                <Image
+                    src={"/rank.png"}
+                    alt="rank.png"
+                    width={450}
+                    height={350}
                 />
             </div>
             <div className={classes["friend-list-image"]}>

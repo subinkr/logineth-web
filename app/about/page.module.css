@@ -26,9 +26,17 @@
 
 .user-info-image {
     position: absolute;
-    transform: rotate(-15deg);
-    bottom: 20%;
+    transform: rotate(-5deg);
+    top: 20%;
     left: 10%;
+    opacity: 0.5;
+}
+
+.rank-image {
+    position: absolute;
+    transform: rotate(-15deg);
+    bottom: 10%;
+    left: 30%;
     opacity: 0.5;
 }
 
