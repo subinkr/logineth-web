@@ -6,6 +6,7 @@
     border-radius: 8px;
     width: 240px;
     height: fit-content;
+    user-select: none;
 }
 
 .rank-title-wrapper {
@@ -73,7 +74,7 @@
 }
 
 .move-row {
-    height: 10px;
+    height: var(--margin);
     z-index: 1;
 }
 .move-row:hover {

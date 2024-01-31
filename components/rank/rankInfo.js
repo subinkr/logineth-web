@@ -103,19 +103,18 @@ export default function RankInfo({
     }, [positionRow]);
 
     return (
-        <div
-            className={classes.rank}
-            onMouseUp={() => setMoveRow(null)}
-            style={
-                moveRow
-                    ? {
-                          userSelect: "none",
-                      }
-                    : {}
-            }
-        >
+        <div className={classes.rank} onMouseUp={() => setMoveRow(null)}>
             <div style={{ width: "100%" }}>
-                <div className={classes["rank-title-wrapper"]}>
+                <div
+                    className={classes["rank-title-wrapper"]}
+                    style={
+                        moveRow !== null
+                            ? {
+                                  marginBottom: 0,
+                              }
+                            : {}
+                    }
+                >
                     {titleEdit ? (
                         <div className={classes.edit}>
                             <form className={classes.form}>
@@ -174,7 +173,7 @@ export default function RankInfo({
                                         style={
                                             moveRow !== null
                                                 ? {
-                                                      marginBottom: 10,
+                                                      marginBottom: 0,
                                                   }
                                                 : {}
                                         }
@@ -193,7 +192,22 @@ export default function RankInfo({
                                                 }}
                                             ></div>
                                         ) : (
-                                            <></>
+                                            <>
+                                                {moveRow === idx ? (
+                                                    <div
+                                                        style={
+                                                            moveRow !== null
+                                                                ? {
+                                                                      marginBottom:
+                                                                          "20px",
+                                                                  }
+                                                                : {}
+                                                        }
+                                                    ></div>
+                                                ) : (
+                                                    <></>
+                                                )}
+                                            </>
                                         )}
                                         <Row
                                             className={
@@ -240,7 +254,22 @@ export default function RankInfo({
                                                 }}
                                             ></div>
                                         ) : (
-                                            <></>
+                                            <>
+                                                {moveRow === idx ? (
+                                                    <div
+                                                        style={
+                                                            moveRow !== null
+                                                                ? {
+                                                                      marginBottom:
+                                                                          "20px",
+                                                                  }
+                                                                : {}
+                                                        }
+                                                    ></div>
+                                                ) : (
+                                                    <></>
+                                                )}
+                                            </>
                                         )}
                                     </div>
                                 )
