@@ -4,7 +4,6 @@ import classes from "./rank.module.css";
 import Button from "@/components/button/button";
 import Input from "@/components/input/input";
 import RankInfo from "@/components/rank/rankInfo";
-import callRedirect from "@/function/server/callRedirect";
 import getCookie from "@/function/server/getCookie";
 import { useEffect, useRef, useState } from "react";
 
@@ -12,7 +11,6 @@ export default function Rank({ targetUser, loginUser, language }) {
     const [ranks, setRanks] = useState([]);
     const [showCreateRank, setShowCreateRank] = useState(false);
     const titleRef = useRef();
-    const ranksRef = useRef();
     const [mousePosition, setMousePosition] = useState(null);
 
     const callback = (e) => {
@@ -28,22 +26,22 @@ export default function Rank({ targetUser, loginUser, language }) {
     }, [mousePosition]);
 
     useEffect(() => {
-        const runRanks = async () => {
-            const response = await fetch(
-                `${process.env.NEXT_PUBLIC_API_SERVER}/rank/${targetUser?.id}`,
-                {
-                    method: "get",
-                }
-            );
-            const result = await response.json();
-            setRanks(result.ranks);
-        };
+        if (showCreateRank) {
+            titleRef.current?.focus();
+        } else {
+            const runRanks = async () => {
+                const response = await fetch(
+                    `${process.env.NEXT_PUBLIC_API_SERVER}/rank/${targetUser?.id}`,
+                    {
+                        method: "get",
+                    }
+                );
+                const result = await response.json();
+                setRanks(result.ranks);
+            };
 
-        runRanks();
-    }, []);
-
-    useEffect(() => {
-        titleRef.current?.focus();
+            runRanks();
+        }
     }, [showCreateRank]);
 
     const createRank = async (e) => {
@@ -62,9 +60,8 @@ export default function Rank({ targetUser, loginUser, language }) {
         );
         const result = await response.json();
         if (response.ok) {
-            setRanks([result.rank, ...ranks]);
+            setRanks([{ ...result.rank, rows: [] }, ...ranks]);
             setShowCreateRank(!showCreateRank);
-            callRedirect("/");
         } else {
             alert(result.message);
         }
@@ -74,7 +71,7 @@ export default function Rank({ targetUser, loginUser, language }) {
         <>
             <div className={classes.title}>{language?.rank}</div>
             <>
-                <div ref={ranksRef} className={classes["rank-wrapper"]}>
+                <div className={classes["rank-wrapper"]}>
                     {targetUser?.id === loginUser?.id &&
                         (showCreateRank ? (
                             <div className={classes["create-rank"]}>
@@ -114,16 +111,22 @@ export default function Rank({ targetUser, loginUser, language }) {
                                 +
                             </Button>
                         ))}
-                    {ranks.map((rank, idx) => (
-                        <RankInfo
-                            key={`rank-${idx}`}
-                            targetUser={targetUser}
-                            loginUser={loginUser}
-                            language={language}
-                            rank={rank}
-                            mousePosition={mousePosition}
-                        />
-                    ))}
+                    {ranks.map((rank, idx) => {
+                        return (
+                            <div key={`rank-${rank.id}`}>
+                                <RankInfo
+                                    targetUser={targetUser}
+                                    loginUser={loginUser}
+                                    language={language}
+                                    rank={rank}
+                                    mousePosition={mousePosition}
+                                    idx={idx}
+                                    ranks={ranks}
+                                    setRanks={setRanks}
+                                />
+                            </div>
+                        );
+                    })}
                 </div>
             </>
         </>

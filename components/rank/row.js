@@ -5,7 +5,6 @@ import Button from "../button/button";
 import classes from "./row.module.css";
 import getCookie from "@/function/server/getCookie";
 import Input from "../input/input";
-import callRedirect from "@/function/server/callRedirect";
 
 export default function Row({
     className,
@@ -40,7 +39,8 @@ export default function Row({
             }
         );
         const result = await response.json();
-        callRedirect("/");
+        row.content = content;
+        setEdit(!edit);
     };
 
     const deleteRow = async () => {

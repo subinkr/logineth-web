@@ -5,7 +5,6 @@ import Button from "../button/button";
 import classes from "./rankInfo.module.css";
 import Input from "../input/input";
 import getCookie from "@/function/server/getCookie";
-import callRedirect from "@/function/server/callRedirect";
 import Row from "./row";
 
 export default function RankInfo({
@@ -14,11 +13,15 @@ export default function RankInfo({
     language,
     rank,
     mousePosition,
+    idx,
+    ranks,
+    setRanks,
 }) {
     const [showAddRow, setShowAddRow] = useState(false);
     const [titleEdit, setTitleEdit] = useState(false);
     const [title, setTitle] = useState(rank.title);
     const [ranking, setRanking] = useState(rank.ranking.split("/"));
+    const [rows, setRows] = useState(rank.rows);
     const rowRef = useRef();
     const [moveRow, setMoveRow] = useState(null);
     const [positionRow, setPositionRow] = useState(null);
@@ -41,9 +44,10 @@ export default function RankInfo({
             }
         );
         const result = await response.json();
-        if (response.ok) {
-            callRedirect("/");
-        }
+        setPositionRow(null);
+        rank.title = title;
+        setTitleEdit(false);
+        setShowAddRow(false);
     };
 
     const deleteRank = async () => {
@@ -59,9 +63,11 @@ export default function RankInfo({
             );
             const result = await response.json();
             if (response.ok) {
-                callRedirect("/");
+                const newRanks = [...ranks];
+                newRanks.splice(idx, 1);
+                setRanks(newRanks);
+                alert(language?.deleteMessage);
             }
-            alert(language?.deleteMessage);
         }
     };
 
@@ -84,23 +90,27 @@ export default function RankInfo({
             const newRanking = [...ranking];
             newRanking.push(row.id.toString());
             setRanking(newRanking.filter((item) => item.length));
+            setRows([...rows, row]);
+            setShowAddRow(false);
         }
     };
 
     useEffect(() => {
-        if (rank.ranking !== ranking.join("/")) {
-            editRank();
-        }
+        editRank();
     }, [ranking]);
 
     useEffect(() => {
-        if (positionRow) {
+        if (moveRow === null && positionRow) {
             const newRanking = [...ranking];
-            const moveRanking = newRanking.splice(positionRow.from, 1);
+            const newRows = [...rows];
+            const [moveRanking] = newRanking.splice(positionRow.from, 1);
+            const [targetRow] = newRows.splice(positionRow.from, 1);
             newRanking.splice(positionRow.to, 0, moveRanking);
+            newRows.splice(positionRow.to, 0, targetRow);
             setRanking(newRanking);
+            setRows(newRows);
         }
-    }, [positionRow]);
+    }, [moveRow]);
 
     return (
         <div className={classes.rank} onMouseUp={() => setMoveRow(null)}>
@@ -164,11 +174,11 @@ export default function RankInfo({
                 <div className={classes.separator}></div>
                 {ranking?.map((rankRow, idx) => (
                     <div key={`rankRow-${idx}`}>
-                        {rank.rows?.map(
+                        {rows?.map(
                             (row) =>
                                 rankRow === row.id.toString() && (
                                     <div
-                                        key={`row-${idx}`}
+                                        key={`row-${row.id}`}
                                         className={classes["row-wrapper"]}
                                         style={
                                             moveRow !== null
