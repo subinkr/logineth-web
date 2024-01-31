@@ -1,0 +1,38 @@
+.footer {
+    margin: 0 auto;
+    width: 90%;
+    max-width: var(--max-width);
+    height: 100%;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: start;
+    gap: var(--gap-content);
+
+    font-size: var(--font-size-comment);
+
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 1;
+
+    transform: translate(-50%, 0);
+}
+
+.info {
+    width: var(--min-width);
+    color: var(--color-secondary);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap: var(--gap-content);
+}
+
+.title {
+    color: var(--color-primary);
+    font-size: var(--font-size-content);
+    font-weight: bold;
+    margin-top: var(--margin);
+}

@@ -9,6 +9,7 @@ import Setting from "@/components/header/setting";
 import { useEffect, useRef, useState } from "react";
 import callRedirect from "@/function/server/callRedirect";
 import UseRecoil from "@/function/client/useRecoil";
+import Footer from "@/components/footer/footer";
 
 export default function LayoutProvider({ cookie, children }) {
     const pathname = usePathname();
@@ -65,7 +66,10 @@ export default function LayoutProvider({ cookie, children }) {
                     {pathname !== "/rooms" ? (
                         <div className={classes["not-room"]}>
                             <Header cookie={cookie} />
-                            <div className={classes.children}>{children}</div>
+                            <div className={classes.children}>
+                                {children}
+                                <Footer />
+                            </div>
                             <div className={classes["bottom-wrapper"]}>
                                 <div className={classes.bottom}>
                                     <SmallSetting />
