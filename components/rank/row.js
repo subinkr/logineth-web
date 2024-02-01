@@ -92,7 +92,7 @@ export default function Row({
                     </div>
                 </form>
             ) : (
-                <>
+                <div className={classes["row-area"]}>
                     <div
                         className={classes.move}
                         onMouseDown={() => setMoveRow(idx)}
@@ -113,7 +113,7 @@ export default function Row({
                             </Button>
                         </div>
                     )}
-                </>
+                </div>
             )}
         </div>
     );

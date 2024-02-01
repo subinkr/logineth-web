@@ -40,7 +40,7 @@
     bottom: 0;
 }
 
-.button-wrapper:hover {
+.title-wrapper:hover .button-wrapper {
     opacity: 1;
 }
 
