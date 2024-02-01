@@ -17,6 +17,13 @@
 .rank-area {
     width: 100%;
     overflow-x: scroll;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.rank-area::-webkit-scrollbar {
+    display: none;
 }
 
 .rank-wrapper {
