@@ -33,6 +33,8 @@ export const korean = {
     sendMessage: "메세지 전송",
     close: "닫기",
 
+    postMetadata: "메타데이터 작성",
+
     findFriends: "친구찾기",
     friends: "친구목록",
     notFound: "검색 결과를 찾을 수 없습니다.",

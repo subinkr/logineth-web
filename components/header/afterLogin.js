@@ -4,6 +4,7 @@ import Link from "next/link";
 import Rooms from "../room/rooms";
 import { useRecoilValue } from "recoil";
 import { languageState } from "../recoil/language";
+import PostMetadata from "../metadata/postMetadata";
 
 export default function AfterLogin() {
     const language = useRecoilValue(languageState);
@@ -14,6 +15,7 @@ export default function AfterLogin() {
             <Link href={"/profile"}>{language?.profile}</Link>
             <Link href={"/logout"}>{language?.logout}</Link>
             <Rooms />
+            <PostMetadata />
         </>
     );
 }

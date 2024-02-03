@@ -33,6 +33,8 @@ export const english = {
     sendMessage: "Send message",
     close: "Close",
 
+    postMetadata: "Post metadata",
+
     findFriends: "Find friends",
     friends: "Friends",
     notFound: "Cannot find result",
