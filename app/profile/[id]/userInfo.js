@@ -99,7 +99,6 @@ export default function UserInfo({ targetUser, loginUser, language }) {
         const wallets = await window.ethereum.request({
             method: "eth_requestAccounts",
         });
-        console.log(wallets[0]);
 
         const response = await fetch(
             `${process.env.NEXT_PUBLIC_API_SERVER}/profile/${targetUser.id}/wallet`,
@@ -114,8 +113,6 @@ export default function UserInfo({ targetUser, loginUser, language }) {
                 }),
             }
         );
-        const result = await response.json();
-        console.log(result);
         if (response.ok) {
             setWallet(wallets[0]);
         }
