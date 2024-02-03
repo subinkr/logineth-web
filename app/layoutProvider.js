@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import callRedirect from "@/function/server/callRedirect";
 import UseRecoil from "@/function/client/useRecoil";
 import Footer from "@/components/footer/footer";
+import Message from "@/components/message/message";
 
 export default function LayoutProvider({ cookie, children }) {
     const pathname = usePathname();
@@ -63,6 +64,7 @@ export default function LayoutProvider({ cookie, children }) {
         >
             <body>
                 <UseRecoil>
+                    <Message />
                     {pathname !== "/rooms" ? (
                         <div className={classes["not-room"]}>
                             <Header cookie={cookie} />
