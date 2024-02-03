@@ -31,6 +31,7 @@ export default function Profile({ params }) {
             <UserInfo
                 targetUser={targetUser}
                 loginUser={loginUser}
+                setLoginUser={setLoginUser}
                 language={language}
             />
             {targetUser?.id && (

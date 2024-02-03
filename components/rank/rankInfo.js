@@ -43,11 +43,13 @@ export default function RankInfo({
                 body: JSON.stringify({ title, ranking: ranking.join("/") }),
             }
         );
-        const result = await response.json();
-        setPositionRow(null);
-        rank.title = title;
-        setTitleEdit(false);
-        setShowAddRow(false);
+
+        if (response.ok) {
+            setPositionRow(null);
+            rank.title = title;
+            setTitleEdit(false);
+            setShowAddRow(false);
+        }
     };
 
     const deleteRank = async () => {

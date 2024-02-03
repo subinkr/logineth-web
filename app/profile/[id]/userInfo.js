@@ -9,7 +9,12 @@ import Input from "@/components/input/input";
 import Follow from "./follow";
 import getDate from "@/function/client/getDate";
 
-export default function UserInfo({ targetUser, loginUser, language }) {
+export default function UserInfo({
+    targetUser,
+    loginUser,
+    setLoginUser,
+    language,
+}) {
     const [cookie, setCookie] = useState(null);
     const [edit, setEdit] = useState(false);
     const [image, setImage] = useState("");
@@ -115,6 +120,7 @@ export default function UserInfo({ targetUser, loginUser, language }) {
         );
         if (response.ok) {
             setWallet(wallets[0]);
+            setLoginUser({ ...loginUser, wallet: wallets[0] });
         }
     };
 
@@ -181,7 +187,12 @@ export default function UserInfo({ targetUser, loginUser, language }) {
                         </div>
                         {wallet ? (
                             <div className={classes["wallet-wrapper"]}>
-                                <div className={classes.wallet}>{wallet}</div>
+                                <div
+                                    className={classes.wallet}
+                                    onClick={connect}
+                                >
+                                    {wallet}
+                                </div>
                                 <div
                                     className={classes["wallet-copy"]}
                                     onClick={async () => {
