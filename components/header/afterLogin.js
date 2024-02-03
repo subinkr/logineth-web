@@ -11,6 +11,7 @@ export default function AfterLogin() {
     return (
         <>
             <Link href={"/about"}>{language?.about}</Link>
+            <Link href={"/profile"}>{language?.profile}</Link>
             <Link href={"/logout"}>{language?.logout}</Link>
             <Rooms />
         </>

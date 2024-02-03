@@ -15,9 +15,7 @@ export default function Home() {
 
     useEffect(() => {
         const setRedirect = async () => {
-            if (loginUser.id) {
-                callRedirect(`/profile/${loginUser.id}`);
-            } else {
+            if (!loginUser.id) {
                 callRedirect("/about");
             }
         };

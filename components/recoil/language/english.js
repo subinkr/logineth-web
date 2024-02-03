@@ -25,6 +25,7 @@ export const english = {
 
     logout: "Logout",
     about: "About",
+    profile: "Profile",
     login: "Login",
 
     friend: "Friend",

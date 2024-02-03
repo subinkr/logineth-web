@@ -25,6 +25,7 @@ export const korean = {
 
     logout: "로그아웃",
     about: "서비스 소개",
+    profile: "내 정보",
     login: "로그인",
 
     friend: "친구",
