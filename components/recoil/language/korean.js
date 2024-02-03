@@ -39,6 +39,8 @@ export const korean = {
     friends: "친구목록",
     notFound: "검색 결과를 찾을 수 없습니다.",
 
+    connectMetamask: "메타마스크 연결",
+
     followingMessage: "팔로우했습니다.",
     unFollowingMessage: "언팔로우했습니다.",
 

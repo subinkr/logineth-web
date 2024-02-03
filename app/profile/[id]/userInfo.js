@@ -146,6 +146,13 @@ export default function UserInfo({ targetUser, loginUser, language }) {
                                   )
                                 : language?.notExistUser}
                         </div>
+                        {loginUser.wallet ? (
+                            <div></div>
+                        ) : (
+                            <Button className="minimum">
+                                {language?.connectMetamask}
+                            </Button>
+                        )}
                     </div>
                 </div>
                 {targetUser?.id ? (
@@ -153,7 +160,6 @@ export default function UserInfo({ targetUser, loginUser, language }) {
                         edit ? (
                             <div className={classes.buttons}>
                                 <Button
-                                    className="default"
                                     onClick={() => {
                                         setImage(targetUser?.image);
                                         setNickname(targetUser?.nickname);
@@ -168,10 +174,7 @@ export default function UserInfo({ targetUser, loginUser, language }) {
                             </div>
                         ) : (
                             <div className={classes.buttons}>
-                                <Button
-                                    className="default"
-                                    onClick={() => setEdit(true)}
-                                >
+                                <Button onClick={() => setEdit(true)}>
                                     {language?.edit}
                                 </Button>
                                 <Button className="danger" onClick={withdraw}>

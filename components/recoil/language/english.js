@@ -39,6 +39,8 @@ export const english = {
     friends: "Friends",
     notFound: "Cannot find result",
 
+    connectMetamask: "Connect metamask",
+
     followingMessage: "Following",
     unFollowingMessage: "UnFollowing",
 
