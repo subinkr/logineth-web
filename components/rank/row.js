@@ -92,12 +92,14 @@ export default function Row({
                 </form>
             ) : (
                 <div className={classes["row-area"]}>
-                    <div
-                        className={classes.move}
-                        onMouseDown={() => setMoveRow(idx)}
-                    >
-                        ↕
-                    </div>
+                    {targetUser?.id === loginUser?.id && (
+                        <div
+                            className={classes.move}
+                            onMouseDown={() => setMoveRow(idx)}
+                        >
+                            ↕
+                        </div>
+                    )}
                     <div className={classes["row-content"]}>{content}</div>
                     {targetUser?.id === loginUser?.id && (
                         <div className={classes["button-wrapper"]}>
