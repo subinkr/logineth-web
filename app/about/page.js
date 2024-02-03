@@ -17,10 +17,7 @@ export default function About() {
             <div className={classes["introduce-wrapper"]}>
                 <div className={classes.introduce}>{language?.introduce}</div>
                 {loginUser.id === undefined && (
-                    <Button
-                        className="default"
-                        onClick={() => callRedirect("/login")}
-                    >
+                    <Button onClick={() => callRedirect("/login")}>
                         {language?.login}
                     </Button>
                 )}

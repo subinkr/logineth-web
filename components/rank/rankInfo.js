@@ -131,7 +131,6 @@ export default function RankInfo({
                                 <Input value={title} onChange={editTitle} />
                                 <div className={classes["form-button-wrapper"]}>
                                     <Button
-                                        className="default"
                                         onClick={() => {
                                             setTitleEdit(!titleEdit);
                                             setTitle(rank.title);
@@ -292,7 +291,6 @@ export default function RankInfo({
                             <Input ref={rowRef} />
                             <div className={classes["form-button-wrapper"]}>
                                 <Button
-                                    className="default"
                                     onClick={() => setShowAddRow(!showAddRow)}
                                 >
                                     {language?.cancel}

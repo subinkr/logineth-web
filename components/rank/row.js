@@ -74,7 +74,6 @@ export default function Row({
                     <Input value={content} onChange={editContent} />
                     <div className={classes["form-button-wrapper"]}>
                         <Button
-                            className="default"
                             onClick={() => {
                                 setContent(row.content);
                                 setEdit(!edit);

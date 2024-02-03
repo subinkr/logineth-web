@@ -100,9 +100,7 @@ export default function Follow({ targetUser }) {
                 </>
             ) : (
                 <>
-                    <Button className="default" onClick={following}>
-                        {language?.follow}
-                    </Button>
+                    <Button onClick={following}>{language?.follow}</Button>
                 </>
             )}
         </>

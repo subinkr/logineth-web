@@ -94,7 +94,6 @@ export default function Rank({ targetUser, loginUser, language }) {
                                         style={{ marginTop: "10px" }}
                                     >
                                         <Button
-                                            className="default"
                                             onClick={() =>
                                                 setShowCreateRank(
                                                     !showCreateRank

@@ -35,15 +35,9 @@ export default function Login() {
 
     return (
         <div className={classes.login}>
-            <Button className={"react-button"} onClick={github}>
-                Github
-            </Button>
-            <Button className={"react-button"} onClick={google}>
-                Google
-            </Button>
-            <Button className={"react-button"} onClick={kakao}>
-                Kakao
-            </Button>
+            <Button onClick={github}>Github</Button>
+            <Button onClick={google}>Google</Button>
+            <Button onClick={kakao}>Kakao</Button>
         </div>
     );
 }

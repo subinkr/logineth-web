@@ -236,9 +236,7 @@ export default function Room({ room, showRoom, setShowRoom }) {
                 </form>
             </div>
             <div className={classes["button-wrapper"]}>
-                <Button className={"react-button"} onClick={closeRoom}>
-                    {language?.close}
-                </Button>
+                <Button onClick={closeRoom}>{language?.close}</Button>
             </div>
         </>
     );
