@@ -55,6 +55,11 @@
     display: flex;
     align-items: center;
     gap: var(--gap-content);
+    opacity: 0.3;
+}
+
+.setting:hover {
+    opacity: 1;
 }
 
 @media (max-width: 767px) {

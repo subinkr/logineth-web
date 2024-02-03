@@ -2,7 +2,6 @@
     position: absolute;
     right: 50px;
     bottom: 50px;
-    width: 300px;
     max-height: 600px;
     display: flex;
     flex-direction: column;
@@ -11,7 +10,6 @@
 }
 
 .button-wrapper {
-    width: 300px;
     display: flex;
     justify-content: right;
 }

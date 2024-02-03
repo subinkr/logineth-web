@@ -1,5 +1,6 @@
 "use client";
 
+import classes from "./afterLogin.module.css";
 import Link from "next/link";
 import Rooms from "../room/rooms";
 import { useRecoilValue } from "recoil";
@@ -14,8 +15,12 @@ export default function AfterLogin() {
             <Link href={"/about"}>{language?.about}</Link>
             <Link href={"/profile"}>{language?.profile}</Link>
             <Link href={"/logout"}>{language?.logout}</Link>
-            <Rooms />
-            <PostMetadata />
+            <div className={classes.rooms}>
+                <Rooms />
+            </div>
+            <div className={classes["post-metadata"]}>
+                <PostMetadata />
+            </div>
         </>
     );
 }

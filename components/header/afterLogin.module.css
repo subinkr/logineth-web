@@ -1,0 +1,17 @@
+.rooms {
+    opacity: 0.3;
+    z-index: 1;
+}
+
+.rooms:hover {
+    opacity: 1;
+}
+
+.post-metadata {
+    opacity: 0.3;
+    z-index: 1;
+}
+
+.post-metadata:hover {
+    opacity: 1;
+}

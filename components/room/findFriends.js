@@ -90,7 +90,7 @@ export default function FindFriends({ setFindFriends }) {
                 </button>
             </div>
             <div className={classes.close}>
-                <Button className={"default"} onClick={closeFindFriends}>
+                <Button className="close" onClick={closeFindFriends}>
                     {language?.close}
                 </Button>
             </div>
