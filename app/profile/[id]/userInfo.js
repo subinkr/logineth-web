@@ -14,15 +14,10 @@ export default function UserInfo({ targetUser, loginUser, language }) {
     const [edit, setEdit] = useState(false);
     const [image, setImage] = useState("");
     const [nickname, setNickname] = useState("");
+    const [wallet, setWallet] = useState("");
+    const [copy, setCopy] = useState(false);
     const [bio, setBio] = useState("");
     const inputRef = useRef(null);
-
-    useEffect(() => {
-        const runCookie = async () => {
-            setCookie(await getCookie());
-        };
-        runCookie();
-    }, []);
 
     const withdraw = async () => {
         if (confirm(language.withdrawAskMessage)) {
@@ -96,6 +91,47 @@ export default function UserInfo({ targetUser, loginUser, language }) {
         setNickname(e.target.value);
     };
 
+    const connect = async () => {
+        if (window.ethereum === undefined) {
+            return alert(language?.requireMetamask);
+        }
+
+        const wallets = await window.ethereum.request({
+            method: "eth_requestAccounts",
+        });
+        console.log(wallets[0]);
+
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_SERVER}/profile/${targetUser.id}/wallet`,
+            {
+                method: "put",
+                headers: {
+                    Authorization: `Bearer ${await getCookie()}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    wallet: wallets[0],
+                }),
+            }
+        );
+        const result = await response.json();
+        console.log(result);
+        if (response.ok) {
+            setWallet(wallets[0]);
+        }
+    };
+
+    useEffect(() => {
+        const runCookie = async () => {
+            setCookie(await getCookie());
+        };
+        runCookie();
+    }, []);
+
+    useEffect(() => {
+        setWallet(targetUser?.wallet);
+    }, [targetUser]);
+
     useEffect(() => {
         if (edit) {
             setImage(image ? image : targetUser?.image);
@@ -146,12 +182,33 @@ export default function UserInfo({ targetUser, loginUser, language }) {
                                   )
                                 : language?.notExistUser}
                         </div>
-                        {loginUser.wallet ? (
-                            <div></div>
+                        {wallet ? (
+                            <div className={classes["wallet-wrapper"]}>
+                                <div className={classes.wallet}>{wallet}</div>
+                                <div
+                                    className={classes["wallet-copy"]}
+                                    onClick={async () => {
+                                        await window.navigator.clipboard.writeText(
+                                            wallet
+                                        );
+                                        setCopy(true);
+                                    }}
+                                >
+                                    {copy ? <>✔</> : <>📋</>}
+                                </div>
+                            </div>
                         ) : (
-                            <Button className="minimum">
-                                {language?.connectMetamask}
-                            </Button>
+                            <div>
+                                {targetUser?.id &&
+                                    targetUser?.id === loginUser?.id && (
+                                        <Button
+                                            className="minimum"
+                                            onClick={connect}
+                                        >
+                                            {language?.connectMetamask}
+                                        </Button>
+                                    )}
+                            </div>
                         )}
                     </div>
                 </div>

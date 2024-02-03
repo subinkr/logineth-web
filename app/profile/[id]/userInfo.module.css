@@ -104,3 +104,20 @@
 .user-id {
     color: var(--color-secondary);
 }
+
+.wallet-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap-comment);
+    font-size: var(--font-size-comment);
+}
+
+.wallet {
+    color: var(--color-secondary);
+}
+
+.wallet-copy {
+    cursor: pointer;
+    font-size: 10px;
+}

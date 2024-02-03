@@ -33,6 +33,7 @@ export const english = {
     sendMessage: "Send message",
     close: "Close",
 
+    requireMetamask: "Install metamask",
     postMetadata: "Post metadata",
 
     findFriends: "Find friends",

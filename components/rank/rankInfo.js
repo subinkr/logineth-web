@@ -96,7 +96,9 @@ export default function RankInfo({
     };
 
     useEffect(() => {
-        editRank();
+        if (moveRow) {
+            editRank();
+        }
     }, [ranking]);
 
     useEffect(() => {
