@@ -3,7 +3,7 @@
 import classes from "./rooms.module.css";
 import getRooms from "./getRooms";
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { profileState } from "../recoil/profile";
 import Button from "../button/button";
 import Room from "./room";
@@ -16,7 +16,7 @@ import FindFriends from "./findFriends";
 
 export default function Rooms() {
     const language = useRecoilValue(languageState);
-    const [loginUser, setLoginUser] = useRecoilState(profileState);
+    const loginUser = useRecoilValue(profileState);
     const [rooms, setRooms] = useState([]);
     const [showRoom, setShowRoom] = useState(null);
     const [showRooms, setShowRooms] = useState(false);
