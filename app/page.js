@@ -1,8 +1,6 @@
 "use client";
 
 import classes from "./page.module.css";
-import Web3 from "web3";
-import GSB from "../contracts/abi/GSB.abi.json";
 import { useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { profileState } from "@/components/recoil/profile";
@@ -12,13 +10,13 @@ import Button from "@/components/button/button";
 import Input from "@/components/input/input";
 import { messageState } from "@/components/recoil/message";
 import { languageState } from "@/components/recoil/language";
+import useWeb3 from "@/function/client/web3";
 
 export default function Home() {
+    const [web3, contract] = useWeb3();
     const [loginUser, setLoginUser] = useRecoilState(profileState);
     const language = useRecoilValue(languageState);
     const setMessage = useSetRecoilState(messageState);
-    const [web3, setWeb3] = useState(null);
-    const [nftContract, setNftContract] = useState(null);
     const [nfts, setNfts] = useState([]);
     const [descriptions, setDescriptions] = useState([]);
     const [prices, setPrices] = useState([]);
@@ -26,14 +24,6 @@ export default function Home() {
 
     useEffect(() => {
         checkLoginUser(setLoginUser);
-
-        const newWeb3 = new Web3(window.ethereum);
-        const contract = new newWeb3.eth.Contract(
-            GSB.abi,
-            process.env.NEXT_PUBLIC_CA
-        );
-        setWeb3(newWeb3);
-        setNftContract(contract);
     }, []);
 
     useEffect(() => {
@@ -47,14 +37,14 @@ export default function Home() {
     }, [loginUser]);
 
     useEffect(() => {
-        if (nftContract) {
+        if (contract) {
             runNFTs();
         }
-    }, [nftContract]);
+    }, [contract]);
 
     const runNFTs = async () => {
-        const nfts = await nftContract.methods.getTokenURIs().call();
-        const prices = await nftContract.methods.getTokenPrices().call();
+        const nfts = await contract.methods.getTokenURIs().call();
+        const prices = await contract.methods.getTokenPrices().call();
 
         const newNfts = [];
         const newDescriptions = [];

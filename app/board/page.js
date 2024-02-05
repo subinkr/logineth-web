@@ -1,36 +1,26 @@
 "use client";
 
-import Web3 from "web3";
 import { v4 as UUID } from "uuid";
-import GSB from "../../contracts/abi/GSB.abi.json";
 import Input from "@/components/input/input";
 import classes from "./page.module.css";
 import { messageState } from "@/components/recoil/message";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import Textarea from "@/components/textarea/textarea";
 import { profileState } from "@/components/recoil/profile";
 import { languageState } from "@/components/recoil/language";
+import useWeb3 from "@/function/client/web3";
 
 export default function Board() {
+    const [_, contract] = useWeb3();
     const loginUser = useRecoilValue(profileState);
     const language = useRecoilValue(languageState);
     const setMessage = useSetRecoilState(messageState);
-    const [nftContract, setNftContract] = useState(null);
     const [img, setImg] = useState(null);
     const [imgSrc, setImgSrc] = useState(null);
     const nameRef = useRef();
     const descRef = useRef();
     const imgUploadRef = useRef();
-
-    useEffect(() => {
-        const web3 = new Web3(window.ethereum);
-        const contract = new web3.eth.Contract(
-            GSB.abi,
-            process.env.NEXT_PUBLIC_CA
-        );
-        setNftContract(contract);
-    }, []);
 
     const imageUpload = async () => {
         if (!img) return;
@@ -150,7 +140,7 @@ export default function Board() {
             );
 
             const { IpfsHash } = await response.json();
-            await nftContract.methods.minting(IpfsHash).send({
+            await contract.methods.minting(IpfsHash).send({
                 from: loginUser.wallet,
             });
 
@@ -182,7 +172,10 @@ export default function Board() {
         <div className={classes["content-area"]}>
             <>
                 {img ? (
-                    <div onClick={() => imgUploadRef.current.click()}>
+                    <div
+                        className={classes["uploaded-image-wrapper"]}
+                        onClick={() => imgUploadRef.current.click()}
+                    >
                         <img
                             className={classes["uploaded-image"]}
                             src={imgSrc}

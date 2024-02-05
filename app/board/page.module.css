@@ -22,7 +22,7 @@
 }
 
 .image {
-    width: 300px;
+    width: 70%;
     height: 300px;
     border: 1px solid var(--color-secondary);
 
@@ -33,8 +33,13 @@
     cursor: pointer;
 }
 
+.uploaded-image-wrapper {
+    max-width: 70%;
+}
+
 .uploaded-image {
-    width: 300px;
+    width: 100%;
+    cursor: pointer;
 }
 
 .post-metadata-area {
