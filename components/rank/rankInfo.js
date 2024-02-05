@@ -93,12 +93,11 @@ export default function RankInfo({
             newRanking.push(row.id.toString());
             setRanking(newRanking.filter((item) => item.length));
             setRows([...rows, row]);
-            setShowAddRow(false);
         }
     };
 
     useEffect(() => {
-        if (positionRow) {
+        if (showAddRow || positionRow) {
             editRank();
         }
     }, [ranking]);
