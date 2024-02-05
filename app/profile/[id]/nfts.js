@@ -2,15 +2,13 @@
 
 import { profileState } from "@/components/recoil/profile";
 import classes from "./nfts.module.css";
-import { languageState } from "@/components/recoil/language";
 import useWeb3 from "@/function/client/web3";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
+import NFT from "@/components/nft/nft";
 
-export default function NFTs() {
+export default function NFTs({ targetUser, loginUser }) {
     const [web3, contract] = useWeb3();
-    const loginUser = useRecoilValue(profileState);
-    const language = useRecoilValue(languageState);
     const [nfts, setNfts] = useState([]);
     const [descriptions, setDescriptions] = useState([]);
     const [owners, setOwners] = useState([]);
@@ -44,8 +42,6 @@ export default function NFTs() {
         setDescriptions(newDescriptions);
         setOwners(owners);
         setPrices(prices);
-        console.log(owners);
-        console.log(loginUser.wallet);
     };
 
     return (
@@ -53,12 +49,17 @@ export default function NFTs() {
             <div className={classes.title}>NFTs</div>
             <div className={classes.nfts}>
                 {owners.map((owner, idx) => {
-                    if (owner.toLowerCase() === loginUser.wallet) {
+                    if (owner.toLowerCase() === targetUser.wallet) {
                         return (
-                            <img
-                                className={classes.image}
+                            <NFT
                                 key={idx}
-                                src={nfts[idx]}
+                                nft={nfts[idx]}
+                                idx={idx}
+                                loginUser={loginUser}
+                                prices={prices}
+                                descriptions={descriptions}
+                                web3={web3}
+                                contract={contract}
                             />
                         );
                     }

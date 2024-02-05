@@ -1,0 +1,58 @@
+.image-wrapper {
+    width: 300px;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.image-wrapper:hover .main-content {
+    z-index: 1;
+    cursor: pointer;
+}
+
+.buy {
+    width: 100%;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.image-wrapper:hover .buy {
+    opacity: 0.1;
+    z-index: 1;
+}
+
+.image-wrapper:hover .buy:hover {
+    opacity: 1;
+}
+
+.description {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translate(0, 100%);
+    display: none;
+    background-color: var(--color-reverse);
+    border: 1px solid var(--color-secondary);
+    font-size: var(--font-size-comment);
+    padding: 20px;
+    word-break: break-all;
+}
+
+.image-wrapper:hover .description {
+    display: block;
+    z-index: 1;
+}
+
+.message {
+    font-size: 50px;
+    color: white;
+}

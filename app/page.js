@@ -1,26 +1,20 @@
 "use client";
 
 import classes from "./page.module.css";
-import { useEffect, useRef, useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 import { profileState } from "@/components/recoil/profile";
 import callRedirect from "@/function/server/callRedirect";
 import checkLoginUser from "@/function/client/checkLoginUser";
-import Button from "@/components/button/button";
-import Input from "@/components/input/input";
-import { messageState } from "@/components/recoil/message";
-import { languageState } from "@/components/recoil/language";
 import useWeb3 from "@/function/client/web3";
+import NFT from "@/components/nft/nft";
 
 export default function Home() {
     const [web3, contract] = useWeb3();
     const [loginUser, setLoginUser] = useRecoilState(profileState);
-    const language = useRecoilValue(languageState);
-    const setMessage = useSetRecoilState(messageState);
     const [nfts, setNfts] = useState([]);
     const [descriptions, setDescriptions] = useState([]);
     const [prices, setPrices] = useState([]);
-    const priceRef = useRef();
 
     useEffect(() => {
         checkLoginUser(setLoginUser);
@@ -68,34 +62,16 @@ export default function Home() {
         <div className={classes.gallery}>
             {nfts.map((nft, idx) => {
                 return (
-                    <div key={idx} className={classes["image-wrapper"]}>
-                        <img
-                            width={300}
-                            src={nft}
-                            className={classes["main-content"]}
-                            onClick={() => {
-                                setMessage(<img width={"50%"} src={nft} />);
-                            }}
-                        />
-                        <div className={classes.buy}>
-                            <Input
-                                placeholder={web3.utils.fromWei(
-                                    prices[idx],
-                                    "ether"
-                                )}
-                                ref={priceRef}
-                            />
-                            <Button
-                                className="buy"
-                                onClick={() => buyToken(idx)}
-                            >
-                                {language?.buy}
-                            </Button>
-                        </div>
-                        <div className={classes.description}>
-                            {descriptions[idx]}
-                        </div>
-                    </div>
+                    <NFT
+                        key={idx}
+                        nft={nft}
+                        idx={idx}
+                        loginUser={loginUser}
+                        prices={prices}
+                        descriptions={descriptions}
+                        web3={web3}
+                        contract={contract}
+                    />
                 );
             })}
         </div>

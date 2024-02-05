@@ -72,6 +72,7 @@ export const english = {
     startGenerateNft: "Start generate NFT.",
     completeUploadMetadata: "Complete upload NFT metadata.",
     pleaseConfirmTransaction: "Please confirm transaction.",
+    processingTransaction: "Processing transaction.",
     completeGenerateNft: "Complete generate NFT.",
 
     inputNftInfo: "Input NFT info.",

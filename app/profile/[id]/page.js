@@ -42,7 +42,11 @@ export default function Profile({ params }) {
                         loginUser={loginUser}
                         language={language}
                     />
-                    <NFTs />
+                    <NFTs
+                        targetUser={targetUser}
+                        loginUser={loginUser}
+                        language={language}
+                    />
                 </>
             )}
         </div>

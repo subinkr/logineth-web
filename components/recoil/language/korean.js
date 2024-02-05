@@ -72,6 +72,7 @@ export const korean = {
     startNftGenerate: "NFT 생성을 시작했습니다.",
     completeUploadMetadata: "NFT 메타데이터 업로드를 완료했습니다.",
     pleaseConfirmTransaction: "거래를 처리하고 잠시만 기다려주세요.",
+    processingTransaction: "거래를 처리중입니다.",
     completeGenerateNft: "NFT 생성을 완료했습니다.",
 
     inputNftInfo: "NFT의 정보를 모두 입력해주세요.",
