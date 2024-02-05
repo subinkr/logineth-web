@@ -96,7 +96,7 @@ export default function UserInfo({
         setNickname(e.target.value);
     };
 
-    const connect = async () => {
+    const connect = async (connect) => {
         if (window.ethereum === undefined) {
             return alert(language?.requireMetamask);
         }
@@ -114,13 +114,13 @@ export default function UserInfo({
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    wallet: wallets[0],
+                    wallet: connect ? wallets[0] : "",
                 }),
             }
         );
         if (response.ok) {
-            setWallet(wallets[0]);
-            setLoginUser({ ...loginUser, wallet: wallets[0] });
+            setWallet(connect ? wallets[0] : "");
+            setLoginUser({ ...loginUser, wallet: connect ? wallets[0] : "" });
         }
     };
 
@@ -187,10 +187,7 @@ export default function UserInfo({
                         </div>
                         {wallet ? (
                             <div className={classes["wallet-wrapper"]}>
-                                <div
-                                    className={classes.wallet}
-                                    onClick={connect}
-                                >
+                                <div className={classes.wallet}>
                                     {`${wallet.slice(0, 6)}...${wallet.slice(
                                         38,
                                         42
@@ -207,6 +204,14 @@ export default function UserInfo({
                                 >
                                     {copy ? <>✔</> : <>📋</>}
                                 </div>
+                                {targetUser?.id === loginUser?.id && (
+                                    <div
+                                        className={classes["wallet-delete"]}
+                                        onClick={() => connect(false)}
+                                    >
+                                        ❌
+                                    </div>
+                                )}
                             </div>
                         ) : (
                             <div>
@@ -214,7 +219,7 @@ export default function UserInfo({
                                     targetUser?.id === loginUser?.id && (
                                         <Button
                                             className="minimum"
-                                            onClick={connect}
+                                            onClick={() => connect(true)}
                                         >
                                             {language?.connectMetamask}
                                         </Button>
