@@ -107,7 +107,7 @@
 
 .wallet-wrapper {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     gap: var(--gap-comment);
     font-size: var(--font-size-comment);

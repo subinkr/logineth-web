@@ -1,4 +1,5 @@
 .rooms {
+    border: none;
     font-size: var(--font-size-content);
     height: 100%;
 }

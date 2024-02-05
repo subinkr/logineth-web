@@ -191,7 +191,10 @@ export default function UserInfo({
                                     className={classes.wallet}
                                     onClick={connect}
                                 >
-                                    {wallet}
+                                    {`${wallet.slice(0, 6)}...${wallet.slice(
+                                        38,
+                                        42
+                                    )}`}
                                 </div>
                                 <div
                                     className={classes["wallet-copy"]}
