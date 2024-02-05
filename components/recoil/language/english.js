@@ -52,4 +52,11 @@ export const english = {
     withdrawMessage: "Withdraw complete.",
     saveEditMessage: "Saved",
     badEditMessage: "Nickname must be between 1 to 10 characters.",
+
+    companyInfo: "Company",
+    companyAddress:
+        "651, Olympic-ro, Gangdong-gu, Seoul, Republic of Korea 4,5,6 floor (Starbucks building within 50m of Exit 2 of Subway Lines 5 and 8)",
+    workersInfo: "Workers",
+    workers: "Subin Gang",
+    reportInfo: "Report",
 };

@@ -52,4 +52,11 @@ export const korean = {
     withdrawMessage: "탈퇴했습니다.",
     saveEditMessage: "저장되었습니다.",
     badEditMessage: "닉네임은 1글자에서 10글자 사이여야 합니다.",
+
+    companyInfo: "회사정보",
+    companyAddress:
+        "서울특별시 강동구 올림픽로 651 예경빌딩 4,5,6층 (지하철 5,8호선 2번출구 50m이내 스타벅스 건물)",
+    workersInfo: "직원정보",
+    workers: "강수빈",
+    reportInfo: "버그신고",
 };

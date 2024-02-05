@@ -72,6 +72,7 @@ export default function FindFriends({ setFindFriends }) {
                         users.findUsers.map((user, idx) => (
                             <TargetUser
                                 key={`users-${idx}`}
+                                className="default"
                                 targetUser={user}
                                 followState={null}
                             />
