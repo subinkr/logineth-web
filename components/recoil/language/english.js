@@ -59,4 +59,22 @@ export const english = {
     workersInfo: "Workers",
     workers: "Subin Gang",
     reportInfo: "Report",
+
+    buy: "Buy with ETH",
+
+    nftTitle: "NFT title",
+    nftDescription: "NFT content",
+    nftGenerate: "Generate NFT",
+
+    pleaseWait: "Please wait.",
+    startImageUpload: "Start upload image.",
+    completeUploadImage: "Complete upload image.",
+    startGenerateNft: "Start generate NFT.",
+    completeUploadMetadata: "Complete upload NFT metadata.",
+    pleaseConfirmTransaction: "Please confirm transaction.",
+    completeGenerateNft: "Complete generate NFT.",
+
+    inputNftInfo: "Input NFT info.",
+    notMatchWallet:
+        "The address of the currently selected metamask wallet and the registered wallet in the account do not match.",
 };

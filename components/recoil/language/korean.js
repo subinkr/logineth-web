@@ -59,4 +59,22 @@ export const korean = {
     workersInfo: "직원정보",
     workers: "강수빈",
     reportInfo: "버그신고",
+
+    buy: "ETH로 구매",
+
+    nftTitle: "NFT 제목을 입력해주세요.",
+    nftDescription: "NFT 내용을 입력해주세요.",
+    nftGenerate: "NFT 생성",
+
+    pleaseWait: "잠시만 기다려주세요.",
+    startImageUpload: "이미지 업로드를 시작했습니다.",
+    completeUploadImage: "이미지 업로드를 완료했습니다.",
+    startNftGenerate: "NFT 생성을 시작했습니다.",
+    completeUploadMetadata: "NFT 메타데이터 업로드를 완료했습니다.",
+    pleaseConfirmTransaction: "거래를 처리하고 잠시만 기다려주세요.",
+    completeGenerateNft: "NFT 생성을 완료했습니다.",
+
+    inputNftInfo: "NFT의 정보를 모두 입력해주세요.",
+    notMatchWallet:
+        "계정에 등록된 지갑과 현재 선택된 메타마스크 지갑의 주소가 일치하지 않습니다.",
 };

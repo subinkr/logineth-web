@@ -46,9 +46,9 @@ export default function Board() {
         setMessage(
             <div>
                 <div className={classes.message}>
-                    이미지 업로드를 시작했습니다.
+                    {language?.startImageUpload}
                 </div>
-                <div className={classes.message}>잠시만 기다려주세요.</div>
+                <div className={classes.message}>{language?.pleaseWait}</div>
             </div>
         );
 
@@ -69,7 +69,7 @@ export default function Board() {
         if (response.ok) {
             setMessage(
                 <div className={classes.message}>
-                    이미지 업로드를 완료했습니다.
+                    {language?.completeImageUpload}
                 </div>
             );
 
@@ -90,7 +90,7 @@ export default function Board() {
 
     const upload = async () => {
         if (!nameRef.current?.value || !descRef.current?.value || !imgSrc) {
-            return alert("NFT의 정보를 모두 입력해주세요.");
+            return alert(language?.inputNftInfo);
         }
 
         const wallets = await window.ethereum.request({
@@ -98,17 +98,17 @@ export default function Board() {
         });
 
         if (loginUser.wallet !== wallets[0]) {
-            return alert(
-                "계정에 등록된 지갑과 현재 선택된 메타마스크 지갑의 주소가 일치하지 않습니다."
-            );
+            return alert(language?.notMatchWallet);
         }
 
         const imageHash = await imageUpload();
 
         setMessage(
             <div>
-                <div className={classes.message}>NFT 생성을 시작했습니다.</div>
-                <div className={classes.message}>잠시만 기다려주세요.</div>
+                <div className={classes.message}>
+                    {language?.startGenerateNft}
+                </div>
+                <div className={classes.message}>{language?.pleaseWait}</div>
             </div>
         );
 
@@ -141,10 +141,10 @@ export default function Board() {
             setMessage(
                 <div>
                     <div className={classes.message}>
-                        NFT 메타데이터 업로드를 완료했습니다.
+                        {language?.completeUploadMetadata}
                     </div>
                     <div className={classes.message}>
-                        거래를 처리하고 잠시만 기다려주세요.
+                        {language?.pleaseConfirmTransaction}
                     </div>
                 </div>
             );
@@ -155,7 +155,9 @@ export default function Board() {
             });
 
             setMessage(
-                <div className={classes.message}>NFT 생성을 완료했습니다.</div>
+                <div className={classes.message}>
+                    {language?.completeGenerateNft}
+                </div>
             );
             nameRef.current.value = "";
             descRef.current.value = "";
@@ -214,11 +216,14 @@ export default function Board() {
                 />
             </>
             <div className={classes["input-area"]}>
-                <Input ref={nameRef} placeholder="NFT 이름을 입력해주세요" />
-                <Textarea ref={descRef} placeholder="NFT 설명을 입력해주세요" />
+                <Input ref={nameRef} placeholder={language?.nftTitle} />
+                <Textarea
+                    ref={descRef}
+                    placeholder={language?.nftDescription}
+                />
             </div>
             <button className={classes["post-metadata-area"]} onClick={upload}>
-                NFT 생성
+                {language?.nftGenerate}
             </button>
         </div>
     );
