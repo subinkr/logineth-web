@@ -3,6 +3,7 @@
     max-width: var(--max-width);
     margin: 0 auto;
     height: 100%;
+    padding: var(--padding);
 
     display: flex;
     flex-direction: column;

@@ -236,7 +236,9 @@ export default function Room({ room, showRoom, setShowRoom }) {
                 </form>
             </div>
             <div className={classes["button-wrapper"]}>
-                <Button onClick={closeRoom}>{language?.close}</Button>
+                <Button className="close" onClick={closeRoom}>
+                    {language?.close}
+                </Button>
             </div>
         </>
     );

@@ -13,8 +13,9 @@ export default function NFT({
     nft,
     idx,
     loginUser,
-    prices,
-    descriptions,
+    name,
+    price,
+    description,
     web3,
     contract,
 }) {
@@ -51,25 +52,32 @@ export default function NFT({
     };
 
     return (
-        <div className={classes["image-wrapper"]}>
-            <img
-                width={300}
-                src={nft}
-                className={classes["main-content"]}
-                onClick={() => {
-                    setMessage(<img width={"50%"} src={nft} />);
-                }}
-            />
-            <div className={classes.buy}>
-                <Input
-                    placeholder={web3.utils.fromWei(prices[idx], "ether")}
-                    ref={priceRef}
+        <div className={classes["nft-wrapper"]}>
+            <div className={classes.name}>{name}</div>
+            <div className={classes["image-wrapper"]}>
+                <img
+                    width={300}
+                    src={nft}
+                    className={classes["main-content"]}
+                    onClick={() => {
+                        setMessage(<img width={"50%"} src={nft} />);
+                    }}
                 />
-                <Button className="buy" onClick={() => buyToken(idx)}>
-                    {language?.buy}
-                </Button>
+                <div className={classes.buy}>
+                    <Input
+                        placeholder={web3.utils.fromWei(price, "ether")}
+                        ref={priceRef}
+                    />
+                    <Button className="buy" onClick={() => buyToken(idx)}>
+                        {language?.buy}
+                    </Button>
+                </div>
             </div>
-            <div className={classes.description}>{descriptions[idx]}</div>
+            <textarea
+                className={classes.description}
+                value={description}
+                readOnly
+            ></textarea>
         </div>
     );
 }

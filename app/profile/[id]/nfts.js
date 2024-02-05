@@ -8,6 +8,7 @@ import NFT from "@/components/nft/nft";
 export default function NFTs({ targetUser, loginUser }) {
     const [web3, contract] = useWeb3();
     const [nfts, setNfts] = useState([]);
+    const [names, setNames] = useState([]);
     const [descriptions, setDescriptions] = useState([]);
     const [owners, setOwners] = useState([]);
     const [prices, setPrices] = useState([]);
@@ -24,6 +25,7 @@ export default function NFTs({ targetUser, loginUser }) {
         const prices = await contract.methods.getTokenPrices().call();
 
         const newNfts = [];
+        const newNames = [];
         const newDescriptions = [];
         for (let i = 0; i < nfts.length; i++) {
             const response = await fetch(
@@ -34,9 +36,11 @@ export default function NFTs({ targetUser, loginUser }) {
             );
             const result = await response.json();
             newNfts.push(result.image);
+            newNames.push(result.name);
             newDescriptions.push(result.description);
         }
         setNfts(newNfts);
+        setNames(newNames);
         setDescriptions(newDescriptions);
         setOwners(owners);
         setPrices(prices);
@@ -54,8 +58,9 @@ export default function NFTs({ targetUser, loginUser }) {
                                 nft={nfts[idx]}
                                 idx={idx}
                                 loginUser={loginUser}
-                                prices={prices}
-                                descriptions={descriptions}
+                                price={prices[idx]}
+                                name={names[idx]}
+                                description={descriptions[idx]}
                                 web3={web3}
                                 contract={contract}
                             />

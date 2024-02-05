@@ -1,7 +1,8 @@
 .gallery {
-    padding: var(--padding);
+    max-width: var(--max-width);
+    margin: var(--margin) auto;
     display: flex;
-    gap: var(--gap-content);
+    gap: var(--gap-comment);
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
