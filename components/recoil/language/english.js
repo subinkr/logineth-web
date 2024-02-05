@@ -69,7 +69,7 @@ export const english = {
     pleaseWait: "Please wait.",
     startImageUpload: "Start upload image.",
     completeUploadImage: "Complete upload image.",
-    startNftGenerate: "Start generate NFT.",
+    startGenerateNft: "Start generate NFT.",
     completeUploadMetadata: "Complete upload NFT metadata.",
     pleaseConfirmTransaction: "Please confirm transaction.",
     processingTransaction: "Processing transaction.",
