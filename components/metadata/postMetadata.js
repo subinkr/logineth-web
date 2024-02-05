@@ -6,6 +6,7 @@ import { useRecoilValue } from "recoil";
 import { languageState } from "../recoil/language";
 import { profileState } from "../recoil/profile";
 import { useEffect, useState } from "react";
+import callRedirect from "@/function/server/callRedirect";
 
 export default function PostMetadata() {
     const loginUser = useRecoilValue(profileState);
@@ -20,7 +21,10 @@ export default function PostMetadata() {
         <>
             <div className={classes["post-metadata-area"]}>
                 {wallet && (
-                    <Button className="post-metadata">
+                    <Button
+                        className="post-metadata"
+                        onClick={() => callRedirect("/board")}
+                    >
                         {language?.postMetadata}
                     </Button>
                 )}
