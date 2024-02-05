@@ -1,6 +1,6 @@
 .title {
-    margin: var(--margin) 0;
     width: 90%;
+    margin-top: var(--margin);
     max-width: var(--max-width);
     font-size: var(--font-size-title);
     text-align: left;
@@ -17,6 +17,7 @@
 .rank-area {
     width: 100%;
     overflow-x: scroll;
+    margin: var(--margin);
 
     -ms-overflow-style: none;
     scrollbar-width: none;
