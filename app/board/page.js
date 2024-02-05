@@ -23,12 +23,12 @@ export default function Board() {
     const descRef = useRef();
     const imgUploadRef = useRef();
 
-    const IPFS_PATH = "https://ipfs.io/ipfs/";
-    const CA = "0x7d3cA4A4967e47c46264785A7920AD786e1bA884";
-
     useEffect(() => {
         const web3 = new Web3(window.ethereum);
-        const contract = new web3.eth.Contract(GSB.abi, CA);
+        const contract = new web3.eth.Contract(
+            GSB.abi,
+            process.env.NEXT_PUBLIC_CA
+        );
         setNftContract(contract);
     }, []);
 
@@ -115,7 +115,7 @@ export default function Board() {
         const jsonData = {
             name: nameRef.current.value,
             description: descRef.current.value,
-            image: `${IPFS_PATH}${imageHash}`,
+            image: `${process.env.NEXT_PUBLIC_IPFS_PATH}${imageHash}`,
         };
         const jsonName = `${UUID()}.json`;
         const file = new File([JSON.stringify(jsonData)], jsonName, {
