@@ -9,6 +9,7 @@ import getProfile from "./getProfile";
 import checkLoginUser from "@/function/client/checkLoginUser";
 import Rank from "./rank";
 import { languageState } from "@/components/recoil/language";
+import NFTs from "./nfts";
 
 export default function Profile({ params }) {
     const [loginUser, setLoginUser] = useRecoilState(profileState);
@@ -41,6 +42,7 @@ export default function Profile({ params }) {
                         loginUser={loginUser}
                         language={language}
                     />
+                    <NFTs />
                 </>
             )}
         </div>

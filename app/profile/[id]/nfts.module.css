@@ -1,0 +1,22 @@
+.title {
+    width: 90%;
+    margin-top: var(--margin);
+    max-width: var(--max-width);
+    font-size: var(--font-size-title);
+    text-align: left;
+}
+
+.nfts {
+    max-width: var(--max-width);
+    margin: var(--margin);
+
+    display: flex;
+    gap: var(--gap-comment);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.image {
+    width: 300px;
+    object-fit: contain;
+}
