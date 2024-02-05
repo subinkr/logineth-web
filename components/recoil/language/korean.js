@@ -74,6 +74,7 @@ export const korean = {
     pleaseConfirmTransaction: "거래를 처리하고 잠시만 기다려주세요.",
     processingTransaction: "거래를 처리중입니다.",
     completeGenerateNft: "NFT 생성을 완료했습니다.",
+    completeTransaction: "거래가 완료됐습니다.",
 
     inputNftInfo: "NFT의 정보를 모두 입력해주세요.",
     notMatchWallet:

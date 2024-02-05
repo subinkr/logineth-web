@@ -74,6 +74,7 @@ export const english = {
     pleaseConfirmTransaction: "Please confirm transaction.",
     processingTransaction: "Processing transaction.",
     completeGenerateNft: "Complete generate NFT.",
+    completeTransaction: "Complete transaction",
 
     inputNftInfo: "Input NFT info.",
     notMatchWallet:

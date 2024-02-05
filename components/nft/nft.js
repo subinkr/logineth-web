@@ -7,6 +7,7 @@ import { useRef } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { languageState } from "../recoil/language";
 import { messageState } from "../recoil/message";
+import callRedirect from "@/function/server/callRedirect";
 
 export default function NFT({
     nft,
@@ -35,6 +36,18 @@ export default function NFT({
             from: loginUser.wallet,
             value: web3.utils.toWei(priceRef.current?.value, "ether"),
         });
+
+        setMessage(
+            <div className={classes.message}>
+                {language?.completeTransaction}
+            </div>
+        );
+
+        setTimeout(() => {
+            setMessage(null);
+        }, 1000);
+
+        callRedirect("/profile");
     };
 
     return (
