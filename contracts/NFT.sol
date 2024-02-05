@@ -14,8 +14,6 @@ contract NFT is ERC721 {
     address[] owners;
     uint256[] tokenPrices;
 
-    uint256 totalEther = 0;
-    uint256 adminEther = 0;
     mapping(address account => uint256 balance) balances;
 
     uint256 public DEFAULT_PRICE = 10 ** 16;
@@ -68,27 +66,15 @@ contract NFT is ERC721 {
         require(tokenPrices[_tokenID] <= msg.value);
         require(owners[_tokenID] != msg.sender);
 
-        totalEther += msg.value;
-        balances[owners[_tokenID]] += msg.value * 10 / 12;
-        balances[genesisOwners[_tokenID]] += msg.value * 1 / 12;
-        adminEther += msg.value * 1 / 12;
-        
+        (bool result1, ) = payable(owners[_tokenID]).call{value: msg.value * 10 / 12}("");
+        require(result1);
+        (bool result2, ) = payable(genesisOwners[_tokenID]).call{value: msg.value * 1 / 12}("");
+        require(result2);
+        (bool result3, ) = payable(ADMIN).call{value: msg.value * 1 / 12}("");
+        require(result3);
+
         _transfer(owners[_tokenID], msg.sender, _tokenID);
         owners[_tokenID] = msg.sender;
         tokenPrices[_tokenID] = msg.value * 12 / 10;
-    }
-
-    function getEther() public payable {
-        if(ADMIN == msg.sender) {
-            (bool result, ) = payable(msg.sender).call{value: balances[msg.sender] + adminEther}("");
-            require(result);
-            totalEther -= adminEther;
-            adminEther = 0;
-        } else {
-            (bool result, ) = payable(msg.sender).call{value: balances[msg.sender]}("");
-            require(result);
-        }
-        totalEther -= balances[msg.sender];
-        balances[msg.sender] = 0;
     }
 }

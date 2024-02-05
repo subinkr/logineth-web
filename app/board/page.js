@@ -96,7 +96,7 @@ export default function Board() {
         setMessage(
             <div>
                 <div className={classes.message}>
-                    {language?.startGenerateNft}
+                    {language?.startNftGenerate}
                 </div>
                 <div className={classes.message}>{language?.pleaseWait}</div>
             </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import Web3 from "web3";
-import GSB from "../../contracts/abi/GSB.abi.json";
+import GSB from "../../contracts/artifacts/NFT.json";
 import { useEffect, useState } from "react";
 
 export default function useWeb3() {

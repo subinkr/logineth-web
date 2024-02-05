@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.20+commit.a1b79de6"
+		"version": "0.8.24+commit.e11b9ed9"
 	},
 	"language": "Solidity",
 	"output": {
@@ -279,13 +279,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "getEther",
-				"outputs": [],
-				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
@@ -827,11 +820,11 @@
 			]
 		},
 		"NFT.sol": {
-			"keccak256": "0xa82e3680a7847ed927834ec4ee77b8e93dcc92af41f3bbff5c7076ff712cb532",
+			"keccak256": "0x4b61b6c34f3c460b40e6ecc80dd5a88c5a3aaff18feae3105e1bd88eb57f6656",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://0355997bf39ab60d0871574ebfb577e8954e1886560614cd833aad398dc608b0",
-				"dweb:/ipfs/QmS5oQcUwfdMcbYA4z3tf6jcBsKtHSbhXSsZTEm9K8woLD"
+				"bzz-raw://4c006dee58c55b71ae24543b0298ffe2918029d7bb536fe5e4c3657c3f68331f",
+				"dweb:/ipfs/QmPAhLKFHCTmeiXGEY5FEjQfmsRMg6doyHWDQHtj4uSYop"
 			]
 		}
 	},

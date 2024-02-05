@@ -1,10 +1,8 @@
 "use client";
 
-import { profileState } from "@/components/recoil/profile";
 import classes from "./nfts.module.css";
 import useWeb3 from "@/function/client/web3";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
 import NFT from "@/components/nft/nft";
 
 export default function NFTs({ targetUser, loginUser }) {

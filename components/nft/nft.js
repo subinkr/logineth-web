@@ -33,7 +33,7 @@ export default function NFT({
         );
 
         await contract.methods.buyToken(idx).send({
-            from: loginUser.wallet,
+            from: loginUser?.wallet,
             value: web3.utils.toWei(priceRef.current?.value, "ether"),
         });
 
@@ -51,7 +51,7 @@ export default function NFT({
     };
 
     return (
-        <div key={idx} className={classes["image-wrapper"]}>
+        <div className={classes["image-wrapper"]}>
             <img
                 width={300}
                 src={nft}
