@@ -42,6 +42,8 @@ export const korean = {
     requireMetamask: "메타마스크를 설치해주세요.",
     connectMetamask: "메타마스크 연결",
 
+    allNfts: "모든 NFT",
+
     followingMessage: "팔로우했습니다.",
     unFollowingMessage: "언팔로우했습니다.",
 

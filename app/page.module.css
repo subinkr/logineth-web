@@ -1,6 +1,21 @@
+.main-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    width: 90%;
+    margin-top: var(--margin);
+    max-width: var(--max-width);
+    font-size: var(--font-size-title);
+    text-align: left;
+}
+
 .gallery {
     max-width: var(--max-width);
-    margin: var(--margin) auto;
+    margin: var(--margin);
     display: flex;
     gap: var(--gap-comment);
     justify-content: center;

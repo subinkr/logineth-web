@@ -2,15 +2,17 @@
 
 import classes from "./page.module.css";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { profileState } from "@/components/recoil/profile";
 import callRedirect from "@/function/server/callRedirect";
 import checkLoginUser from "@/function/client/checkLoginUser";
 import useWeb3 from "@/function/client/web3";
 import NFT from "@/components/nft/nft";
+import { languageState } from "@/components/recoil/language";
 
 export default function Home() {
     const [web3, contract] = useWeb3();
+    const language = useRecoilValue(languageState);
     const [loginUser, setLoginUser] = useRecoilState(profileState);
     const [nfts, setNfts] = useState([]);
     const [names, setNames] = useState([]);
@@ -63,22 +65,25 @@ export default function Home() {
     };
 
     return (
-        <div className={classes.gallery}>
-            {nfts.map((nft, idx) => {
-                return (
-                    <NFT
-                        key={idx}
-                        nft={nft}
-                        idx={idx}
-                        loginUser={loginUser}
-                        price={prices[idx]}
-                        name={names[idx]}
-                        description={descriptions[idx]}
-                        web3={web3}
-                        contract={contract}
-                    />
-                );
-            })}
+        <div className={classes["main-area"]}>
+            <div className={classes.title}>{language?.allNfts}</div>
+            <div className={classes.gallery}>
+                {nfts.map((nft, idx) => {
+                    return (
+                        <NFT
+                            key={idx}
+                            nft={nft}
+                            idx={idx}
+                            loginUser={loginUser}
+                            price={prices[idx]}
+                            name={names[idx]}
+                            description={descriptions[idx]}
+                            web3={web3}
+                            contract={contract}
+                        />
+                    );
+                })}
+            </div>
         </div>
     );
 }

@@ -56,11 +56,10 @@ export default function NFT({
             <div className={classes.name}>{name}</div>
             <div className={classes["image-wrapper"]}>
                 <img
-                    width={300}
                     src={nft}
                     className={classes["main-content"]}
                     onClick={() => {
-                        setMessage(<img width={"50%"} src={nft} />);
+                        setMessage(<img className={classes.image} src={nft} />);
                     }}
                 />
                 <div className={classes.buy}>

@@ -42,6 +42,8 @@ export const english = {
 
     connectMetamask: "Connect metamask",
 
+    allNfts: "All NFTs",
+
     followingMessage: "Following",
     unFollowingMessage: "UnFollowing",
 
