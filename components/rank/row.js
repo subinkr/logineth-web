@@ -17,6 +17,7 @@ export default function Row({
     setRanking,
     idx,
     setMoveRow,
+    setDeleteRow,
 }) {
     const [edit, setEdit] = useState(false);
     const [content, setContent] = useState(row.content);
@@ -62,6 +63,7 @@ export default function Row({
                 const newRanking = [...ranking];
                 newRanking.splice(idx, 1);
                 setRanking(newRanking);
+                setDeleteRow(true);
                 alert(language?.deleteMessage);
             }
         }

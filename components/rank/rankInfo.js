@@ -18,6 +18,7 @@ export default function RankInfo({
     setRanks,
 }) {
     const [showAddRow, setShowAddRow] = useState(false);
+    const [deleteRow, setDeleteRow] = useState(false);
     const [titleEdit, setTitleEdit] = useState(false);
     const [title, setTitle] = useState(rank.title);
     const [ranking, setRanking] = useState(rank.ranking.split("/"));
@@ -49,6 +50,7 @@ export default function RankInfo({
             rank.title = title;
             setTitleEdit(false);
             setShowAddRow(false);
+            setDeleteRow(false);
         }
     };
 
@@ -97,7 +99,7 @@ export default function RankInfo({
     };
 
     useEffect(() => {
-        if (showAddRow || positionRow) {
+        if (titleEdit || showAddRow || deleteRow || positionRow) {
             editRank();
         }
     }, [ranking]);
@@ -235,6 +237,7 @@ export default function RankInfo({
                                             idx={idx}
                                             moveRow={moveRow}
                                             setMoveRow={setMoveRow}
+                                            setDeleteRow={setDeleteRow}
                                         />
                                         {moveRow === idx && (
                                             <div
