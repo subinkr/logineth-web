@@ -56,8 +56,7 @@ export const english = {
     badEditMessage: "Nickname must be between 1 to 10 characters.",
 
     companyInfo: "Company",
-    companyAddress:
-        "651, Olympic-ro, Gangdong-gu, Seoul, Republic of Korea 4,5,6 floor (Starbucks building within 50m of Exit 2 of Subway Lines 5 and 8)",
+    companyAddress: "215, Yuhyeon-ro, Gimpo-si, Gyeonggi-do, Republic of Korea",
     workersInfo: "Workers",
     workers: "Subin Gang",
     reportInfo: "Report",

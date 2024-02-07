@@ -13,11 +13,14 @@ export default function Category() {
     return (
         <div className={classes.category}>
             {loginUser.id ? (
-                <>
+                <div className={classes.list}>
+                    <Link className={classes.link} href={"/profile"}>
+                        {language?.profile}
+                    </Link>
                     <Link className={classes.link} href={"/logout"}>
                         {language?.logout}
                     </Link>
-                </>
+                </div>
             ) : (
                 <div className={classes.list}>
                     <Link className={classes.link} href={"/about"}>

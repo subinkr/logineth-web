@@ -67,7 +67,7 @@ export default function Home() {
     return (
         <div className={classes["main-area"]}>
             <div className={classes.title}>{language?.allNfts}</div>
-            {window.ethereum ? (
+            {window?.ethereum ? (
                 <div className={classes.gallery}>
                     {nfts.map((nft, idx) => {
                         return (

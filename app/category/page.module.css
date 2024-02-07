@@ -11,6 +11,13 @@
     font-weight: 500;
 }
 
+.category {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @media (min-width: 768px) {
     .category {
         display: none;

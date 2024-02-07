@@ -119,7 +119,10 @@ export default function Rooms() {
                         ))}
                     </div>
                     <div className={classes["button-wrapper"]}>
-                        <Button onClick={() => setFindFriends(!findFriends)}>
+                        <Button
+                            className="none"
+                            onClick={() => setFindFriends(!findFriends)}
+                        >
                             {language?.findFriends}
                         </Button>
                     </div>

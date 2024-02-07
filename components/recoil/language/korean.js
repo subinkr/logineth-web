@@ -56,8 +56,7 @@ export const korean = {
     badEditMessage: "닉네임은 1글자에서 10글자 사이여야 합니다.",
 
     companyInfo: "회사정보",
-    companyAddress:
-        "서울특별시 강동구 올림픽로 651 예경빌딩 4,5,6층 (지하철 5,8호선 2번출구 50m이내 스타벅스 건물)",
+    companyAddress: "경기도 김포시 유현로 215, 풍무센트럴푸르지오",
     workersInfo: "직원정보",
     workers: "강수빈",
     reportInfo: "버그신고",
