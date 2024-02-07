@@ -5,7 +5,7 @@ import useWeb3 from "@/function/client/web3";
 import { useEffect, useState } from "react";
 import NFT from "@/components/nft/nft";
 
-export default function NFTs({ targetUser, loginUser }) {
+export default function NFTs({ targetUser, loginUser, language }) {
     const [web3, contract] = useWeb3();
     const [nfts, setNfts] = useState([]);
     const [names, setNames] = useState([]);
@@ -14,7 +14,7 @@ export default function NFTs({ targetUser, loginUser }) {
     const [prices, setPrices] = useState([]);
 
     useEffect(() => {
-        if (contract) {
+        if (window.ethereum && contract) {
             runNFTs();
         }
     }, [contract]);
@@ -49,25 +49,29 @@ export default function NFTs({ targetUser, loginUser }) {
     return (
         <>
             <div className={classes.title}>NFTs</div>
-            <div className={classes.nfts}>
-                {owners.map((owner, idx) => {
-                    if (owner.toLowerCase() === targetUser.wallet) {
-                        return (
-                            <NFT
-                                key={idx}
-                                nft={nfts[idx]}
-                                idx={idx}
-                                loginUser={loginUser}
-                                price={prices[idx]}
-                                name={names[idx]}
-                                description={descriptions[idx]}
-                                web3={web3}
-                                contract={contract}
-                            />
-                        );
-                    }
-                })}
-            </div>
+            {window.ethereum ? (
+                <div className={classes.nfts}>
+                    {owners.map((owner, idx) => {
+                        if (owner.toLowerCase() === targetUser.wallet) {
+                            return (
+                                <NFT
+                                    key={idx}
+                                    nft={nfts[idx]}
+                                    idx={idx}
+                                    loginUser={loginUser}
+                                    price={prices[idx]}
+                                    name={names[idx]}
+                                    description={descriptions[idx]}
+                                    web3={web3}
+                                    contract={contract}
+                                />
+                            );
+                        }
+                    })}
+                </div>
+            ) : (
+                <div>{language?.requireMetamask}</div>
+            )}
         </>
     );
 }

@@ -34,7 +34,7 @@ export default function Home() {
     }, [loginUser]);
 
     useEffect(() => {
-        if (contract) {
+        if (window.ethereum && contract) {
             runNFTs();
         }
     }, [contract]);
@@ -67,23 +67,27 @@ export default function Home() {
     return (
         <div className={classes["main-area"]}>
             <div className={classes.title}>{language?.allNfts}</div>
-            <div className={classes.gallery}>
-                {nfts.map((nft, idx) => {
-                    return (
-                        <NFT
-                            key={idx}
-                            nft={nft}
-                            idx={idx}
-                            loginUser={loginUser}
-                            price={prices[idx]}
-                            name={names[idx]}
-                            description={descriptions[idx]}
-                            web3={web3}
-                            contract={contract}
-                        />
-                    );
-                })}
-            </div>
+            {window.ethereum ? (
+                <div className={classes.gallery}>
+                    {nfts.map((nft, idx) => {
+                        return (
+                            <NFT
+                                key={idx}
+                                nft={nft}
+                                idx={idx}
+                                loginUser={loginUser}
+                                price={prices[idx]}
+                                name={names[idx]}
+                                description={descriptions[idx]}
+                                web3={web3}
+                                contract={contract}
+                            />
+                        );
+                    })}
+                </div>
+            ) : (
+                <>{language?.requireMetamask}</>
+            )}
         </div>
     );
 }
