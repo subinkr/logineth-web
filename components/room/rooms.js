@@ -97,26 +97,28 @@ export default function Rooms() {
                 </>
             ) : (
                 <div className={classes.rooms}>
-                    {rooms?.map((room, idx) => (
-                        <div
-                            key={`room-${idx}`}
-                            className={classes["room-content"]}
-                            hidden={!showRooms}
-                        >
-                            <Friend
-                                room={room}
-                                loginUser={loginUser}
-                                onClick={() => enterRoom(idx)}
-                            />
-                            <NotiCircle
-                                hidden={
-                                    room.viewUsers.findIndex(
-                                        (user) => user.id === loginUser.id
-                                    ) !== -1
-                                }
-                            />
-                        </div>
-                    ))}
+                    <div className={classes["rooms-wrapper"]}>
+                        {rooms?.map((room, idx) => (
+                            <div
+                                key={`room-${idx}`}
+                                className={classes["room-content"]}
+                                hidden={!showRooms}
+                            >
+                                <Friend
+                                    room={room}
+                                    loginUser={loginUser}
+                                    onClick={() => enterRoom(idx)}
+                                />
+                                <NotiCircle
+                                    hidden={
+                                        room.viewUsers.findIndex(
+                                            (user) => user.id === loginUser.id
+                                        ) !== -1
+                                    }
+                                />
+                            </div>
+                        ))}
+                    </div>
                     <div
                         className={classes["button-wrapper"]}
                         style={showRooms ? { width: 300 } : {}}
