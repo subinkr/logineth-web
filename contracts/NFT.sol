@@ -5,6 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 contract NFT is ERC721 {
     address ADMIN;
+    
     constructor (string memory _name, string memory _symbol) ERC721(_name, _symbol) {
         ADMIN = msg.sender;
     }

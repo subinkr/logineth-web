@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.24+commit.e11b9ed9"
+		"version": "0.8.20+commit.a1b79de6"
 	},
 	"language": "Solidity",
 	"output": {
@@ -820,11 +820,11 @@
 			]
 		},
 		"NFT.sol": {
-			"keccak256": "0x4b61b6c34f3c460b40e6ecc80dd5a88c5a3aaff18feae3105e1bd88eb57f6656",
+			"keccak256": "0xf38b3c9a2f2c00a53780ecf036a463e331feef3544e1fa468bfbdb42bbb03ab5",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://4c006dee58c55b71ae24543b0298ffe2918029d7bb536fe5e4c3657c3f68331f",
-				"dweb:/ipfs/QmPAhLKFHCTmeiXGEY5FEjQfmsRMg6doyHWDQHtj4uSYop"
+				"bzz-raw://072bc7e35f249a9066e4ca04b17d5aaabd93f3af61313a8062aae6769cd60e15",
+				"dweb:/ipfs/QmdBswVJoYbuePsD8TAsESKZzEQJyF53dfjrarWSdr2z2a"
 			]
 		}
 	},
