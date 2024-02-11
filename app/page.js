@@ -1,23 +1,24 @@
 "use client";
 
 import classes from "./page.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { profileState } from "@/components/recoil/profile";
 import callRedirect from "@/function/server/callRedirect";
 import checkLoginUser from "@/function/client/checkLoginUser";
 import useWeb3 from "@/function/client/web3";
-import NFT from "@/components/nft/nft";
+import Board from "@/components/board/board";
 import { languageState } from "@/components/recoil/language";
+import { scrollState } from "@/components/recoil/scroll";
 
 export default function Home() {
     const [web3, contract] = useWeb3();
+    const scroll = useRecoilValue(scrollState);
     const language = useRecoilValue(languageState);
     const [loginUser, setLoginUser] = useRecoilState(profileState);
-    const [nfts, setNfts] = useState([]);
-    const [names, setNames] = useState([]);
-    const [descriptions, setDescriptions] = useState([]);
-    const [prices, setPrices] = useState([]);
+    const [nftInfos, setNftInfos] = useState({});
+    const [boards, setBoards] = useState([]);
+    const mainRef = useRef();
 
     useEffect(() => {
         checkLoginUser(setLoginUser);
@@ -35,50 +36,74 @@ export default function Home() {
 
     useEffect(() => {
         if (window.ethereum && contract) {
-            runNFTs();
+            runBoards();
         }
     }, [contract]);
 
-    const runNFTs = async () => {
-        const nfts = await contract.methods.getTokenURIs().call();
-        const prices = await contract.methods.getTokenPrices().call();
-
-        const newNfts = [];
-        const newNames = [];
-        const newDescriptions = [];
-        for (let i = 0; i < nfts.length; i++) {
-            const response = await fetch(
-                `${process.env.NEXT_PUBLIC_IPFS_PATH}${nfts[i]}`,
-                {
-                    method: "get",
-                }
-            );
-            const result = await response.json();
-            newNfts.push(result.image);
-            newNames.push(result.name);
-            newDescriptions.push(result.description);
+    useEffect(() => {
+        if (
+            nftInfos.nextPage &&
+            scroll + window.innerHeight > mainRef.current.scrollHeight + 60
+        ) {
+            runBoards(nftInfos.nextPage);
         }
-        setNfts(newNfts);
-        setNames(newNames);
-        setDescriptions(newDescriptions);
-        setPrices(prices);
+    }, [scroll]);
+
+    const runBoards = async (page = 1) => {
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_SERVER}/board?nft=false&page=${page}`,
+            {
+                method: "get",
+            }
+        );
+        const newNftInfos = await response.json();
+
+        setNftInfos(newNftInfos);
+        setBoards([...boards, ...newNftInfos.boards]);
     };
 
+    // useEffect(() => {
+    //     if (window.ethereum && contract) {
+    //         runNFTs();
+    //     }
+    // }, [contract]);
+
+    // const runNFTs = async () => {
+    //     const nfts = await contract.methods.getTokenURIs().call();
+    //     const prices = await contract.methods.getTokenPrices().call();
+
+    //     const newNfts = [];
+    //     const newNames = [];
+    //     const newDescriptions = [];
+    //     for (let i = 0; i < nfts.length; i++) {
+    //         const response = await fetch(
+    //             `${process.env.NEXT_PUBLIC_IPFS_PATH}${nfts[i]}`,
+    //             {
+    //                 method: "get",
+    //             }
+    //         );
+    //         const result = await response.json();
+    //         newNfts.push(result.image);
+    //         newNames.push(result.name);
+    //         newDescriptions.push(result.description);
+    //     }
+    //     setNfts(newNfts);
+    //     setNames(newNames);
+    //     setDescriptions(newDescriptions);
+    //     setPrices(prices);
+    // };
+
     return (
-        <div className={classes["main-area"]}>
+        <div className={classes["main-area"]} ref={mainRef}>
             <div className={classes.title}>{language?.allNfts}</div>
-            {window?.ethereum ? (
+            {contract ? (
                 <div className={classes.gallery}>
-                    {nfts.map((nft, idx) => {
+                    {boards.map((board, idx) => {
                         return (
-                            <NFT
+                            <Board
                                 key={idx}
-                                nft={nft}
-                                idx={idx}
+                                board={board}
                                 loginUser={loginUser}
-                                price={prices[idx]}
-                                name={names[idx]}
-                                description={descriptions[idx]}
                                 web3={web3}
                                 contract={contract}
                             />

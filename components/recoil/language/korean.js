@@ -11,6 +11,7 @@ export const korean = {
     github: "깃허브 로그인 중...",
     google: "구글 로그인 중...",
     kakao: "카카오 로그인 중...",
+    loading: "로딩 중...",
 
     goodBye: "안녕히 가세요!",
     follow: "팔로우",
@@ -33,7 +34,7 @@ export const korean = {
     sendMessage: "메세지 전송",
     close: "닫기",
 
-    postMetadata: "메타데이터 작성",
+    postMetadata: "글 작성",
 
     findFriends: "친구찾기",
     friends: "친구목록",
@@ -66,11 +67,13 @@ export const korean = {
     nftTitle: "NFT 제목을 입력해주세요.",
     nftDescription: "NFT 내용을 입력해주세요.",
     nftGenerate: "NFT 생성",
+    postBoard: "글 작성",
 
     pleaseWait: "잠시만 기다려주세요.",
-    startImageUpload: "이미지 업로드를 시작했습니다.",
+    startUploadImage: "IPFS에 이미지 업로드를 시작했습니다.",
     completeUploadImage: "이미지 업로드를 완료했습니다.",
     startGenerateNft: "NFT 생성을 시작했습니다.",
+    canceledTransaction: "거래가 처리되지 않았습니다.",
     completeUploadMetadata: "NFT 메타데이터 업로드를 완료했습니다.",
     pleaseConfirmTransaction: "거래를 처리하고 잠시만 기다려주세요.",
     processingTransaction: "거래를 처리중입니다.",
@@ -80,4 +83,8 @@ export const korean = {
     inputNftInfo: "NFT의 정보를 모두 입력해주세요.",
     notMatchWallet:
         "계정에 등록된 지갑과 현재 선택된 메타마스크 지갑의 주소가 일치하지 않습니다.",
+
+    alreadyProcessingNFT: "이미 NFT를 생성중인 글입니다.",
+    alreadyGeneratedNFT: "이미 NFT가 생성된 글입니다.",
+    notNFT: "아직 NFT가 아닙니다.",
 };

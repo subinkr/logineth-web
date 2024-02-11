@@ -13,11 +13,11 @@ export default function NFTs({ targetUser, loginUser, language }) {
     const [owners, setOwners] = useState([]);
     const [prices, setPrices] = useState([]);
 
-    useEffect(() => {
-        if (window.ethereum && contract) {
-            runNFTs();
-        }
-    }, [contract]);
+    // useEffect(() => {
+    //     if (window.ethereum && contract) {
+    //         runNFTs();
+    //     }
+    // }, [contract]);
 
     const runNFTs = async () => {
         const nfts = await contract.methods.getTokenURIs().call();
@@ -49,7 +49,7 @@ export default function NFTs({ targetUser, loginUser, language }) {
     return (
         <>
             <div className={classes.title}>NFTs</div>
-            {window.ethereum ? (
+            {contract ? (
                 <div className={classes.nfts}>
                     {owners.map((owner, idx) => {
                         if (owner.toLowerCase() === targetUser.wallet) {

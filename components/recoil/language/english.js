@@ -11,6 +11,7 @@ export const english = {
     github: "Getting github info...",
     google: "Getting google info...",
     kakao: "Getting kakao info...",
+    loading: "Loading...",
 
     goodBye: "Good bye!",
     follow: "Follow",
@@ -33,7 +34,7 @@ export const english = {
     sendMessage: "Send message",
     close: "Close",
 
-    postMetadata: "Post metadata",
+    postMetadata: "Post board",
 
     findFriends: "Find friends",
     friends: "Friends",
@@ -66,11 +67,13 @@ export const english = {
     nftTitle: "NFT title",
     nftDescription: "NFT content",
     nftGenerate: "Generate NFT",
+    postBoard: "Post board",
 
     pleaseWait: "Please wait.",
-    startImageUpload: "Start upload image.",
+    startUploadImage: "Start upload image to IPFS.",
     completeUploadImage: "Complete upload image.",
     startGenerateNft: "Start generate NFT.",
+    canceledTransaction: "Canceled transaction.",
     completeUploadMetadata: "Complete upload NFT metadata.",
     pleaseConfirmTransaction: "Please confirm transaction.",
     processingTransaction: "Processing transaction.",
@@ -80,4 +83,5 @@ export const english = {
     inputNftInfo: "Input NFT info.",
     notMatchWallet:
         "The address of the currently selected metamask wallet and the registered wallet in the account do not match.",
+    notNFT: "Not NFT yet.",
 };

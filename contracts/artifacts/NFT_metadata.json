@@ -200,6 +200,19 @@
 				"type": "event"
 			},
 			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "tokenID",
+						"type": "uint256"
+					}
+				],
+				"name": "getTokenID",
+				"type": "event"
+			},
+			{
 				"inputs": [],
 				"name": "DEFAULT_PRICE",
 				"outputs": [
@@ -282,13 +295,19 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "getOwners",
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_tokenID",
+						"type": "uint256"
+					}
+				],
+				"name": "getOwner",
 				"outputs": [
 					{
-						"internalType": "address[]",
+						"internalType": "address",
 						"name": "",
-						"type": "address[]"
+						"type": "address"
 					}
 				],
 				"stateMutability": "view",
@@ -336,26 +355,38 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "getTokenPrices",
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_tokenID",
+						"type": "uint256"
+					}
+				],
+				"name": "getTokenPrice",
 				"outputs": [
 					{
-						"internalType": "uint256[]",
+						"internalType": "uint256",
 						"name": "",
-						"type": "uint256[]"
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "getTokenURIs",
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_tokenID",
+						"type": "uint256"
+					}
+				],
+				"name": "getTokenURI",
 				"outputs": [
 					{
-						"internalType": "string[]",
+						"internalType": "string",
 						"name": "",
-						"type": "string[]"
+						"type": "string"
 					}
 				],
 				"stateMutability": "view",
@@ -391,6 +422,11 @@
 						"internalType": "string",
 						"name": "_tokenURI",
 						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "_originalAuthor",
+						"type": "address"
 					}
 				],
 				"name": "minting",
@@ -820,11 +856,11 @@
 			]
 		},
 		"NFT.sol": {
-			"keccak256": "0xf38b3c9a2f2c00a53780ecf036a463e331feef3544e1fa468bfbdb42bbb03ab5",
+			"keccak256": "0xd9e9e6a6fa34706c7c8e61848845208dc4b82d69507a0d1a767cca874435a5c4",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://072bc7e35f249a9066e4ca04b17d5aaabd93f3af61313a8062aae6769cd60e15",
-				"dweb:/ipfs/QmdBswVJoYbuePsD8TAsESKZzEQJyF53dfjrarWSdr2z2a"
+				"bzz-raw://aab535967cf75c872bab2c896952852d1a2a0ca0b11e43362da57644af78ecc4",
+				"dweb:/ipfs/QmbZAYsVJ8U5Y9yRQfvTvkB5zF6w1jrKPDo8Bm3k1n9PsV"
 			]
 		}
 	},

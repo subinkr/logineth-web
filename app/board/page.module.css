@@ -2,7 +2,7 @@
     width: 100%;
     max-width: var(--max-width);
     margin: 0 auto;
-    height: 100%;
+    height: fit-content;
     padding: var(--padding);
 
     display: flex;
@@ -59,4 +59,9 @@
 .message {
     font-size: 50px;
     color: white;
+}
+
+.checkbox-wrapper {
+    display: flex;
+    gap: var(--gap-content);
 }
