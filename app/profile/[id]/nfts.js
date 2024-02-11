@@ -2,8 +2,8 @@
 
 import classes from "./nfts.module.css";
 import useWeb3 from "@/function/client/web3";
-import { useEffect, useState } from "react";
-import NFT from "@/components/nft/nft";
+import { useState } from "react";
+import Board from "@/components/board/board";
 
 export default function NFTs({ targetUser, loginUser, language }) {
     const [web3, contract] = useWeb3();
@@ -51,10 +51,10 @@ export default function NFTs({ targetUser, loginUser, language }) {
             <div className={classes.title}>NFTs</div>
             {contract ? (
                 <div className={classes.nfts}>
-                    {owners.map((owner, idx) => {
+                    {/* {owners.map((owner, idx) => {
                         if (owner.toLowerCase() === targetUser.wallet) {
                             return (
-                                <NFT
+                                <Board
                                     key={idx}
                                     nft={nfts[idx]}
                                     idx={idx}
@@ -67,7 +67,7 @@ export default function NFTs({ targetUser, loginUser, language }) {
                                 />
                             );
                         }
-                    })}
+                    })} */}
                 </div>
             ) : (
                 <div>{language?.requireMetamask}</div>
