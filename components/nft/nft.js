@@ -3,25 +3,31 @@
 import classes from "./nft.module.css";
 import Button from "@/components/button/button";
 import Input from "@/components/input/input";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { languageState } from "../recoil/language";
 import { messageState } from "../recoil/message";
 import callRedirect from "@/function/server/callRedirect";
 
-export default function NFT({
-    nft,
-    idx,
-    loginUser,
-    name,
-    price,
-    description,
-    web3,
-    contract,
-}) {
+export default function NFT({ nft, idx, loginUser, web3, contract }) {
     const language = useRecoilValue(languageState);
     const setMessage = useSetRecoilState(messageState);
+    const [price, setPrice] = useState(null);
     const priceRef = useRef();
+
+    useEffect(() => {
+        runTokenInfo();
+    }, []);
+
+    const runTokenInfo = async () => {
+        console.log(nft.tokenID);
+        if (nft.tokenID !== null) {
+            const tokenInfo = await contract.methods
+                .getTokenInfo(BigInt(nft.tokenID))
+                .call();
+            setPrice(tokenInfo.tokenPrice);
+        }
+    };
 
     const buyToken = async (idx) => {
         setMessage(
@@ -53,28 +59,34 @@ export default function NFT({
 
     return (
         <div className={classes["nft-wrapper"]}>
-            <div className={classes.name}>{name}</div>
+            <div className={classes.name}>{nft.name}</div>
             <div className={classes["image-wrapper"]}>
                 <img
-                    src={nft}
+                    src={nft.image}
                     className={classes["main-content"]}
                     onClick={() => {
-                        setMessage(<img className={classes.image} src={nft} />);
+                        setMessage(
+                            <img className={classes.image} src={nft.image} />
+                        );
                     }}
                 />
-                <div className={classes.buy}>
-                    <Input
-                        placeholder={web3.utils.fromWei(price, "ether")}
-                        ref={priceRef}
-                    />
-                    <Button className="buy" onClick={() => buyToken(idx)}>
-                        {language?.buy}
-                    </Button>
-                </div>
+                {price ? (
+                    <div className={classes.buy}>
+                        <Input
+                            placeholder={web3.utils.fromWei(price, "ether")}
+                            ref={priceRef}
+                        />
+                        <Button className="buy" onClick={() => buyToken(idx)}>
+                            {language?.buy}
+                        </Button>
+                    </div>
+                ) : (
+                    <div className={classes["not-nft"]}>{language?.notNFT}</div>
+                )}
             </div>
             <textarea
                 className={classes.description}
-                value={description}
+                value={nft.description}
                 readOnly
             ></textarea>
         </div>

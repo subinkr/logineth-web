@@ -49,7 +49,7 @@ export default function NFTs({ targetUser, loginUser, language }) {
     return (
         <>
             <div className={classes.title}>NFTs</div>
-            {window.ethereum ? (
+            {contract ? (
                 <div className={classes.nfts}>
                     {owners.map((owner, idx) => {
                         if (owner.toLowerCase() === targetUser.wallet) {

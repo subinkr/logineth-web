@@ -82,4 +82,5 @@ export const english = {
     inputNftInfo: "Input NFT info.",
     notMatchWallet:
         "The address of the currently selected metamask wallet and the registered wallet in the account do not match.",
+    notNFT: "Not NFT yet.",
 };

@@ -85,4 +85,5 @@ export const korean = {
 
     alreadyProcessingNFT: "이미 NFT를 생성중인 글입니다.",
     alreadyGeneratedNFT: "이미 NFT가 생성된 글입니다.",
+    notNFT: "아직 NFT가 아닙니다.",
 };

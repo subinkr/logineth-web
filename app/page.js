@@ -33,41 +33,58 @@ export default function Home() {
         setRedirect();
     }, [loginUser]);
 
+    useEffect(() => {
+        if (window.ethereum && contract) {
+            runBoards();
+        }
+    }, [contract]);
+
+    const runBoards = async () => {
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_SERVER}/board?nft=false&page=1`,
+            {
+                method: "get",
+            }
+        );
+        const result = await response.json();
+        setNfts(result.boards);
+    };
+
     // useEffect(() => {
     //     if (window.ethereum && contract) {
     //         runNFTs();
     //     }
     // }, [contract]);
 
-    const runNFTs = async () => {
-        const nfts = await contract.methods.getTokenURIs().call();
-        const prices = await contract.methods.getTokenPrices().call();
+    // const runNFTs = async () => {
+    //     const nfts = await contract.methods.getTokenURIs().call();
+    //     const prices = await contract.methods.getTokenPrices().call();
 
-        const newNfts = [];
-        const newNames = [];
-        const newDescriptions = [];
-        for (let i = 0; i < nfts.length; i++) {
-            const response = await fetch(
-                `${process.env.NEXT_PUBLIC_IPFS_PATH}${nfts[i]}`,
-                {
-                    method: "get",
-                }
-            );
-            const result = await response.json();
-            newNfts.push(result.image);
-            newNames.push(result.name);
-            newDescriptions.push(result.description);
-        }
-        setNfts(newNfts);
-        setNames(newNames);
-        setDescriptions(newDescriptions);
-        setPrices(prices);
-    };
+    //     const newNfts = [];
+    //     const newNames = [];
+    //     const newDescriptions = [];
+    //     for (let i = 0; i < nfts.length; i++) {
+    //         const response = await fetch(
+    //             `${process.env.NEXT_PUBLIC_IPFS_PATH}${nfts[i]}`,
+    //             {
+    //                 method: "get",
+    //             }
+    //         );
+    //         const result = await response.json();
+    //         newNfts.push(result.image);
+    //         newNames.push(result.name);
+    //         newDescriptions.push(result.description);
+    //     }
+    //     setNfts(newNfts);
+    //     setNames(newNames);
+    //     setDescriptions(newDescriptions);
+    //     setPrices(prices);
+    // };
 
     return (
         <div className={classes["main-area"]}>
             <div className={classes.title}>{language?.allNfts}</div>
-            {window?.ethereum ? (
+            {contract ? (
                 <div className={classes.gallery}>
                     {nfts.map((nft, idx) => {
                         return (
@@ -76,9 +93,6 @@ export default function Home() {
                                 nft={nft}
                                 idx={idx}
                                 loginUser={loginUser}
-                                price={prices[idx]}
-                                name={names[idx]}
-                                description={descriptions[idx]}
                                 web3={web3}
                                 contract={contract}
                             />
