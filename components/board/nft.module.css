@@ -96,7 +96,7 @@
     max-height: 100%;
 }
 
-.not-nft {
+.board-info {
     width: 100%;
     position: absolute;
     display: flex;
@@ -107,7 +107,7 @@
     opacity: 0;
     cursor: pointer;
 }
-.image-wrapper:hover .not-nft {
+.image-wrapper:hover .board-info {
     opacity: 1;
     background-color: var(--color-reverse);
     text-align: center;

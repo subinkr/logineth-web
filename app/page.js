@@ -1,23 +1,24 @@
 "use client";
 
 import classes from "./page.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { profileState } from "@/components/recoil/profile";
 import callRedirect from "@/function/server/callRedirect";
 import checkLoginUser from "@/function/client/checkLoginUser";
 import useWeb3 from "@/function/client/web3";
-import NFT from "@/components/nft/nft";
+import Board from "@/components/board/board";
 import { languageState } from "@/components/recoil/language";
+import { scrollState } from "@/components/recoil/scroll";
 
 export default function Home() {
     const [web3, contract] = useWeb3();
+    const scroll = useRecoilValue(scrollState);
     const language = useRecoilValue(languageState);
     const [loginUser, setLoginUser] = useRecoilState(profileState);
-    const [nfts, setNfts] = useState([]);
-    const [names, setNames] = useState([]);
-    const [descriptions, setDescriptions] = useState([]);
-    const [prices, setPrices] = useState([]);
+    const [nftInfos, setNftInfos] = useState({});
+    const [boards, setBoards] = useState([]);
+    const mainRef = useRef();
 
     useEffect(() => {
         checkLoginUser(setLoginUser);
@@ -39,15 +40,26 @@ export default function Home() {
         }
     }, [contract]);
 
-    const runBoards = async () => {
+    useEffect(() => {
+        if (
+            nftInfos.nextPage &&
+            scroll + window.innerHeight > mainRef.current.scrollHeight + 60
+        ) {
+            runBoards(nftInfos.nextPage);
+        }
+    }, [scroll]);
+
+    const runBoards = async (page = 1) => {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_SERVER}/board?nft=false&page=1`,
+            `${process.env.NEXT_PUBLIC_API_SERVER}/board?nft=false&page=${page}`,
             {
                 method: "get",
             }
         );
-        const result = await response.json();
-        setNfts(result.boards);
+        const newNftInfos = await response.json();
+
+        setNftInfos(newNftInfos);
+        setBoards([...boards, ...newNftInfos.boards]);
     };
 
     // useEffect(() => {
@@ -82,16 +94,15 @@ export default function Home() {
     // };
 
     return (
-        <div className={classes["main-area"]}>
+        <div className={classes["main-area"]} ref={mainRef}>
             <div className={classes.title}>{language?.allNfts}</div>
             {contract ? (
                 <div className={classes.gallery}>
-                    {nfts.map((nft, idx) => {
+                    {boards.map((board, idx) => {
                         return (
-                            <NFT
+                            <Board
                                 key={idx}
-                                nft={nft}
-                                idx={idx}
+                                board={board}
                                 loginUser={loginUser}
                                 web3={web3}
                                 contract={contract}

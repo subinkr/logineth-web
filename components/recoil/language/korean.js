@@ -11,6 +11,7 @@ export const korean = {
     github: "깃허브 로그인 중...",
     google: "구글 로그인 중...",
     kakao: "카카오 로그인 중...",
+    loading: "로딩 중...",
 
     goodBye: "안녕히 가세요!",
     follow: "팔로우",

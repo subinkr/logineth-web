@@ -4,7 +4,7 @@ import { v4 as UUID } from "uuid";
 import Input from "@/components/input/input";
 import classes from "./page.module.css";
 import { messageState } from "@/components/recoil/message";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import Textarea from "@/components/textarea/textarea";
 import { profileState } from "@/components/recoil/profile";
@@ -23,8 +23,6 @@ export default function Board() {
     const nameRef = useRef();
     const descRef = useRef();
     const imgUploadRef = useRef();
-
-    useEffect(() => {}, [contract]);
 
     const imageUpload = async () => {
         if (!img) return;
@@ -317,7 +315,7 @@ export default function Board() {
                     id="nftCheck"
                     onClick={() => setMakeNFT(!makeNFT)}
                 />
-                <label htmlFor="nftCheck">NFT 생성하기</label>
+                <label htmlFor="nftCheck">{language?.nftGenerate}</label>
             </div>
             <button
                 className={classes["post-metadata-area"]}
