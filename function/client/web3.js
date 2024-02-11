@@ -19,5 +19,7 @@ export default function useWeb3() {
         setContract(newContract);
     }, []);
 
+    if (!web3 || !contract) return "loading";
+
     return [web3, contract];
 }

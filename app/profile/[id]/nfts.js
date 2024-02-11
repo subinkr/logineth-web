@@ -13,11 +13,11 @@ export default function NFTs({ targetUser, loginUser, language }) {
     const [owners, setOwners] = useState([]);
     const [prices, setPrices] = useState([]);
 
-    useEffect(() => {
-        if (window.ethereum && contract) {
-            runNFTs();
-        }
-    }, [contract]);
+    // useEffect(() => {
+    //     if (window.ethereum && contract) {
+    //         runNFTs();
+    //     }
+    // }, [contract]);
 
     const runNFTs = async () => {
         const nfts = await contract.methods.getTokenURIs().call();

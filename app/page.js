@@ -33,11 +33,11 @@ export default function Home() {
         setRedirect();
     }, [loginUser]);
 
-    useEffect(() => {
-        if (window.ethereum && contract) {
-            runNFTs();
-        }
-    }, [contract]);
+    // useEffect(() => {
+    //     if (window.ethereum && contract) {
+    //         runNFTs();
+    //     }
+    // }, [contract]);
 
     const runNFTs = async () => {
         const nfts = await contract.methods.getTokenURIs().call();

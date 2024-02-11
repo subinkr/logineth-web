@@ -60,3 +60,8 @@
     font-size: 50px;
     color: white;
 }
+
+.checkbox-wrapper {
+    display: flex;
+    gap: var(--gap-content);
+}

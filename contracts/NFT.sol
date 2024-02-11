@@ -10,6 +10,7 @@ contract NFT is ERC721 {
         ADMIN = msg.sender;
     }
 
+    event getTokenID(uint256 tokenID);
     string[] tokenURIs;
     address[] genesisOwners;
     address[] owners;
@@ -17,7 +18,7 @@ contract NFT is ERC721 {
 
     mapping(address account => uint256 balance) balances;
 
-    uint256 public DEFAULT_PRICE = 10 ** 16;
+    uint256 constant public DEFAULT_PRICE = 10 ** 16;
     uint256 public totalSupply = 0;
 
     struct TokenInfo {
@@ -27,16 +28,16 @@ contract NFT is ERC721 {
         uint256 tokenPrice;
     }
 
-    function getTokenURIs() public view returns (string[] memory) {
-        return tokenURIs;
+    function getTokenURI(uint256 _tokenID) public view returns (string memory) {
+        return tokenURIs[_tokenID];
     }
 
-    function getOwners() public view returns (address[] memory) {
-        return owners;
+    function getOwner(uint256 _tokenID) public view returns (address) {
+        return owners[_tokenID];
     }
 
-    function getTokenPrices() public view returns (uint256[] memory) {
-        return tokenPrices;
+    function getTokenPrice(uint256 _tokenID) public view returns (uint256) {
+        return tokenPrices[_tokenID];
     }
 
     function getTokenInfo(uint256 _tokenID) public view returns (TokenInfo memory) {
@@ -48,14 +49,15 @@ contract NFT is ERC721 {
         );
     }
 
-    function minting(string memory _tokenURI) public {
+    function minting(string memory _tokenURI, address _originalAuthor) public {
         tokenURIs.push(_tokenURI);
-        genesisOwners.push(msg.sender);
+        genesisOwners.push(_originalAuthor);
         owners.push(msg.sender);
         tokenPrices.push(DEFAULT_PRICE);
 
         _mint(msg.sender, totalSupply);
 
+        emit getTokenID(totalSupply);
         totalSupply++;
     }
 
