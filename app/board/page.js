@@ -11,6 +11,7 @@ import { profileState } from "@/components/recoil/profile";
 import { languageState } from "@/components/recoil/language";
 import useWeb3 from "@/function/client/web3";
 import getCookie from "@/function/server/getCookie";
+import callRedirect from "@/function/server/callRedirect";
 
 export default function Board() {
     const [web3, contract] = useWeb3();
@@ -64,6 +65,11 @@ export default function Board() {
                     {language?.completeUploadImage}
                 </div>
             );
+            if (!makeNFT) {
+                setTimeout(() => {
+                    setMessage(null);
+                }, 1000);
+            }
 
             const { IpfsHash } = await response.json();
 
@@ -212,6 +218,10 @@ export default function Board() {
         descRef.current.value = "";
         setImg(null);
 
+        if (!makeNFT) {
+            callRedirect("/profile");
+        }
+
         return board;
     };
 
@@ -260,6 +270,8 @@ export default function Board() {
                 setMessage(null);
             }, 1000);
         }
+
+        callRedirect("/profile");
     };
 
     return (

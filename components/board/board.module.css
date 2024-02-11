@@ -1,5 +1,5 @@
 .nft-wrapper {
-    min-width: var(--min-width);
+    width: 100%;
     max-width: 300px;
     height: fit-content;
     display: flex;
