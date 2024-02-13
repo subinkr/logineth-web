@@ -57,6 +57,7 @@ export default function Home() {
             }
         );
         const newNftInfos = await response.json();
+        console.log(newNftInfos);
 
         setNftInfos(newNftInfos);
         setBoards([...boards, ...newNftInfos.boards]);
@@ -95,7 +96,7 @@ export default function Home() {
 
     return (
         <div className={classes["main-area"]} ref={mainRef}>
-            <div className={classes.title}>{language?.allNfts}</div>
+            <div className={classes.title}>{language?.allBoards}</div>
             {contract ? (
                 <div className={classes.gallery}>
                     {boards.map((board, idx) => {

@@ -43,7 +43,8 @@ export const english = {
     requireMetamask: "Install metamask",
     connectMetamask: "Connect metamask",
 
-    allNfts: "All NFTs",
+    allBoards: "All boards",
+    Boards: "Boards",
 
     followingMessage: "Following",
     unFollowingMessage: "UnFollowing",

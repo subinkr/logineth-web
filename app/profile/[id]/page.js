@@ -4,17 +4,18 @@ import classes from "./page.module.css";
 import { profileState } from "@/components/recoil/profile";
 import { useRecoilState, useRecoilValue } from "recoil";
 import UserInfo from "./userInfo";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import getProfile from "./getProfile";
 import checkLoginUser from "@/function/client/checkLoginUser";
 import Rank from "./rank";
 import { languageState } from "@/components/recoil/language";
-import NFTs from "./nfts";
+import Boards from "./boards";
 
 export default function Profile({ params }) {
     const [loginUser, setLoginUser] = useRecoilState(profileState);
     const language = useRecoilValue(languageState);
     const [targetUser, setTargetUser] = useState({});
+    const mainRef = useRef();
 
     useEffect(() => {
         checkLoginUser(setLoginUser);
@@ -28,7 +29,7 @@ export default function Profile({ params }) {
     }, []);
 
     return (
-        <div className={classes.profile}>
+        <div className={classes.profile} ref={mainRef}>
             <UserInfo
                 targetUser={targetUser}
                 loginUser={loginUser}
@@ -42,7 +43,7 @@ export default function Profile({ params }) {
                         loginUser={loginUser}
                         language={language}
                     />
-                    <NFTs
+                    <Boards
                         targetUser={targetUser}
                         loginUser={loginUser}
                         language={language}
