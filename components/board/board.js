@@ -60,7 +60,18 @@ export default function Board({ board, loginUser, web3, contract }) {
 
     return (
         <div className={classes["nft-wrapper"]}>
-            <div className={classes.name}>{board.name}</div>
+            <div
+                className={classes.profile}
+                onClick={() =>
+                    callRedirect(`/profile/${board.__originalAuthor__.id}`)
+                }
+            >
+                <img
+                    className={classes["profile-image"]}
+                    src={board.__originalAuthor__.image}
+                />
+                <div>{board.__originalAuthor__.nickname}</div>
+            </div>
             <div className={classes["image-wrapper"]}>
                 <img
                     src={board.image}
@@ -91,6 +102,7 @@ export default function Board({ board, loginUser, web3, contract }) {
                     </div>
                 )}
             </div>
+            <div className={classes.name}>{board.name}</div>
             <textarea
                 className={classes.description}
                 value={board.description}
